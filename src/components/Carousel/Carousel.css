@@ -1,0 +1,31 @@
+.carousel-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel-image-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.my-carousel-image {
+  width: 75%;
+  height: 500px; 
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.carousel-text{
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
