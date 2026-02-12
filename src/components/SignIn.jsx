@@ -9,7 +9,7 @@ export const SignIn = () => {
 
     useEffect(() => {
         msg && msg?.signIn && navigate("/signin")
-        if(msg.signIn) navigate("/recipes")
+        if(msg.signIn) navigate("/")
     }, [msg])
 
     const handleSubmit = (event) => {
