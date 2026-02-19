@@ -11,6 +11,7 @@ import { MyUserProvider } from './context/MyUserProvider'
 import { UserProfile } from './pages/UserProfile'
 import { PageNotFound } from './pages/PageNotFound'
 import { PwReset } from './components/PwReset'
+import { ParkolohazForm } from './pages/ujParkolohaz'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/pwreset' element={<PwReset/>}/>
           <Route path='/profile' element={<UserProfile/>}/>
           <Route path='/*' element={<PageNotFound/>}/>
+          <Route path='/addnew' element={<ParkolohazForm/>}/>
         </Routes>
       </div>
     </MyUserProvider>
