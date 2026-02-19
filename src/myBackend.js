@@ -23,26 +23,40 @@ const uploadToIMGBB = async (file) => {
 }
 
 //új recept feltöltése: addDoc()
-export const addParkoloHaz = async () => {
+export const addParkoloHaz = async (parkoloHaz) => {
     try {
-        const collectionref = collection(db, "felhasznalok")
-        await addDoc(collectionref, { ...recipe, timestamp: serverTimestamp() })
+        let imgUrl = ""
+        let deleteUrl = ""
+        const compressed = await imageCompression(file, { maxWidthOrHeight: 800, useWebWorker: true })
+        const result = await uploadToIMGBB(compressed)
+        if(result){
+            imgUrl = result.url
+            deleteUrl = result.delete_url
+            const collectionref = collection(db, "parkolohazak")
+            await addDoc(collectionref, {...parkoloHaz, imgUrl: imgUrl, deleteUrl: deleteUrl, timestamp: serverTimestamp() })
+        }
+        
         
     } catch (error) {
         console.log("Nem sikerült hozzáadni!" + error)
     }
 }
 
-//receptek realtime olvasása: onSnapshot()
-export const readRecipes = async (setRecipes, setLoading) => {
-    const collectionref = collection(db, "recipes")
-    const q = query(collectionref, orderBy("timestamp", "desc"))
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-        setRecipes(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-        setLoading(false)
-    })
-    return unsubscribe
-}
+
+
+
+
+
+const readParkolohaz = async (id, setCallback) => {
+    const docRef = doc(db, "parkolohazak", id); // Megkeressük a dokumentumot
+    const docSnap = await getDoc(docRef); // "Lefényképezzük" az állapotát
+
+    if (docSnap.exists()) {
+        setCallback(docSnap.data()); // Ha létezik, átadjuk az adatait a state-nek
+    } else {
+        console.log("Nincs ilyen parkolóház!");
+    }
+};
 
 //recept törlése id alapján:
 export const deleteRecipe = async (id, deleteUrl) => {
