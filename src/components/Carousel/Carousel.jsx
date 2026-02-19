@@ -6,7 +6,6 @@ import './Carousel.css';
 import kep1 from "../../assets/parkolohaz.jpg";
 import kep2 from "../../assets/varosliget.jpg";
 import kep3 from "../../assets/veszpremes.jpg";
-
 const responsive = {
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
   tablet: { breakpoint: { max: 1024, min: 464 }, items: 1 },

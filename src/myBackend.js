@@ -23,20 +23,11 @@ const uploadToIMGBB = async (file) => {
 }
 
 //új recept feltöltése: addDoc()
-export const addRecipe = async (recipe, file) => {
+export const addParkoloHaz = async () => {
     try {
-        let imgUrl = ""
-        let deleteUrl = ""
-        //kicsinyítés
-        const compressed = await imageCompression(file, { maxWidthOrHeight: 800, useWebWorker: true })
-        const result = await uploadToIMGBB(compressed)
-        if (result) {
-            imgUrl = result.url
-            deleteUrl = result.delete_url
-            console.log(result)
-            const collectionref = collection(db, "recipes")
-            await addDoc(collectionref, { ...recipe, imgUrl: imgUrl, deleteUrl: deleteUrl, timestamp: serverTimestamp() })
-        }
+        const collectionref = collection(db, "felhasznalok")
+        await addDoc(collectionref, { ...recipe, timestamp: serverTimestamp() })
+        
     } catch (error) {
         console.log("Nem sikerült hozzáadni!" + error)
     }
