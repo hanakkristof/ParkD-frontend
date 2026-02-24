@@ -13,7 +13,7 @@ const responsive = {
   mobile: { breakpoint: { max: 464, min: 0 }, items: 1 }
 };
 
-const MyCarousel = ({ onImageClick }) => {
+const MyCarousel = ({ hazak, onImageClick }) => {
   return (
     <div className="carousel-wrapper">
       <Carousel
@@ -23,27 +23,16 @@ const MyCarousel = ({ onImageClick }) => {
         infinite={true}
       >
         
-        <div className='carousel-container'>
-          <div className="carousel-image-container"  >
-            <img src={kep1} alt="Parkoló 1" className="my-carousel-image" onClick={() => onImageClick(1)} style={{ cursor: 'pointer' }} />
-          </div>
-          <p className='carousel-text'>Kecskemét</p>
-
-        </div>
-
-        <div className='carousel-container'>
-          <div className="carousel-image-container" >
-            <img src={kep2} alt="Parkoló 2" className="my-carousel-image" onClick={() => onImageClick(2)} style={{ cursor: 'pointer' }} />
-          </div>
-          <p className='carousel-text'>Városliget</p>
-        </div>
-
-        <div className='carousel-container'>
-          <div className="carousel-image-container"  >
-            <img src={kep3} alt="Parkoló 3" className="my-carousel-image" onClick={() => onImageClick(3)} style={{ cursor: 'pointer' }} />
-          </div>
-          <p className='carousel-text'>Veszprém</p>
-        </div>
+       {hazak.map((haz) => (
+                <div key={haz.id} className='carousel-container'>
+                    <img 
+                        src={haz.imgUrl} // A Firebase-ben tárolt kép URL-je
+                        onClick={() => onImageClick(haz.id)} // A valódi Firebase ID!
+                        className="my-carousel-image" 
+                    />
+                    <p className='carousel-text'>{haz.name}</p>
+                </div>
+            ))}
 
       </Carousel>
     </div>

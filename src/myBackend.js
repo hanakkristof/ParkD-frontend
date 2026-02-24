@@ -1,6 +1,6 @@
 import axios from "axios";
 import { db } from "./firebaseApp"
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs } from "firebase/firestore";
 
 import imageCompression from "browser-image-compression";
 import { deleteImage } from "./cloudinaryUtils";
@@ -29,53 +29,66 @@ export const addParkoloHaz = async (parkoloHaz) => {
         let deleteUrl = ""
         const compressed = await imageCompression(file, { maxWidthOrHeight: 800, useWebWorker: true })
         const result = await uploadToIMGBB(compressed)
-        if(result){
+        if (result) {
             imgUrl = result.url
             deleteUrl = result.delete_url
             const collectionref = collection(db, "parkolohazak")
-            await addDoc(collectionref, {...parkoloHaz, imgUrl: imgUrl, deleteUrl: deleteUrl, timestamp: serverTimestamp() })
+            await addDoc(collectionref, { ...parkoloHaz, imgUrl: imgUrl, deleteUrl: deleteUrl, timestamp: serverTimestamp() })
         }
-        
-        
+
+
     } catch (error) {
         console.log("Nem sikerült hozzáadni!" + error)
     }
 }
 
 
+export const readParkolohazak = (setCallback) =>{
+    const colRef = collection(db, "parkolohazak")
+    onSnapshot(colRef, (snapshot)=>{
+        setCallback(snapshot.docs.map(doc=>({id:doc.id, ...doc.data})));
+    })
+}
 
-
-
-
-const readParkolohaz = async (id, setCallback) => {
-    const docRef = doc(db, "parkolohazak", id); // Megkeressük a dokumentumot
-    const docSnap = await getDoc(docRef); // "Lefényképezzük" az állapotát
+export const readParkolohaz = async (id, setCallback) => {
+    const docRef = doc(db, "parkolohazak", id);
+    const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        setCallback(docSnap.data()); // Ha létezik, átadjuk az adatait a state-nek
+        setCallback(docSnap.data());
     } else {
         console.log("Nincs ilyen parkolóház!");
     }
 };
 
 //recept törlése id alapján:
-export const deleteRecipe = async (id, deleteUrl) => {
+export const deleteParkolohaz = async (id, deleteUrl) => {
     //await axios.get(deleteUrl)
-    if(window.confirm("Biztosan szeretnéd törölni a receptet?")){
-    const docRef = doc(db, "recipes", id)
-    await deleteDoc(docRef)
+    if (window.confirm("Biztosan szeretnéd törölni a receptet?")) {
+        const docRef = doc(db, "parkolohazak", id)
+        await deleteDoc(docRef)
     }
 }
 
-//egyetlen recept olvasása:
-export const readRecipe = async (id, setRecipe) => {
-    const docRef = doc(db, "recipes", id)
-    const docData = await getDoc(docRef)
-    setRecipe(docData.data())
+//szintek lekérése az adott garázsban
+export const getSzintekSzama = async (parkoloId, setCallback) => {
+    if (!parkoloId === undefined || parkoloId === null) {
+        console.error("Hiba: Nincs parkoloId!")
+        return;
+    }
+    try {
+        const szintekRef = collection(db, "parkolohazak", String(parkoloId), "szintek")
+        const snapshot = await getDocs(szintekRef)
+        setCallback(snapshot.size)
+    } catch (error) {
+        console.error("Hiba a szintek lekérdezésekor", error.message)
+    }
 }
 
+
+
 //update
-export const updateRecipe = async (id, updatedData, file) => {
+export const updateParkolohaz = async (id, updatedData, file) => {
     let imgUrl = updatedData.imgUrl || ''
     let deleteUrl = updatedData.deleteUrl || ''
 
@@ -89,8 +102,8 @@ export const updateRecipe = async (id, updatedData, file) => {
             }
 
         }
-        const docRef = doc(db, 'recipes', id)
-        await updateDoc(docRef, { ...updatedData, imgUrl, deleteUrl, updateAt: serverTimestamp()})
+        const docRef = doc(db, 'parkolohazak', id)
+        await updateDoc(docRef, { ...updatedData, imgUrl, deleteUrl, updateAt: serverTimestamp() })
 
     } catch (error) {
         console.log("nem sikerült a módosítás: " + error)
@@ -99,39 +112,39 @@ export const updateRecipe = async (id, updatedData, file) => {
 
 //új gyűjtemény kell az avatar public_id tárolására:
 
-export const updateAvatar=async(uid, public_id)=>{
-    let oldPublicId=null
+export const updateAvatar = async (uid, public_id) => {
+    let oldPublicId = null
     try {
-        const docRef=doc(db, "avatars", uid)//egy dokumentum referencia
+        const docRef = doc(db, "avatars", uid)//egy dokumentum referencia
         const docSnap = await getDoc(docRef)
-        if(!docSnap.exists()){
-            await setDoc(docRef, {uid, public_id})
-        }else{
-            oldPublicId=docSnap.data().public_id
-            await updateDoc(docRef, {public_id})
-        }if(oldPublicId) await deleteImage(oldPublicId)
+        if (!docSnap.exists()) {
+            await setDoc(docRef, { uid, public_id })
+        } else {
+            oldPublicId = docSnap.data().public_id
+            await updateDoc(docRef, { public_id })
+        } if (oldPublicId) await deleteImage(oldPublicId)
 
 
     } catch (error) {
         console.log("Avatar módosítás/törlés hiba!", error);
-        
+
     }
 }
 
-export const deleteAvatar=async (uid)=>{
+export const deleteAvatar = async (uid) => {
     console.log(uid);
-    let publicId=null
+    let publicId = null
     try {
-        const docRef= doc(db, "avatars", uid)
+        const docRef = doc(db, "avatars", uid)
         const docSnap = await getDoc(docRef)
-        if(!docSnap.exists()) return
-        else{
-            publicId=docSnap.data().public_id
+        if (!docSnap.exists()) return
+        else {
+            publicId = docSnap.data().public_id
             await deleteImage(publicId)
             await deleteDoc(docRef)//firestore:avatarsból töröl
         }
     } catch (error) {
         console.log("törlési hiba", error)
     }
-    
+
 }   
