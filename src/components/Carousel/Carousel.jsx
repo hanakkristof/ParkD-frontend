@@ -6,6 +6,8 @@ import './Carousel.css';
 import kep1 from "../../assets/parkolohaz.jpg";
 import kep2 from "../../assets/varosliget.jpg";
 import kep3 from "../../assets/veszpremes.jpg";
+import { useEffect } from 'react';
+import { readParkolohaz } from '../../myBackend';
 
 const responsive = {
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
@@ -13,7 +15,10 @@ const responsive = {
   mobile: { breakpoint: { max: 464, min: 0 }, items: 1 }
 };
 
+
+
 const MyCarousel = ({ hazak, onImageClick }) => {
+
   return (
     <div className="carousel-wrapper">
       <Carousel
@@ -25,9 +30,10 @@ const MyCarousel = ({ hazak, onImageClick }) => {
         
        {hazak.map((haz) => (
                 <div key={haz.id} className='carousel-container'>
+                  {console.log("full object: ", haz)}
                     <img 
-                        src={haz.imgUrl} // A Firebase-ben tárolt kép URL-je
-                        onClick={() => onImageClick(haz.id)} // A valódi Firebase ID!
+                        src={haz.imgUrl} 
+                        onClick={() => onImageClick(haz.id)} 
                         className="my-carousel-image" 
                     />
                     <p className='carousel-text'>{haz.name}</p>

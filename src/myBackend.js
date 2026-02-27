@@ -43,12 +43,29 @@ export const addParkoloHaz = async (parkoloHaz) => {
 }
 
 
-export const readParkolohazak = (setCallback) =>{
+export const readParkolohazak = (setCallback) => {
     const colRef = collection(db, "parkolohazak")
-    onSnapshot(colRef, (snapshot)=>{
-        setCallback(snapshot.docs.map(doc=>({id:doc.id, ...doc.data})));
-    })
+    const q = query(colRef, orderBy("createdAt", "desc"))
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+        const result = [];
+        snapshot.docs.forEach(doc => {
+            result.push({
+                id: doc.id,
+                name: doc.data().name,
+                hely: doc.data().hely,
+                imgUrl: doc.data().imgUrl,
+                createdAt: doc.data().createdAt,
+            });
+        });
+        console.log("result:", result); // verify this looks right
+        setCallback(result);
+    });
+    return unsubscribe
 }
+
+
+
+
 
 export const readParkolohaz = async (id, setCallback) => {
     const docRef = doc(db, "parkolohazak", id);
