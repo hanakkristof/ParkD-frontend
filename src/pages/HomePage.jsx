@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 
 export const HomePage = () => {
 	const [hazak, setHazak] = useState([])
+	const [loading, setLoading] = useState(false)
 	const { user } = useContext(MyUserContext)
 	const navigate = useNavigate()
 
@@ -29,7 +30,7 @@ export const HomePage = () => {
 	<div className='homeContainer'>
 		<div className='banner'>
 			<h1 className='homeh1'>Get ParkD</h1>
-			<MyCarousel hazak={hazak} onImageClick={navigateAndSetValue}/>
+			<MyCarousel hazak={hazak}  onImageClick={navigateAndSetValue}/>
 			
 		</div>
 	</div>

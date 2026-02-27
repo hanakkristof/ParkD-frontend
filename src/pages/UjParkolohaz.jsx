@@ -10,6 +10,7 @@ import { FaPlus } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
 import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseApp';
+import { uploadImage } from '../cloudinaryUtils';
 
 
 export const ParkolohazForm = () => {
@@ -29,7 +30,6 @@ export const ParkolohazForm = () => {
     const [parkolohely, setParkolohely] = useState([])
 
     const { id } = useParams()
-    console.log(id)
 
     useEffect(() => {
         if (id)
@@ -51,9 +51,19 @@ export const ParkolohazForm = () => {
         e.preventDefault()
         setLoading(true)
         try {
+            let imgUrl = "";
+            if (file) {
+                const uploadResult = await uploadImage(file)
+                console.log("uploadResult:", uploadResult)  // check this
+                imgUrl = uploadResult.url
+            }
+
+
+
             const parkolohazRef = await addDoc(collection(db, "parkolohazak"), {
                 name: name,
                 hely: hely,
+                imgUrl: imgUrl,
                 createdAt: new Date()
             })
 
@@ -63,7 +73,7 @@ export const ParkolohazForm = () => {
                 })
                 await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
                     foglalt: false,
-                    parkolohelyTipus:"ut"
+                    parkolohelyTipus: "ut"
                 })
             }
 
@@ -91,15 +101,23 @@ export const ParkolohazForm = () => {
 
     }
     const readParkolohaz = async (id, setCallback) => {
-    const docRef = doc(db, "parkolohazak", id); // Megkeressük a dokumentumot
-    const docSnap = await getDoc(docRef); // "Lefényképezzük" az állapotát
+        const docRef = doc(db, "parkolohazak", id);
+        const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-        setCallback(docSnap.data()); // Ha létezik, átadjuk az adatait a state-nek
-    } else {
-        console.log("Nincs ilyen parkolóház!");
+        if (docSnap.exists()) {
+            setCallback(docSnap.data());
+        } else {
+            console.log("Nincs ilyen parkolóház!");
+        }
+    };
+
+    const handleFileChange = (e) => {
+        const selected = e.target.files[0]
+        setFile(selected)
+        if (selected) {
+            setPreview(URL.createObjectURL(selected))
+        }
     }
-};
 
     return (
 
@@ -113,7 +131,7 @@ export const ParkolohazForm = () => {
 
                     {szintek.map((item, index) => (
                         <div key={index} style={{ display: "flex", alignItems: "center", position: "relative", marginBottom: "5px" }}>
-                            {/* Ez a mező most már csak olvasható (readOnly), hiszen a számot automatikusan kapja */}
+
                             <input
                                 style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "#f0f0f0" }}
                                 type="text"
@@ -121,13 +139,13 @@ export const ParkolohazForm = () => {
                                 readOnly
                             />
 
-                            {/* Törlés gomb: Csak akkor jelenik meg, ha több mint 1 szint van */}
+
                             {szintek.length > 1 && (
                                 <span
                                     style={{ cursor: "pointer", marginLeft: "10px", color: "red", fontWeight: "bold" }}
                                     onClick={() => {
                                         const newSzintek = szintek.filter((_, i) => i !== index)
-                                            .map((_, i) => i + 1); // Újraszámozás törlés után
+                                            .map((_, i) => i + 1);
                                         setSzintek(newSzintek);
                                     }}
                                 >
@@ -144,9 +162,14 @@ export const ParkolohazForm = () => {
                         />
                     </div>
 
-                </div>
 
+                </div>
                 <input style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px" }} type="text" value={hely} onChange={(e) => setHely(e.target.value)} placeholder='Helyszín: ' required />
+
+                <label htmlFor="file-upload" className='custom-file-upload'>Kép feltöltése</label>
+                <input id="file-upload" style={{ marginTop: "6px", marginBottom: "5px", width: "250px", height: "25px" }} type="file" accept='image/*' onChange={handleFileChange} />
+
+                {preview && <img src={preview} alt='előnézet' style={{ maxWidth: "200px", maxHeight: "200", objectFit: "cover", marginBottom: "5PX", border: "2px solid black" }} />}
 
 
                 <button style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "white", cursor: "pointer" }} type='submit' disabled={loading}>Mentés</button>
