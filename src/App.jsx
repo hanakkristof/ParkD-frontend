@@ -17,7 +17,7 @@ function App() {
 
   return (
     <MyUserProvider>
-      <div>
+      <div className='parentDiv'>
         <MyHeader />
         <Routes>
           <Route path="/" element={<HomePage />} />
