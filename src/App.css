@@ -55,45 +55,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :root{
     --primary: #443742ff;
     --secondary: #846c5bff;
@@ -261,19 +222,100 @@ ul{
 .signinBase{
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    justify-self: center;
+    align-items: center;
     justify-content: center;
+    width: clamp(600px, 65vw, 800px);
+    margin: 0;
+    background-color: #95a3b3;
+    border: 2px solid #000000f1;
+    border-radius: 10px;
+    box-shadow: 0px 0px 19px 10px rgba(0,0,0,0.33);
+    padding: 5px;
+    gap: 15px;
+    height: 223px;
+}
+
+.signinBase h1{
+    font-size: clamp(2rem, 3vw, 3rem);
+    align-self: center;
+    color: #DCDFE5;
+    text-shadow: 3px 2px 0px #000000;
+}
+
+.logInBtn{
+    max-width: 200px;
+    background-color: #dcdfe5af;
+    font-weight: bold;
+    color: #091e58;
+    border-radius: 5px;
+    box-shadow: 5px 4px 10px 0px rgba(0,0,0,0.45);
+    transition: all 0.3s ease-in-out;
+}
+
+.logInBtn:hover{
+    transform: scale(1.08);
+    cursor: pointer;
+    color: #1e42a5;
+
+}
+.logInBtn:active{
+    color: #0e1f4e;
+    outline: #091e58 1px solid;
+}
+
+
+.signinForm input{
+    max-width: 350px;
+    color: #1e3a8a;
+    border-radius: 3px;
+    border: 1.5px #1e3a8a solid;
+    background-color: #DCDFE5;
+    font-weight: bold;
+    box-shadow: 5px 4px 10px 0px rgba(0,0,0,0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: block;
+}
+.signinForm input:focus{
+    transform: scale(1.2);
+    color: rgb(0, 0, 0);
+    outline: 2px solid #4682B4;
+    border: 1.5px transparent solid;
+    box-shadow: 11px 10px 10px 0px rgba(0,0,0,0.45);
+
 }
 
 .signinForm{
     display: flex;
+    width: 100%;
     flex-direction: column;
-    background-color: grey;
     padding: 10px;
     border-radius: 10px;
-    font-size: 50px;
+    background-color: #95a3b3;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
 }
+
+.signinBase a{
+    display: inline-block;
+    text-decoration: none;
+    color: #1e42a5;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, color 0.2s ease;
+    transform-origin: center;
+    vertical-align: middle;
+    will-change: transform;
+}
+
+.signinBase a:hover{
+    transform: scale(1.08);
+    letter-spacing: 0.5;
+    color: #162d6b;
+
+}
+
+
+
 
 .signupBase{
     display: flex;
