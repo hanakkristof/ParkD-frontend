@@ -42,6 +42,19 @@ export const addParkoloHaz = async (parkoloHaz) => {
     }
 }
 
+export const getSzintek = (parkoloHazId, callback) => {
+  const szintekRef = collection(db, "parkolohazak", parkoloHazId, "szintek");
+  const q = query(szintekRef, orderBy("szint_szama"));
+  
+  return onSnapshot(q, (snapshot) => {
+    const szintek = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    callback(szintek);
+  });
+};
+
 
 export const readParkolohazak = (setCallback) => {
     const colRef = collection(db, "parkolohazak")
