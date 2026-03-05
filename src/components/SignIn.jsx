@@ -22,9 +22,10 @@ export const SignIn = () => {
     }
 
     return (
-        <div className='signinBase'>
+        <div className='signinPage'>
+            <div className='signinBase'>
             <form className='signinForm' onSubmit={handleSubmit}>
-                <h1>Jelentkezz be a fiókodba!</h1>
+                <h1>Bejelentkezés</h1>
                 <input name='email' type="email" placeholder='Email' required />
                 <input name='password' type="password" placeholder='Jelszó' required />
                 
@@ -34,6 +35,7 @@ export const SignIn = () => {
 
             <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer"}}>itt</a>!</p></div>
             
-        </div>
+            </div>
+        </div> 
     )
 }

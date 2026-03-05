@@ -17,7 +17,6 @@ function App() {
 
   return (
     <MyUserProvider>
-      <div className='parentDiv'>
         <MyHeader />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -29,7 +28,6 @@ function App() {
           <Route path='/*' element={<PageNotFound/>}/>
           <Route path='/addnew' element={<ParkolohazForm/>}/>
         </Routes>
-      </div>
     </MyUserProvider>
   )
 }
