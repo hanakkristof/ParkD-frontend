@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import './Carousel.css';
+import './App.css'
 
 import kep1 from "../../assets/parkolohaz.jpg";
 import kep2 from "../../assets/varosliget.jpg";
