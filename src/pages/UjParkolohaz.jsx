@@ -6,7 +6,7 @@ import { addParkoloHaz } from '../myBackend';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { MyUserContext } from '../context/MyUserProvider';
-import { FaPlus } from 'react-icons/fa6';
+import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
 import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseApp';
@@ -19,11 +19,13 @@ export const ParkolohazForm = () => {
 
     const [name, setName] = useState("")
     const [hely, setHely] = useState("")
-    const [szintek, setSzintek] = useState([1])
+    const [szintek, setSzintek] = useState([{ szint_szama: 1, sor: "", oszlop: "" }])
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
     const [loading, setLoading] = useState(false)
     const [parkoloHaz, setParkolohaz] = useState(null)
+    const [sor, setSor] = useState("")
+    const [oszlop, setOszlop] = useState("")
     const navigate = useNavigate()
 
 
@@ -47,6 +49,8 @@ export const ParkolohazForm = () => {
 
 
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -54,7 +58,7 @@ export const ParkolohazForm = () => {
             let imgUrl = "";
             if (file) {
                 const uploadResult = await uploadImage(file)
-                console.log("uploadResult:", uploadResult)  // check this
+                console.log("uploadResult:", uploadResult)
                 imgUrl = uploadResult.url
             }
 
@@ -67,14 +71,17 @@ export const ParkolohazForm = () => {
                 createdAt: new Date()
             })
 
-            for (const szintSzam of szintek) {
+            for (const szint of szintek) {
                 const szintRef = await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek"), {
-                    szint_szama: szintSzam,
+                    szint_szama: szint.szint_szama,
                 })
-                await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
-                    foglalt: false,
-                    parkolohelyTipus: "ut"
-                })
+
+                for (let i = 0; i < szint.sor * szint.oszlop; i++) {
+                    await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
+                        foglalt: false,
+                        parkolohelyTipus: "ut"
+                    })
+                }
             }
 
         } catch (error) {
@@ -100,6 +107,13 @@ export const ParkolohazForm = () => {
           navigate('/garage/:id')*/
 
     }
+
+    const updateSzint = (index, mezo, ertek) => {
+        const ujSzintek = [...szintek]
+        ujSzintek[index][mezo] = ertek
+        setSzintek(ujSzintek)
+    }
+
     const readParkolohaz = async (id, setCallback) => {
         const docRef = doc(db, "parkolohazak", id);
         const docSnap = await getDoc(docRef);
@@ -126,42 +140,62 @@ export const ParkolohazForm = () => {
             <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Új parkolóház feltöltése</h1>
             <form className='newrecipeForm' onSubmit={handleSubmit}>
 
-                <input type="text" style={{ border: '2px solid black', margin: '5px', width: "200px", height: "25px" }} placeholder='Parkolóház Neve' value={name} onChange={(e) => setName(e.target.value)} required />
+                <input type="text" style={{ border: '2px solid black', margin: '5px', width: "240px", height: "25px" }} placeholder='Parkolóház Neve' value={name} onChange={(e) => setName(e.target.value)} required />
                 <div >
 
                     {szintek.map((item, index) => (
                         <div key={index} style={{ display: "flex", alignItems: "center", position: "relative", marginBottom: "5px" }}>
+                            <div style={{ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center", justifyContent: "center" }}>
+                                <div>
+                                    <input
+                                        style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "#f0f0f0" }}
+                                        type="text"
+                                        value={`${item.szint_szama}. szint`}
+                                        readOnly
+                                    />
 
-                            <input
-                                style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "#f0f0f0" }}
-                                type="text"
-                                value={`${item}. szint`}
-                                readOnly
-                            />
+                                    {szintek.length > 1 && (
+                                        <span
+                                            style={{ cursor: "pointer", color: "red", fontWeight: "bold", position: "absolute", marginLeft: "10px", marginTop: "3px" }}
+                                            onClick={() => {
+                                                const newSzintek = szintek.filter((_, i) => i !== index)
+                                                    .map((_, i) => i + 1);
+                                                setSzintek(newSzintek);
+                                            }}
+                                        >
+                                            <FaTrash />
+                                        </span>
+                                    )}
+                                </div>
 
+                                <div style={{ display: "flex", flexDirection: "row" }}>
+                                    <input
+                                        required
+                                        value={item.sor}
+                                        onChange={(e) => updateSzint(index, "sor", e.target.value)}
+                                        type="number"
+                                        placeholder="sor"
+                                        style={{ border: '2px solid black' }}
+                                    />
+                                    <input
+                                        required
+                                        value={item.oszlop}
+                                        onChange={(e) => updateSzint(index, "oszlop", e.target.value)}
+                                        type="number"
+                                        placeholder="oszlop"
+                                        style={{ border: '2px solid black' }}
+                                    />
+                                </div>
 
-                            {szintek.length > 1 && (
-                                <span
-                                    style={{ cursor: "pointer", marginLeft: "10px", color: "red", fontWeight: "bold" }}
-                                    onClick={() => {
-                                        const newSzintek = szintek.filter((_, i) => i !== index)
-                                            .map((_, i) => i + 1);
-                                        setSzintek(newSzintek);
-                                    }}
-                                >
-                                    ✕
-                                </span>
-                            )}
+                                <div style={{ marginTop: "4.5px", margin: "0.5px", width: "200px", height: "25px", display: "flex", justifyContent: "center", fontSize: "25px" }}>
+                                    <FaPlus
+                                        style={{ backgroundColor: "white", borderRadius: "50%", border: "2px solid black", cursor: "pointer" }}
+                                        onClick={() => setSzintek([...szintek, { szint_szama: szintek.length + 1, sor: "", oszlop: "" }])}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     ))}
-
-                    <div style={{ marginTop: "4.5px", margin: "0.5px", width: "200px", height: "25px", display: "flex", justifyContent: "center", fontSize: "25px" }}>
-                        <FaPlus
-                            style={{ backgroundColor: "white", borderRadius: "50%", border: "2px solid black", cursor: "pointer" }}
-                            onClick={() => setSzintek([...szintek, szintek.length + 1])}
-                        />
-                    </div>
-
 
                 </div>
                 <input style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px" }} type="text" value={hely} onChange={(e) => setHely(e.target.value)} placeholder='Helyszín: ' required />
