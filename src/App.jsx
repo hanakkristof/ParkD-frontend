@@ -2,7 +2,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { HomePage } from './pages/HomePage'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
 import { Garage } from './pages/Garage'
 import { MyHeader } from './components/Header'
 import { SignIn } from './components/SignIn'
@@ -12,22 +12,36 @@ import { UserProfile } from './pages/UserProfile'
 import { PageNotFound } from './pages/PageNotFound'
 import { PwReset } from './components/PwReset'
 import { ParkolohazForm } from './pages/ujParkolohaz'
+import { ThemeWheel } from './components/themeWheel'
 
-function App() {
+
+function AppContent() {
+  const location = useLocation()
 
   return (
-    <MyUserProvider>
-        <MyHeader />
+    <>
+      <MyHeader />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/garage/:id" element={<Garage />} />
+
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path='/pwreset' element={<PwReset/>}/>
-          <Route path='/profile' element={<UserProfile/>}/>
-          <Route path='/*' element={<PageNotFound/>}/>
-          <Route path='/addnew' element={<ParkolohazForm/>}/>
+
+          <Route path='/pwreset' element={<PwReset />} />
+          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/*' element={<PageNotFound />} />
+          <Route path='/addnew' element={<ParkolohazForm />} />
         </Routes>
+      <ThemeWheel />
+    </>
+  )
+}
+
+function App() {
+  return (
+    <MyUserProvider>
+      <AppContent />
     </MyUserProvider>
   )
 }

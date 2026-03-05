@@ -1,12 +1,18 @@
 /* ============================================================
-   GLOBAL RESET & ROOT VARIABLES
+   GLOBAL RESET
    ============================================================ */
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 }
 
+
+/* ============================================================
+   THEMES
+   ============================================================ */
+
+/* Default theme — original app colors */
 :root {
     --primary:    #443742ff;
     --secondary:  #846c5bff;
@@ -14,7 +20,78 @@
     --background: #edd9a3ff;
     --disabled:   #e2e8c0ff;
 
-    background-color: grey;
+    --bg:         #808080;
+    --text:       #1a1a1a;
+    --surface:    #cea07eff;
+    --border:     #000000f1;
+    --shadow:     0 4px 12px rgba(0, 0, 0, 0.33);
+    --radius:     10px;
+
+    /* Sign-in specific */
+    --signin-bg:        #95a3b3;
+    --signin-text:      #DCDFE5;
+    --signin-input-bg:  #DCDFE5;
+    --signin-input-clr: #1e3a8a;
+    --signin-link:      #1e42a5;
+    --signin-link-hov:  #162d6b;
+    --signin-btn-bg:    #dcdfe5af;
+    --signin-btn-clr:   #091e58;
+
+    background-color: var(--bg);
+}
+
+/* Light theme */
+body.light {
+    --primary:    #2a2a2a;
+    --secondary:  #555555;
+    --accent:     #0077ff;
+    --background: #f9f9f9;
+    --disabled:   #e0e0e0;
+
+    --bg:         #ffffff;
+    --text:       #000000;
+    --surface:    #f9f9f9;
+    --border:     #cccccc;
+    --shadow:     0 4px 12px rgba(0, 0, 0, 0.1);
+    --radius:     12px;
+
+    --signin-bg:        #f9f9f9;
+    --signin-text:      #000000;
+    --signin-input-bg:  #ffffff;
+    --signin-input-clr: #0077ff;
+    --signin-link:      #0077ff;
+    --signin-link-hov:  #005fcc;
+    --signin-btn-bg:    #0077ff;
+    --signin-btn-clr:   #ffffff;
+
+    background-color: var(--bg);
+}
+
+/* Matcha theme */
+body.matcha {
+    --primary:    #2f4f2f;
+    --secondary:  #4a7a4a;
+    --accent:     #4caf50;
+    --background: #e6f0d4;
+    --disabled:   #c0d6a5;
+
+    --bg:         #f6fdea;
+    --text:       #2f4f2f;
+    --surface:    #f0f8e0;
+    --border:     #c0d6a5;
+    --shadow:     0 4px 12px rgba(0, 0, 0, 0.15);
+    --radius:     12px;
+
+    --signin-bg:        #f0fadd;
+    --signin-text:      #2f4f2f;
+    --signin-input-bg:  #ffffff;
+    --signin-input-clr: #2f4f2f;
+    --signin-link:      #4caf50;
+    --signin-link-hov:  #2f4f2f;
+    --signin-btn-bg:    #4caf50;
+    --signin-btn-clr:   #ffffff;
+
+    background-color: var(--bg);
 }
 
 
@@ -52,7 +129,7 @@
     flex-direction: column;
     gap: 15px;
     height: 100vh;
-    background-color: grey;
+    background-color: var(--bg);
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -60,7 +137,7 @@
 }
 
 .homeh1 {
-    color: white;
+    color: var(--text);
     margin-bottom: 30px;
     font-size: 100px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -105,8 +182,7 @@
 .MyHeaderCssButton {
     float: right;
     height: 50px;
-    background-color: linear-gradient(32deg, white, grey 100%);
-    color: black;
+    color: var(--text);
     cursor: pointer;
     border-radius: 5px;
     margin-left: 0.2px;
@@ -133,9 +209,9 @@
 
 .recipesBase button {
     background-color: var(--primary);
-    color: white;
+    color: var(--signin-btn-clr);
     padding: 5px;
-    border-radius: 10px;
+    border-radius: var(--radius);
 }
 
 .addnewRecipes {
@@ -151,12 +227,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: black solid 4px;
+    border: var(--border) solid 4px;
     justify-self: center;
     max-width: 20%;
     padding: 20px;
     background-color: var(--accent);
-    border-radius: 20px;
+    border-radius: var(--radius);
 }
 
 .Gonb {
@@ -174,8 +250,8 @@
    ============================================================ */
 
 .cardok {
-    background-color: var(--accent);
-    border-radius: 20px;
+    background-color: var(--surface);
+    border-radius: var(--radius);
     padding: 20px;
     max-width: 540px;
 }
@@ -192,8 +268,8 @@
     flex-direction: column;
     justify-content: center;
     justify-self: center;
-    background-color: white;
-    border-radius: 20px;
+    background-color: var(--bg);
+    border-radius: var(--radius);
 }
 
 .hozzavalokList {
@@ -205,6 +281,14 @@
    LAYOUT — SIGN IN / SIGN UP
    ============================================================ */
 
+/* Page wrapper — centers the login box */
+.signinPage {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
 .signinBase {
     display: flex;
     flex-direction: column;
@@ -212,9 +296,9 @@
     justify-content: center;
     width: clamp(300px, 35vw, 450px);
     margin: 0;
-    background-color: #95a3b3;
-    border: 2px solid #000000f1;
-    border-radius: 10px;
+    background-color: var(--signin-bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
     padding: 5px;
     gap: 15px;
     height: auto;
@@ -223,14 +307,13 @@
 .signinBase h1 {
     font-size: clamp(2rem, 3vw, 3rem);
     align-self: center;
-    color: #DCDFE5;
-    text-shadow: 3px 2px 0px #000000;
+    color: var(--signin-text);
 }
 
 .signinBase a {
     display: inline-block;
     text-decoration: none;
-    color: #1e42a5;
+    color: var(--signin-link);
     font-weight: bold;
     transition: transform 0.2s ease-in-out, color 0.2s ease;
     transform-origin: center;
@@ -241,7 +324,7 @@
 .signinBase a:hover {
     transform: scale(1.08);
     letter-spacing: 0.5;
-    color: #162d6b;
+    color: var(--signin-link-hov);
 }
 
 .signinForm {
@@ -249,8 +332,8 @@
     width: 100%;
     flex-direction: column;
     padding: 10px;
-    border-radius: 10px;
-    background-color: #95a3b3;
+    border-radius: var(--radius);
+    background-color: var(--signin-bg);
     gap: 5px;
     align-items: center;
     justify-content: center;
@@ -261,10 +344,10 @@
     max-width: 350px;
     padding: 7px 10px;
     font-size: 0.875rem;
-    color: #1e3a8a;
+    color: var(--signin-input-clr);
     border-radius: 3px;
-    border: 1.5px #1e3a8a solid;
-    background-color: #DCDFE5;
+    border: 1.5px var(--signin-input-clr) solid;
+    background-color: var(--signin-input-bg);
     font-weight: bold;
     transition: transform 0.3s ease, background-color 0.3s ease;
     display: block;
@@ -272,8 +355,8 @@
 
 .signinForm input:focus {
     transform: scale(1.2);
-    color: rgb(0, 0, 0);
-    outline: 2px solid #4682B4;
+    color: var(--text);
+    outline: 2px solid var(--accent);
     border: 1.5px transparent solid;
 }
 
@@ -286,20 +369,12 @@
     color: var(--primary);
 }
 
-/* Page wrapper — centers the login box */
-.signinPage {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
-
 .signupForm {
     display: flex;
     flex-direction: column;
     background-color: var(--accent);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: var(--radius);
 }
 
 
@@ -309,16 +384,17 @@
 
 .MyCssButton {
     background-color: var(--primary);
-    color: white;
+    color: var(--bg);
     border-radius: 5px;
     margin-left: 0.2px;
 }
 
 .logInBtn {
     max-width: 200px;
-    background-color: #dcdfe5af;
+    min-height: 30px;
+    background-color: var(--signin-btn-bg);
     font-weight: bold;
-    color: #091e58;
+    color: var(--signin-btn-clr);
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
@@ -326,12 +402,12 @@
 .logInBtn:hover {
     transform: scale(1.08);
     cursor: pointer;
-    color: #1e42a5;
+    color: var(--signin-bg);
 }
 
 .logInBtn:active {
-    color: #0e1f4e;
-    outline: #091e58 1px solid;
+    color: var(--primary);
+    outline: var(--primary) 1px solid;
 }
 
 .logOutButton {
@@ -351,7 +427,7 @@
    ============================================================ */
 
 li::marker {
-    color: black;
+    color: var(--text);
 }
 
 li {
@@ -372,8 +448,8 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-    border: 2px solid black;
-    background-color: white;
+    border: 2px solid var(--border);
+    background-color: var(--bg);
     width: 200px;
     display: inline-block;
     padding: 6px 12px;
@@ -412,4 +488,105 @@ input[type="file"] {
         font-size: 20px;
         padding: 10px;
     }
+}
+
+
+/* ============================================================
+   THEME WHEEL
+   ============================================================ */
+
+.themeWheelContainer {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 999;
+}
+
+.themeMainButton {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 1px solid var(--text);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.themeMainButton:hover {
+    transform: rotate(20deg) scale(1.1);
+}
+
+.themeOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: fadeIn 0.2s ease;
+}
+
+.themeOptions button {
+    background: var(--text);
+    color: var(--bg);
+    border: 1px solid var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.themeOptions button:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   CAROUSAL
+   ============================================================ */
+
+.carousel-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel-image-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.my-carousel-image {
+  width: 75%;
+  height: 500px; 
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+}
+
+.carousel-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-text{
+  text-align: center;
+  color: var(--text);
+  font-size: 30px;
 }
