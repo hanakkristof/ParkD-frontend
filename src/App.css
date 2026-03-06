@@ -590,3 +590,81 @@ input[type="file"] {
   color: var(--text);
   font-size: 30px;
 }
+
+.burgerMenu{
+    font-size: 50px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    transition: transform 0.3s ease-in-out, scale 0.3s ease-in-out, color 0.3s ease-in-out;
+    
+}
+
+.burgerMenu:hover{
+    transform: rotate(180deg);
+    scale: 1.2;
+    color: #091e58;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #222;
+    color: white;
+    transition: 0.3s;
+    padding: 10px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar.open{
+    left: 0;
+}
+
+.sidebar button{
+    display: block;
+  
+    margin: 10px 0;
+}
+
+.loginContainer{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+}
+
+.closeSidebar{
+    font-size: 37.0667px;
+    
+}
+
+.house{
+  z-index: 1;
+  font-size: 30px;
+  padding: 0px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.house:hover{
+    scale: 1.2;
+    color: #4682B4;
+}
+
+.headerSearch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerSearchField{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

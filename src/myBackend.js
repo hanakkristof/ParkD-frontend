@@ -1,6 +1,6 @@
 import axios from "axios";
 import { db } from "./firebaseApp"
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs, where } from "firebase/firestore";
 
 import imageCompression from "browser-image-compression";
 import { deleteImage } from "./cloudinaryUtils";
@@ -178,3 +178,14 @@ export const deleteAvatar = async (uid) => {
     }
 
 }   
+
+
+export const searchHely = async(text) =>{
+    if (!text) return []
+
+    const q = query(collection(db, "parkolohazak"), where("hely", ">=", text), where("hely", "<=", text + "\uf8ff"))
+
+    const snapshot = await getDocs(q)
+
+    return snapshot.docs.map(obj =>({id: obj.id, ...obj.data() }))
+}
