@@ -76,6 +76,10 @@ export const MyHeader = () => {
           }}>
             Bejelentkezés
           </button></div>}
+          {user && <button className='MyHeaderCssButton logOutButton' onClick={() => logoutUser()}>
+            Kijelentkezés
+          </button> }
+          
         
         </div>
 
@@ -93,19 +97,16 @@ export const MyHeader = () => {
       </div>
       {user ?
 
-        <div className='MyHeaderImage'>
+        <div className='MyHeaderCss' style={{justifyContent:"space-between", display:"flex"}}>
           {!openSidebar && (<IoMdMenu onClick={()=>setOpenSidebar(!openSidebar)} className='burgerMenu'/>)}
           <span onClick={()=>navigate('/profile')}>
             {user?.photoURL ?
               <img style={{ width: "50px", height: "50px", borderRadius: "50%", objectFit: "cover" }} src={user.photoURL} alt="profilkép"/>
-        
             :
               <RxAvatar size={50} style={{ color: "white" }} title={user?.displayName} />
             }
             </span>
-          <button className='MyHeaderCssButton logOutButton' onClick={() => logoutUser()}>
-            Kijelentkezés
-          </button>
+          
         </div>
         :
         <div className='MyHeaderCss'>
