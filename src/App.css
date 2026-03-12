@@ -616,7 +616,6 @@ input[type="file"] {
 }
 
 .burgerMenu:hover{
-    transform: rotate(180deg);
     scale: 1.2;
     color: #091e58;
 }
@@ -684,3 +683,6 @@ input[type="file"] {
     justify-content: center;
     
 }
+
+
+
