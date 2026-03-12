@@ -153,8 +153,18 @@ body.matcha {
 .floorPlan {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
+    flex-direction: column;
     min-height: 100vh;
+}
+
+.garagePlace{
+    margin-bottom: 20px;
+    font-size: 100px;
+
+}
+.garageName{
+    font-size: 50px;
 }
 
 .house {
@@ -193,10 +203,16 @@ body.matcha {
    LAYOUT — RECIPES
    ============================================================ */
 
-.recipesBase {
-    background-color: var(--background);
+.aktivSzintTab {
+    
+}
+
+.garageKözepe{
+    display: flex;
     width: 100%;
-    padding-top: 100px;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .recipesTitle {

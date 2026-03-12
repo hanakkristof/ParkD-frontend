@@ -34,10 +34,15 @@ export const Garage = () => {
 
   return (
     <div className='floorPlan'>
-      <h2>{parkoloHaz.hely}</h2>
-      <h2>{parkoloHaz.name}</h2>
-
-      {/* Szint fülek */}
+      <div>
+        <h2 className='garagePlace'>{parkoloHaz.hely}</h2>
+      </div>
+      <div>
+        <h2 className='garageName'>{parkoloHaz.name}</h2>
+      </div>
+      
+      <div className='garageKözepe'>
+        {/* Szint fülek */}
       <div className='szintTabok'>
         {szintek.map((szint) => (
           <button
@@ -51,7 +56,7 @@ export const Garage = () => {
       </div>
 
       {/* Kiválasztott szint tartalma */}
-      <div className='recipesBase'>
+      <div className='aktivSzintTab'>
         {aktivSzint ? (
           <>
             <h3>{aktivSzint.szint_szama}. szint</h3>
@@ -63,6 +68,8 @@ export const Garage = () => {
           <p>Válassz egy szintet!</p>
         )}
       </div>
+      </div>
+      
 
       <button onClick={()=>navigate("/addnew")}>Új parkolóház feltöltése</button>
     </div>
