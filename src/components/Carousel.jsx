@@ -1,13 +1,6 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import './App.css'
-
-import kep1 from "../../assets/parkolohaz.jpg";
-import kep2 from "../../assets/varosliget.jpg";
-import kep3 from "../../assets/veszpremes.jpg";
-import { useEffect } from 'react';
-import { readParkolohaz } from '../../myBackend';
 
 const responsive = {
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
