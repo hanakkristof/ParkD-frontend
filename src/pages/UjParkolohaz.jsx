@@ -209,7 +209,6 @@ export const ParkolohazForm = () => {
                 <button style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "white", cursor: "pointer" }} type='submit' disabled={loading}>Mentés</button>
             </form>
             {loading && <div>Loading...</div>}
-            <IoMdClose onClick={() => navigate("/")} style={{ position: "absolute", top: "5px", left: "5px" }} />
         </div>
 
     )
