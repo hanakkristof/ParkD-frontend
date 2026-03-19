@@ -74,6 +74,8 @@ export const ParkolohazForm = () => {
             for (const szint of szintek) {
                 const szintRef = await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek"), {
                     szint_szama: szint.szint_szama,
+                    szint_sor: szint.sor,
+                    szint_oszlop:szint.sor
                 })
 
                 for (let i = 0; i < szint.sor * szint.oszlop; i++) {
