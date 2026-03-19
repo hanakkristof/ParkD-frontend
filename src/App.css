@@ -169,6 +169,7 @@ body.matcha {
 
 .house {
     z-index: 1;
+    font-size: 50px;
 }
 
 
@@ -700,7 +701,8 @@ input[type="file"] {
     background-color: var(--secondary);
     color: var(--disabled);
     transition: left 0.3s ease;
-    padding: 10px;
+    padding: 0;
+    padding-right: 5px;
     z-index: 100;
     display: flex;
     flex-direction: column;
@@ -716,10 +718,9 @@ input[type="file"] {
     display: flex;
     width: 100%;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
     min-height: 50px;
-    padding: 0 12px;
     gap: 10px;
 }
  
@@ -735,7 +736,7 @@ input[type="file"] {
 }
  
 .sidebarBtn {
-    width: 100%;
+    width: 65%;
     padding: 7px 10px;
     font-size: 0.875rem;
     font-weight: bold;

@@ -47,14 +47,23 @@ export const MyHeader = () => {
 
       <div ref={sidebarRef} className={`sidebar ${openSidebar ? "open" : ""}`}>
 
-        {/* Sidebar header row */}
         <div className='sidebarTop'>
-          {!isHome && (
-            <FaHouseChimney
-              onClick={() => { navigate("/"); setOpenSidebar(false) }}
-              className='house'
-            />
+
+          {user ? (
+
+            <span>
+              {user?.photoURL ? (
+                <img style={{ width: "50px", height: "50px", borderRadius: "50%", objectFit: "cover" }} onClick={() => navigate('/profile')} src={user.photoURL} alt="profilkép" />
+              ) : (
+                <RxAvatar size={50} style={{ color: "white" }} onClick={() => navigate('/profile')} title={user?.displayName} />
+              )}
+            </span>
+          ) : (
+            <div className='MyHeaderCss'>
+              {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
+            </div>
           )}
+
           {user ? (
             <button className='sidebarBtn' onClick={() => logoutUser()}>
               Kijelentkezés
@@ -93,25 +102,19 @@ export const MyHeader = () => {
           </div>
         </div>
 
+        <div>
+          {!isHome && (
+            <FaHouseChimney
+              onClick={() => { navigate("/"); setOpenSidebar(false) }}
+              className='house'
+            />
+          )}
+        </div>
+
       </div>
 
       {/* Top bar */}
-      {user ? (
-        <div className='MyHeaderCss' style={{ justifyContent: "space-between", display: "flex" }}>
-          {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
-          <span onClick={() => navigate('/profile')}>
-            {user?.photoURL ? (
-              <img style={{ width: "50px", height: "50px", borderRadius: "50%", objectFit: "cover" }} src={user.photoURL} alt="profilkép" />
-            ) : (
-              <RxAvatar size={50} style={{ color: "white" }} title={user?.displayName} />
-            )}
-          </span>
-        </div>
-      ) : (
-        <div className='MyHeaderCss'>
-          {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
-        </div>
-      )}
+      {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
 
     </div>
   )

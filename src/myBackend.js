@@ -70,7 +70,7 @@ export const readParkolohazak = (setCallback) => {
                 createdAt: doc.data().createdAt,
             });
         });
-        console.log("result:", result); // verify this looks right
+        console.log("result:", result);
         setCallback(result);
     });
     return unsubscribe
