@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { getSzintek, readParkolohaz } from '../myBackend'
+import { getParkingSpots, getSzintek, readParkolohaz } from '../myBackend'
+import { SpotCard } from '../components/spotCard'
 
 export const Garage = () => {
   const [parkoloHaz, setParkolohaz] = useState(null)
@@ -10,12 +11,14 @@ export const Garage = () => {
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
   const navigate = useNavigate()
+  const [parkingSpots, setParkingSpots] = useState(null)
 
   useEffect(()=>{
     if(id){
       setLoading(true)
       readParkolohaz(id,(data)=>{
         setParkolohaz(data);
+        
       })
 
       const unsubscribe = getSzintek(id, (szintekData) => {
@@ -28,6 +31,20 @@ export const Garage = () => {
       return () => unsubscribe()
     }
   }, [id])
+
+
+useEffect(() => {
+  if (!aktivSzint) return;
+  const loadSpots = async () => {
+    const spots = await getParkingSpots(aktivSzint.id);
+    setParkingSpots(spots);
+  };
+  loadSpots();
+}, [aktivSzint]);
+
+useEffect(() => {
+  console.log(parkingSpots);
+}, [parkingSpots]);
 
   if(loading) return <div className="floorPlan"><p>Betöltés...</p></div>
   if(!parkoloHaz) return <div className="floorPlan"><p>Nincs ilyen parkolóház!</p></div>
@@ -61,8 +78,9 @@ export const Garage = () => {
           <>
             <h3>{aktivSzint.szint_szama}. szint</h3>
             <p>Szint ID: {aktivSzint.id}</p>
-            {/* Ha vannak más mezők a szint dokumentumban, azokat is itt jelenítheted meg */}
-            {/* pl. <p>Férőhelyek: {aktivSzint.ferohelyek}</p> */}
+            {parkingSpots?.map((spot)=>(
+                <SpotCard key={spot.id}  />
+            ))}
           </>
         ) : (
           <p>Válassz egy szintet!</p>

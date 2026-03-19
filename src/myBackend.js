@@ -1,6 +1,6 @@
 import axios from "axios";
 import { db } from "./firebaseApp"
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs, where } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs, where, collectionGroup } from "firebase/firestore";
 
 import imageCompression from "browser-image-compression";
 import { deleteImage } from "./cloudinaryUtils";
@@ -189,3 +189,12 @@ export const searchHely = async(text) =>{
 
     return snapshot.docs.map(obj =>({id: obj.id, ...obj.data() }))
 }
+
+export const getParkingSpots = async (targetSzintId) => {
+  const snapshot = await getDocs(collectionGroup(db, "parkoloHelyek"));
+
+  return snapshot.docs.map(doc => {
+      const segments = doc.ref.path.split("/");
+      return { id: doc.id, szintId: segments[3], ...doc.data() };
+    }).filter(spot => spot.szintId === targetSzintId);
+};

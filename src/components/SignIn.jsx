@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
+import { SpotCard } from './spotCard'
 
 export const SignIn = () => {
 
@@ -36,6 +37,7 @@ export const SignIn = () => {
             <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer"}}>itt</a>!</p></div>
             
             </div>
+            <SpotCard/>
         </div> 
     )
 }
