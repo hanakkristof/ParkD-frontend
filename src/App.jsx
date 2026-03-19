@@ -13,6 +13,7 @@ import { PageNotFound } from './pages/PageNotFound'
 import { PwReset } from './components/PwReset'
 import { ParkolohazForm } from './pages/ujParkolohaz'
 import { ThemeWheel } from './components/themeWheel'
+import { ProtectedRoute } from './pages/ProtectedRoute'
 
 
 function AppContent() {
@@ -29,9 +30,9 @@ function AppContent() {
           <Route path="/signup" element={<SignUp />} />
 
           <Route path='/pwreset' element={<PwReset />} />
-          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/profile' element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
           <Route path='/*' element={<PageNotFound />} />
-          <Route path='/addnew' element={<ParkolohazForm />} />
+          <Route path='/addnew' element={<ProtectedRoute><ParkolohazForm/></ProtectedRoute>} />
         </Routes>
       <ThemeWheel />
     </>
