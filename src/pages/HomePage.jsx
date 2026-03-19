@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import MyCarousel from '../components/Carousel/Carousel'
+
 import { MyUserContext } from '../context/MyUserProvider'
 import { readParkolohaz, readParkolohazak } from '../myBackend'
 import { useEffect } from 'react'
+import MyCarousel from '../components/Carousel'
 
 export const HomePage = () => {
 	const [hazak, setHazak] = useState([])
