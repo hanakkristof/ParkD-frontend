@@ -2,29 +2,32 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { getParkingSpots, getSzintek, readParkolohaz } from '../myBackend'
-import { SpotCard } from '../components/spotCard'
+import { ParkingFloor } from '../components/SpotCard'
 
 export const Garage = () => {
   const [parkoloHaz, setParkolohaz] = useState(null)
   const [szintek, setSzintek] = useState([])
   const [aktivSzint, setAktivSzint] = useState(null) // ← kiválasztott szint
   const [loading, setLoading] = useState(false)
-  const {id} = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
   const [parkingSpots, setParkingSpots] = useState(null)
 
-  useEffect(()=>{
-    if(id){
+  
+
+  useEffect(() => {
+    if (id) {
       setLoading(true)
-      readParkolohaz(id,(data)=>{
+      readParkolohaz(id, (data) => {
         setParkolohaz(data);
-        
+
       })
 
       const unsubscribe = getSzintek(id, (szintekData) => {
         setSzintek(szintekData)
         // Alapból az első szint legyen kiválasztva
-        if(szintekData.length > 0) setAktivSzint(szintekData[0])
+        if (szintekData.length > 0) setAktivSzint(szintekData[0])
+        console.log(szintekData)
         setLoading(false)
       })
 
@@ -33,21 +36,21 @@ export const Garage = () => {
   }, [id])
 
 
-useEffect(() => {
-  if (!aktivSzint) return;
-  const loadSpots = async () => {
-    const spots = await getParkingSpots(aktivSzint.id);
-    setParkingSpots(spots);
-  };
-  loadSpots();
-}, [aktivSzint]);
+  useEffect(() => {
+    if (!aktivSzint) return;
+    const loadSpots = async () => {
+      const spots = await getParkingSpots(aktivSzint.id);
+      setParkingSpots(spots);
+    };
+    loadSpots();
+  }, [aktivSzint]);
 
-useEffect(() => {
-  console.log(parkingSpots);
-}, [parkingSpots]);
+  useEffect(() => {
+    console.log(parkingSpots);
+  }, [parkingSpots]);
 
-  if(loading) return <div className="floorPlan"><p>Betöltés...</p></div>
-  if(!parkoloHaz) return <div className="floorPlan"><p>Nincs ilyen parkolóház!</p></div>
+  if (loading) return <div className="floorPlan"><p>Betöltés...</p></div>
+  if (!parkoloHaz) return <div className="floorPlan"><p>Nincs ilyen parkolóház!</p></div>
 
   return (
     <div className='floorPlan'>
@@ -57,39 +60,43 @@ useEffect(() => {
       <div>
         <h2 className='garageName'>{parkoloHaz.name}</h2>
       </div>
-      
+
       <div className='garageKözepe'>
         {/* Szint fülek */}
-      <div className='szintTabok'>
-        {szintek.map((szint) => (
-          <button
-            key={szint.id}
-            className={`szintTab ${aktivSzint?.id === szint.id ? 'aktiv' : ''}`}
-            onClick={() => setAktivSzint(szint)}
-          >
-            🅿️ {szint.szint_szama}. szint
-          </button>
-        ))}
+        <div className='szintTabok'>
+          {szintek.map((szint) => (
+            <button
+              key={szint.id}
+              className={`szintTab ${aktivSzint?.id === szint.id ? 'aktiv' : ''}`}
+              onClick={() => setAktivSzint(szint)}
+            >
+              🅿️ {szint.szint_szama}. szint
+            </button>
+          ))}
+        </div>
+
+        {/* Kiválasztott szint tartalma */}
+        <div className='aktivSzintTab'>
+          {aktivSzint ? (
+            <>
+              <h3>{aktivSzint.szint_szama}. szint</h3>
+              <p>Szint ID: {aktivSzint.id}</p>
+
+              <ParkingFloor
+                rows={aktivSzint?.szint_sor}
+                columns={aktivSzint?.szint_oszlop}
+                spots={parkingSpots ?? []}
+                
+              />
+            </>
+          ) : (
+            <p>Válassz egy szintet!</p>
+          )}
+        </div>
       </div>
 
-      {/* Kiválasztott szint tartalma */}
-      <div className='aktivSzintTab'>
-        {aktivSzint ? (
-          <>
-            <h3>{aktivSzint.szint_szama}. szint</h3>
-            <p>Szint ID: {aktivSzint.id}</p>
-            {parkingSpots?.map((spot)=>(
-                <SpotCard key={spot.id}  />
-            ))}
-          </>
-        ) : (
-          <p>Válassz egy szintet!</p>
-        )}
-      </div>
-      </div>
-      
 
-      <button onClick={()=>navigate("/addnew")}>Új parkolóház feltöltése</button>
+      <button onClick={() => navigate("/addnew")}>Új parkolóház feltöltése</button>
     </div>
   )
 }
