@@ -14,25 +14,25 @@ export const MyUserProvider = ({ children }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-        setUser(currentUser)
-        
-        if (currentUser) {
-            const docSnap = await getDoc(doc(db, "felhasznalok", currentUser.uid))
-            if (docSnap.exists()) {
-                setUserData(docSnap.data())
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser)
+
+            if (currentUser) {
+                const docSnap = await getDoc(doc(db, "felhasznalok", currentUser.uid))
+                if (docSnap.exists()) {
+                    setUserData(docSnap.data())
+                }
+            } else {
+                setUserData(null)
             }
-        } else {
-            setUserData(null)
-        }
-    })
-    return () => unsubscribe()
-}, [])
+        })
+        return () => unsubscribe()
+    }, [])
 
     const signUpUser = async (email, password, displayName) => {
         console.log(email, password, displayName)
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(auth.currentUser, { displayName })
             await setDoc(doc(db, "felhasznalok", userCredential.user.uid), {
                 email: email,
@@ -45,8 +45,7 @@ export const MyUserProvider = ({ children }) => {
             await sendEmailVerification(auth.currentUser)
             console.log("Aktiválja az e-mail címét!")
             console.log("Sikeres regisztráció!")
-            setMsg(prev => ({ ...prev }, { signUp: "Kattints az email címedre küldött aktiváló linkre!", info: "Kattints az email címedre küldött aktiváló linkre!" }))
-
+            setMsg(prev => ({ ...prev, signUp: "Kattints az email címedre küldött aktiváló linkre!", info: "Kattints az email címedre küldött aktiváló linkre!" }))
             logoutUser()
         } catch (error) {
             console.log(error)
@@ -62,11 +61,9 @@ export const MyUserProvider = ({ children }) => {
     const signInUser = async (email, password) => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            console.log("Sikeres bejelentkezés!")
             const currentUser = auth.currentUser
             if (!currentUser.emailVerified) {
                 setMsg({ err: "Kérlek kattints az aktiváló linkre" })
-
                 logoutUser()
                 return
             }
