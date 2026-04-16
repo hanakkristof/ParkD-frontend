@@ -83,7 +83,6 @@ export const MyHeader = () => {
           />
         </div>
 
-        {/* Search */}
         <div className='headerSearch'>
           <span className='headerSearchField'>
             <input
@@ -113,7 +112,6 @@ export const MyHeader = () => {
 
       </div>
 
-      {/* Top bar */}
       {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
 
     </div>

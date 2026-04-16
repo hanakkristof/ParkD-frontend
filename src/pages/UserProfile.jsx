@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
 import { deleteAvatar } from '../myBackend'
+import { ThemeWheel } from '../components/themeWheel'
 
 export const UserProfile = () => {
     const { user, avatarUpdate, deleteAccount } = useContext(MyUserContext)
@@ -74,9 +75,10 @@ export const UserProfile = () => {
                 </form>
                 
             </div>
-
-
             <button onClick={handleDelete} className='deleteAccountButton'>Fiók törlése</button>
+
+            
+            <ThemeWheel />
         </div>
     )
 }

@@ -34,7 +34,7 @@ function AppContent() {
           <Route path='/*' element={<PageNotFound />} />
           <Route path='/addnew' element={<ProtectedRoute><ParkolohazForm/></ProtectedRoute>} />
         </Routes>
-      <ThemeWheel />
+      
     </>
   )
 }
