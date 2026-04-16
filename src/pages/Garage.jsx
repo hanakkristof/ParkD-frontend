@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { getParkingSpots, getSzintek, readParkolohaz } from '../myBackend'
 import { ParkingFloor } from '../components/SpotCard'
+import { MyUserContext } from '../context/MyUserProvider'
+import { useContext } from 'react'
 
 export const Garage = () => {
+  const { userData } = useContext(MyUserContext)
   const [parkoloHaz, setParkolohaz] = useState(null)
   const [szintek, setSzintek] = useState([])
   const [aktivSzint, setAktivSzint] = useState(null) // ← kiválasztott szint
@@ -86,6 +89,7 @@ export const Garage = () => {
                 rows={aktivSzint?.szint_sor}
                 columns={aktivSzint?.szint_oszlop}
                 spots={parkingSpots ?? []}
+                isAdmin={userData?.isAdmin}
                 
               />
             </>
