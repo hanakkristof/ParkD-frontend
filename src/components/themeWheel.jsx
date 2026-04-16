@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export const ThemeWheel = () => {
   const [open, setOpen] = useState(false);
+  const [activeTheme, setActiveTheme] = useState("dark")
 
   const setTheme = (theme) => {
     document.body.classList.remove("light", "matcha");
@@ -9,8 +10,10 @@ export const ThemeWheel = () => {
       document.body.classList.add(theme);
     }
     localStorage.setItem("theme", theme);
+    setActiveTheme(theme);
     setOpen(false);
   };
+  
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -19,14 +22,24 @@ export const ThemeWheel = () => {
     }
   }, []);
 
+
   return (
     <div className="themeWheelContainer">
 
       {open && (
         <div className="themeOptions">
-          <button onClick={() => setTheme("dark")}>Default</button>
-          <button onClick={() => setTheme("light")}>Light</button>
-          <button onClick={() => setTheme("matcha")}>Matcha</button>
+          <button
+            className={`themeButton ${activeTheme === "dark" ? "active" : ""}`}
+            onClick={() => setTheme("dark")}
+          >Default</button>
+          <button
+            className={`themeButton ${activeTheme === "light" ? "active" : ""}`}
+            onClick={() => setTheme("light")}
+          >Light</button>
+          <button
+            className={`themeButton ${activeTheme === "matcha" ? "active" : ""}`}
+            onClick={() => setTheme("matcha")}
+          >Matcha</button>
         </div>
       )}
 

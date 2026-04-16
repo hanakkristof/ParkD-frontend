@@ -198,3 +198,5 @@ export const getParkingSpots = async (targetSzintId) => {
       return { id: doc.id, szintId: segments[3], ...doc.data() };
     }).filter(spot => spot.szintId === targetSzintId);
 };
+
+
