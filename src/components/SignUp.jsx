@@ -12,10 +12,10 @@ export const SignUp = () => {
     }, [msg])
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        signUpUser(data.get("email"), data.get("password"))
-    }
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    signUpUser(data.get("email"), data.get("password"), data.get("nev"))
+}
 
     return (
         
@@ -23,6 +23,7 @@ export const SignUp = () => {
             <div className='signinBase'>
                 <form className='signinForm' onSubmit={handleSubmit}>
                     <h1>Regisztráció</h1>
+                    <input name="nev" type="text" placeholder="Felhasználónév" required />
                     <input name='email' type="email" placeholder='Email' required />
                     <input name='password' type="password" placeholder='Jelszó' required />
                     <input name='confirmPassword' type="password" placeholder='Jelszó megerősítése' required />

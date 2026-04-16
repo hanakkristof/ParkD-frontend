@@ -8,9 +8,8 @@ export const SignIn = () => {
     const { signInUser, msg } = useContext(MyUserContext)
 
     useEffect(() => {
-        msg && msg?.signIn && navigate("/signin")
-        if(msg.signIn) navigate("/")
-    }, [msg])
+    if (msg?.signIn === true) navigate("/")
+}, [msg])
 
     const handleSubmit = (event) => {
         event.preventDefault()
