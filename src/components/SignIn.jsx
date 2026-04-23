@@ -8,33 +8,37 @@ export const SignIn = () => {
     const { signInUser, msg } = useContext(MyUserContext)
 
     useEffect(() => {
-    if (msg?.signIn === true) navigate("/")
-}, [msg])
+        if (msg?.signIn === true) navigate("/")
+    }, [msg])
 
     const handleSubmit = (event) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        // console.log(data.get("email"), data.get("password"))
         signInUser(data.get("email"), data.get("password"))
-        // navigate("/recipes")
+
 
     }
 
     return (
         <div className='signinPage'>
             <div className='signinBase'>
-            <form className='signinForm' onSubmit={handleSubmit}>
-                <h1>Bejelentkezés</h1>
-                <input name='email' type="email" placeholder='Email' required />
-                <input name='password' type="password" placeholder='Jelszó' required />
-                
-                <button className='logInBtn'>Bejelentkezés</button>
-            </form>
-            <div style={{display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center", gap:"5px"}}><a href="#" onClick={()=>navigate("/pwreset")}>Elfelejtett jelszó</a>
+                <form className='signinForm' onSubmit={handleSubmit}>
+                    <h1>Bejelentkezés</h1>
+                    <input name='email' type="email" placeholder='Email' required />
+                    <input name='password' type="password" placeholder='Jelszó' required />
 
-            <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer"}}>itt</a>!</p></div>
-            
+                    <button className='logInBtn'>Bejelentkezés</button>
+                </form>
+                <div className='error'>
+                    {msg && msg?.err && <p className='errormsg'>{msg.err}</p>}
+
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                    <a href="#" onClick={() => navigate("/pwreset")}>Elfelejtett jelszó</a>
+
+                    <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer" }}>itt</a>!</p></div>
+
             </div>
-        </div> 
+        </div>
     )
 }
