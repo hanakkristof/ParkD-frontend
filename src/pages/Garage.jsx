@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { getParkingSpots, getSzintek, readParkolohaz } from '../myBackend'
+import { getParkingSpots, getParkingSpotsRealtime, getSzintek, readParkolohaz } from '../myBackend'
 import { ParkingFloor } from '../components/SpotCard'
 import { MyUserContext } from '../context/MyUserProvider'
 import { useContext } from 'react'
@@ -16,7 +16,7 @@ export const Garage = () => {
   const navigate = useNavigate()
   const [parkingSpots, setParkingSpots] = useState(null)
 
-  
+
 
   useEffect(() => {
     if (id) {
@@ -40,13 +40,14 @@ export const Garage = () => {
 
 
   useEffect(() => {
-    if (!aktivSzint) return;
-    const loadSpots = async () => {
-      const spots = await getParkingSpots(aktivSzint.id);
-      setParkingSpots(spots);
-    };
-    loadSpots();
-  }, [aktivSzint]);
+    if (!aktivSzint) return
+
+    const unsubscribe = getParkingSpotsRealtime(aktivSzint.id, (spots) => {
+        setParkingSpots(spots)
+    })
+
+    return () => unsubscribe()
+}, [aktivSzint])
 
   useEffect(() => {
     console.log(parkingSpots);
@@ -90,7 +91,8 @@ export const Garage = () => {
                 columns={aktivSzint?.szint_oszlop}
                 spots={parkingSpots ?? []}
                 isAdmin={userData?.isAdmin}
-                
+                parkoloHazId={id}
+                szintId={aktivSzint?.id}
               />
             </>
           ) : (
