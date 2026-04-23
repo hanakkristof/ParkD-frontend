@@ -199,4 +199,44 @@ export const getParkingSpots = async (targetSzintId) => {
     }).filter(spot => spot.szintId === targetSzintId);
 };
 
+export const updateSpotTipus = async (parkoloHazId, szintId, spotId, ujTipus) => {
+    const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
+    await updateDoc(spotRef, { parkolohelyTipus: ujTipus })
+}
+
+export const updateSpotFoglalas = async (parkoloHazId, szintId, spotId, foglaló, foglalasVege) => {
+    const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
+    await updateDoc(spotRef, {
+        foglalt: true,
+        foglaló: foglaló,
+        foglalasKezdete: new Date(),
+        foglalasVege: foglalasVege
+    })
+}
+
+export const felszabaditSpot = async (parkoloHazId, szintId, spotId) => {
+    const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
+    await updateDoc(spotRef, {
+        foglalt: false,
+        foglaló: null,
+        foglalasKezdete: null,
+        foglalasVege: null
+    })
+}
+
+export const getParkingSpotsRealtime = (szintId, callback) => {
+    const snapshot = onSnapshot(
+        query(collectionGroup(db, "parkoloHelyek")),
+        (snap) => {
+            const spots = snap.docs
+                .map(doc => {
+                    const segments = doc.ref.path.split("/")
+                    return { id: doc.id, szintId: segments[3], ...doc.data() }
+                })
+                .filter(spot => spot.szintId === szintId)
+            callback(spots)
+        }
+    )
+    return snapshot // unsubscribe függvény
+}
 
