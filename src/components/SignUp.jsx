@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
+import { MyToastify } from './MyToastify'
 
 export const SignUp = () => {
 
@@ -32,6 +33,7 @@ export const SignUp = () => {
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", gap: "5px" }}>
                     <p>Már van fiókod? Jelentkezz be <a onClick={() => navigate("/signin")} style={{ cursor: "pointer" }}>itt</a>!</p>
                 </div>
+                {msg &&(msg?.err || msg?.signUp ) && <p className='errormsg'>{msg?.err || msg?.signUp}</p>}
             </div>
         </div>
     )

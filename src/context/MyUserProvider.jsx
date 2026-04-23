@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router'
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseApp";
 
-export const MyUserContext = createContext(null) //tartály az adatoknak
+export const MyUserContext = createContext(null)
 export const MyUserProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [msg, setMsg] = useState({})
@@ -125,6 +125,5 @@ export const MyUserProvider = ({ children }) => {
             </MyUserContext.Provider>
         </div>
     )
-    /*
-        {}*/
+    
 }
