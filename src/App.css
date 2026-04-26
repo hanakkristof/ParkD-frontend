@@ -319,6 +319,7 @@ body.matcha {
     padding: 5px;
     gap: 15px;
     height: auto;
+    box-shadow: 5px 5px 5px 5px rgb(0 0 0 / 50%);
 }
 
 .signinBase h1 {

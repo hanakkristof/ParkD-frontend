@@ -16,7 +16,6 @@ export const SignIn = () => {
         const data = new FormData(event.currentTarget)
         signInUser(data.get("email"), data.get("password"))
 
-
     }
 
     return (
@@ -24,8 +23,8 @@ export const SignIn = () => {
             <div className='signinBase'>
                 <form className='signinForm' onSubmit={handleSubmit}>
                     <h1>Bejelentkezés</h1>
-                    <input name='email' type="email" placeholder='Email' required />
-                    <input name='password' type="password" placeholder='Jelszó' required />
+                    <input name='email' type="email" placeholder='Email' required style={{background: "#f0f0f0", color:"black"}} />
+                    <input name='password' type="password" placeholder='Jelszó' required style={{background: "#f0f0f0", color:"black"}}/>
 
                     <button className='logInBtn'>Bejelentkezés</button>
                 </form>
@@ -33,10 +32,10 @@ export const SignIn = () => {
                     {msg && msg?.err && <p className='errormsg'>{msg.err}</p>}
 
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", gap: "5px" }}>
-                    <a href="#" onClick={() => navigate("/pwreset")}>Elfelejtett jelszó</a>
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", gap: "5px", color:"#f0f0f0" }}>
+                    <a href="#" onClick={() => navigate("/pwreset")} style={{color:"#f0f0f0"}}>Elfelejtett jelszó</a>
 
-                    <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer" }}>itt</a>!</p></div>
+                    <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer", color: "#f0f0f0" }}>itt</a>!</p></div>
 
             </div>
         </div>

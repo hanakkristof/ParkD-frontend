@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { getParkingSpots, getParkingSpotsRealtime, getSzintek, readParkolohaz } from '../myBackend'
+import { getParkingSpots, getParkingSpotsRealtime, getSzintek, lejartFoglalasokFelszabaditasa, readParkolohaz } from '../myBackend.js'
 import { ParkingFloor } from '../components/SpotCard'
 import { MyUserContext } from '../context/MyUserProvider'
 import { useContext } from 'react'
@@ -10,7 +10,7 @@ export const Garage = () => {
   const { userData } = useContext(MyUserContext)
   const [parkoloHaz, setParkolohaz] = useState(null)
   const [szintek, setSzintek] = useState([])
-  const [aktivSzint, setAktivSzint] = useState(null) // ← kiválasztott szint
+  const [aktivSzint, setAktivSzint] = useState(null) 
   const [loading, setLoading] = useState(false)
   const { id } = useParams()
   const navigate = useNavigate()
@@ -28,7 +28,7 @@ export const Garage = () => {
 
       const unsubscribe = getSzintek(id, (szintekData) => {
         setSzintek(szintekData)
-        // Alapból az első szint legyen kiválasztva
+       
         if (szintekData.length > 0) setAktivSzint(szintekData[0])
         console.log(szintekData)
         setLoading(false)
@@ -42,7 +42,8 @@ export const Garage = () => {
   useEffect(() => {
     if (!aktivSzint) return
 
-    const unsubscribe = getParkingSpotsRealtime(aktivSzint.id, (spots) => {
+    const unsubscribe = getParkingSpotsRealtime(aktivSzint.id, async (spots) => {
+        await lejartFoglalasokFelszabaditasa(spots, id, aktivSzint.id)
         setParkingSpots(spots)
     })
 
@@ -101,8 +102,8 @@ export const Garage = () => {
         </div>
       </div>
 
-
-      <button onClick={() => navigate("/addnew")}>Új parkolóház feltöltése</button>
+          {userData?.isAdmin? <button onClick={() => navigate("/addnew")}>Új parkolóház feltöltése</button> : ""}
+      
     </div>
   )
 }
