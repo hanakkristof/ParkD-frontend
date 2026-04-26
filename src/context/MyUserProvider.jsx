@@ -39,7 +39,8 @@ export const MyUserProvider = ({ children }) => {
                 nev: displayName,
                 penztarca: 0,
                 rendszam: "",
-                isAdmin: false
+                isAdmin: false,
+                wheelchair: false
             })
 
             await sendEmailVerification(auth.currentUser)
