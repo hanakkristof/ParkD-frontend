@@ -81,7 +81,8 @@ export const ParkolohazForm = () => {
                 for (let i = 0; i < szint.sor * szint.oszlop; i++) {
                     await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
                         foglalt: false,
-                        parkolohelyTipus: "ut"
+                        parkolohelyTipus: "ut",
+                        hely_szam: i + 1
                     })
                 }
             }
@@ -90,23 +91,6 @@ export const ParkolohazForm = () => {
             console.error("Hiba a mentés során: ", error)
         }
         setLoading(false)
-
-        /*let inputData = {name, hely, szintek}
-        console.log(inputData)
-        if(id){
-          await updateRecipe(id, !file ? {...inputData,imgUrl:recipe.imgUrl,deleteUrl:recipe.deleteUrl}: inputData,file)
-          
-        }else{
-            await addParkoloHaz(inputData)
-        }
-    
-          
-          setName("")
-          setHely("")
-          setSzintek([""])
-          setFile(null)
-          setLoading(false)
-          navigate('/garage/:id')*/
 
     }
 

@@ -94,10 +94,10 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
       {bookingModal && (
         <div style={{
           position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-          background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center",
+          background: "var(--bg)", color: "var(--text)", display: "flex", alignItems: "center", justifyContent: "center",
           zIndex: 1000
         }}>
-          <div style={{ background: "white", padding: 30, borderRadius: 10, minWidth: 300, textAlign: "center" }}>
+          <div style={{ background: "var(--bg)", color: "var(--text)", padding: 30, borderRadius: "var(--radius)", minWidth: 300, textAlign: "center" }}>
             <h3>Parkolóhely foglalás</h3>
             <p>Válaszd ki a foglalás időtartamát:</p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", margin: "20px 0" }}>
@@ -111,8 +111,7 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                   onClick={() => setOrak(perc)}
                   style={{
                     padding: "15px 20px",
-                    background: orak === perc ? "#4CAF50" : "#eee",
-                    color: orak === perc ? "white" : "black",
+                    background: orak === perc ? "var(--accent)" : "var(--disabled)", color: "var(--text)",
                     border: "none", borderRadius: 8, cursor: "pointer",
                     fontWeight: "bold"
                   }}
@@ -135,15 +134,15 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                 onClick={handleFoglalas}
                 disabled={!orak}
                 style={{
-                  padding: "10px 25px", background: orak ? "#4CAF50" : "#ccc",
-                  color: "white", border: "none", borderRadius: 5, cursor: orak ? "pointer" : "default"
+                  padding: "10px 25px", background: "var(--primary)", color: "var(--bg)", 
+                  border: "none", borderRadius: 5, cursor: orak ? "pointer" : "default"
                 }}
               >
                 Foglalás
               </button>
               <button
                 onClick={() => { setBookingModal(null); setOrak(null) }}
-                style={{ padding: "10px 25px", background: "#f44336", color: "white", border: "none", borderRadius: 5, cursor: "pointer" }}
+                style={{ padding: "10px 25px", background: "var(--secondary)", color: "var(--bg)", border: "none", borderRadius: 5, cursor: "pointer" }}
               >
                 Mégse
               </button>
@@ -158,7 +157,7 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
           <div style={{ background: "white", padding: 30, borderRadius: 10 }}>
             <h3>Ez a hely foglalt</h3>
             <p>Lefoglalva eddig: {infoModal.foglalasVege?.toDate().toLocaleString("hu-HU")}</p>
-            <button onClick={() => setInfoModal(null)} style={{ padding: "10px 20px", background: "#2196F3", color: "white", border: "none", borderRadius: 5, cursor: "pointer" }}>
+            <button onClick={() => setInfoModal(null)} style={{ padding: "10px 20px", background: "var(--primary)", color: "var(--bg)", border: "none", borderRadius: 5, cursor: "pointer" }}>
               Bezárás
             </button>
           </div>

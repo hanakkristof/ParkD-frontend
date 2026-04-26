@@ -22,7 +22,6 @@ const uploadToIMGBB = async (file) => {
     }
 }
 
-//új recept feltöltése: addDoc()
 export const addParkoloHaz = async (parkoloHaz) => {
     try {
         let imgUrl = ""
@@ -240,3 +239,54 @@ export const getParkingSpotsRealtime = (szintId, callback) => {
     return snapshot // unsubscribe függvény
 }
 
+export const lejartFoglalasokFelszabaditasa = async (spots, parkoloHazId, szintId) => {
+    const most = new Date()
+    const lejartSpotok = spots.filter(spot => 
+        spot.foglalt && spot.foglalasVege?.toDate() < most
+    )
+    
+    for (const spot of lejartSpotok) {
+        await felszabaditSpot(parkoloHazId, szintId, spot.id)
+    }
+}
+
+
+
+export const getSajatFoglalasok = async (userEmail) => {
+    const snapshot = await getDocs(collectionGroup(db, "parkoloHelyek"))
+    const foglaltSpotok = snapshot.docs
+        .map(doc => {
+            const segments = doc.ref.path.split("/")
+            return {
+                id: doc.id,
+                parkoloHazId: segments[1],
+                szintId: segments[3],
+                ...doc.data()
+            }
+        })
+        .filter(spot => spot.foglalt && spot.foglaló === userEmail)
+
+    const eredmeny = await Promise.all(foglaltSpotok.map(async spot => {
+    const hazDoc = await getDoc(doc(db, "parkolohazak", spot.parkoloHazId))
+    const szintDoc = await getDoc(doc(db, "parkolohazak", spot.parkoloHazId, "szintek", spot.szintId))
+    return {
+        ...spot,
+        parkoloHazNev: hazDoc.exists() ? hazDoc.data().name : spot.parkoloHazId,
+        szintSzam: szintDoc.exists() ? szintDoc.data().szint_szama : spot.szintId
+    }
+}))
+
+    
+
+    return eredmeny
+}
+
+
+
+export const setAdminByEmail = async (email) => {
+    const q = query(collection(db, "felhasznalok"), where("email", "==", email))
+    const snapshot = await getDocs(q)
+    if (snapshot.empty) return false
+    await updateDoc(snapshot.docs[0].ref, { isAdmin: true })
+    return true
+}
