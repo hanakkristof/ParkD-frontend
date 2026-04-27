@@ -67,6 +67,8 @@ export const readParkolohazak = (setCallback) => {
                 hely: doc.data().hely,
                 imgUrl: doc.data().imgUrl,
                 createdAt: doc.data().createdAt,
+                lat: doc.data().lat, 
+                lng: doc.data().lng,
             });
         });
         console.log("result:", result);

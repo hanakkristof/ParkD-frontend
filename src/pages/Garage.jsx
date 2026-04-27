@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getParkingSpotsRealtime, getSzintek, lejartFoglalasokFelszabaditasa, readParkolohaz } from '../myBackend.js'
 import { ParkingFloor } from '../components/SpotCard'
 import { MyUserContext } from '../context/MyUserProvider'

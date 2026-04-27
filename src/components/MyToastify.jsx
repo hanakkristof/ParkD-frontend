@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import { MyUserContext } from '../context/MyUserProvider'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { SignUp } from './SignUp'
 
 

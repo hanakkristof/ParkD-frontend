@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate, useLocation } from 'react-router'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FaHouseChimney } from "react-icons/fa6"
 import { useContext } from 'react'
 import { MyUserContext } from '../context/MyUserProvider'
@@ -15,7 +15,7 @@ import personIcon from '../assets/person_circle_regular_icon.png'
 export const MyHeader = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, logoutUser } = useContext(MyUserContext)
+  const { user, logoutUser, userData } = useContext(MyUserContext)
   const [openSidebar, setOpenSidebar] = useState(false)
   const [searchedText, setSearchedText] = useState("")
   const [searchedResult, setSearchedResult] = useState([])
@@ -64,6 +64,7 @@ export const MyHeader = () => {
             <button className="sidebarBtn" onClick={() => logoutUser()}>
               Kijelentkezés
             </button>
+
           ) : (
             <div className="sidebarLoginRow" onClick={() => { navigate("/signin"); setOpenSidebar(false) }}>
               <img src={personIcon} alt="account" className="sidebarPersonIcon" />
@@ -90,6 +91,17 @@ export const MyHeader = () => {
               <div key={item.id}>{item.hely}</div>
             ))}
           </div>
+        </div>
+
+        <div>
+          {userData?.isAdmin && (
+            <button
+              className="sidebarBtn adminBtn"
+              onClick={() => { navigate("/addnew"); setOpenSidebar(false) }}
+            >
+              Új parkolóház
+            </button>
+          )}
         </div>
 
         <div>
