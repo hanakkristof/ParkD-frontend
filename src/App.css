@@ -1,10 +1,11 @@
-
 * {
     box-sizing: border-box;
     margin: 0;
 }
 
-
+/* ============================================================
+   CSS VÁLTOZÓK / THEME
+   ============================================================ */
 
 :root {
     --primary:    #443742ff;
@@ -32,7 +33,6 @@
     background-color: var(--bg);
 }
 
-
 body.light {
     --primary:    #2a2a2a;
     --secondary:  #555555;
@@ -58,7 +58,6 @@ body.light {
 
     background-color: var(--bg);
 }
-
 
 body.matcha {
     --primary:    #2f4f2f;
@@ -86,14 +85,6 @@ body.matcha {
     background-color: var(--bg);
 }
 
-.themeButton.active{
-    font-weight: bold;
-    transform: scale(1.1);
-    font-style: italic;
-    border: 1px black solid;
-    color: #F7E8A4;
-}
-
 
 /* ============================================================
    LAYOUT — HOME / BANNER
@@ -105,23 +96,6 @@ body.matcha {
     justify-content: center;
     background-size: cover;
     background-position: center;
-}
-
-.home {
-    background-image: url(assets/cover_small.jpg);
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.mainHome {
-    height: 2vh;
 }
 
 .banner {
@@ -144,12 +118,6 @@ body.matcha {
                  Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.enterButton {
-    background: linear-gradient(139deg, rgba(255, 36, 0, 1) 0%, rgba(127, 0, 255, 1) 100%);
-    color: rgb(227, 222, 222);
-    cursor: pointer;
-}
-
 .floorPlan {
     display: flex;
     align-items: center;
@@ -158,23 +126,535 @@ body.matcha {
     min-height: 100vh;
 }
 
-.garagePlace{
+.garagePlace {
     margin-bottom: 20px;
     font-size: 100px;
-
 }
-.garageName{
+
+.garageName {
     font-size: 50px;
 }
 
-.house {
-    z-index: 1;
-    font-size: 50px;
+.garageKözepe {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 
 /* ============================================================
-   LAYOUT — HEADER
+   LAYOUT — SZINT TABOK (Garage)
+   ============================================================ */
+
+.szintTabok {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-right: 20px;
+}
+
+.szintTab {
+    padding: 8px 14px;
+    background-color: var(--disabled);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.szintTab:hover {
+    background-color: var(--accent);
+}
+
+.szintTab.aktiv {
+    background-color: var(--primary);
+    color: var(--bg);
+    border-color: var(--primary);
+}
+
+.aktivSzintTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aktivSzintTab h3 {
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.aktivSzintTab p {
+    color: var(--text);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+
+/* ============================================================
+   LAYOUT — PARKOLÓHELY TÁBLÁZAT (SpotCard)
+   ============================================================ */
+
+.parkingTable {
+    border-collapse: collapse;
+}
+
+.parkingTable td {
+    padding: 2px;
+}
+
+.spotButton {
+    padding: 0;
+    border: none;
+    background: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: block;
+}
+
+.spotButton img {
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+
+/* ============================================================
+   LAYOUT — MODÁLOK (SpotCard)
+   ============================================================ */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalBox {
+    background: var(--bg);
+    color: var(--text);
+    padding: 30px;
+    border-radius: var(--radius);
+    min-width: 300px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+}
+
+.modalBox h3 {
+    margin-bottom: 10px;
+}
+
+.modalBox p {
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.modalIdopontok {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.modalIdopontGomb {
+    padding: 15px 20px;
+    background: var(--disabled);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.modalIdopontGomb:hover {
+    background: var(--accent);
+}
+
+.modalIdopontGomb.aktiv {
+    background: var(--accent);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.modalFoglalasVege {
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.modalGombok {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modalFoglalasGomb {
+    padding: 10px 25px;
+    background: var(--primary);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.modalFoglalasGomb:disabled {
+    background: var(--disabled);
+    cursor: default;
+    opacity: 0.6;
+}
+
+.modalMegseGomb {
+    padding: 10px 25px;
+    background: var(--secondary);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.modalBezarasGomb {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   LAYOUT — USER PROFILE
+   ============================================================ */
+
+.userProfileOldal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 20px;
+}
+
+.userProfileNav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.userProfileNavGomb {
+    padding: 10px 20px;
+    background: var(--disabled);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.userProfileNavGomb:hover {
+    background: var(--accent);
+}
+
+.userProfileNavGomb.aktiv {
+    background: var(--primary);
+    color: var(--bg);
+    border-color: var(--primary);
+}
+
+/* Profil oldal */
+.userProfilTartalom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.userProfilKep {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+}
+
+.userProfilElonezet {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Foglalások oldal */
+.foglalasokTartalom {
+    width: 80%;
+}
+
+.foglalasokTartalom h2 {
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.foglalasokTabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.foglalasokTabla th {
+    padding: 12px 10px;
+    background: var(--primary);
+    color: var(--bg);
+    text-align: center;
+    font-weight: bold;
+}
+
+.foglalasokTabla td {
+    padding: 10px;
+    text-align: center;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.foglalasokTabla tr:last-child td {
+    border-bottom: none;
+}
+
+.foglalasokTabla tr:hover td {
+    background: var(--disabled);
+}
+
+.nincsFoglalas {
+    color: var(--text);
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Admin oldal */
+.adminTartalom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.adminTartalom h2 {
+    color: var(--text);
+}
+
+.adminTartalom p {
+    color: var(--text);
+    text-align: center;
+    opacity: 0.8;
+}
+
+.adminInput {
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--signin-input-bg);
+    color: var(--signin-input-clr);
+    width: 300px;
+    font-size: 0.9rem;
+}
+
+.adminInput:focus {
+    outline: 2px solid var(--accent);
+    border-color: transparent;
+}
+
+.adminGomb {
+    padding: 10px 25px;
+    background: var(--primary);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.adminGomb:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.adminUzenet {
+    color: var(--text);
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   LAYOUT — ÚJ PARKOLÓHÁZ FORM
+   ============================================================ */
+
+.addParkolohaz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--bg);
+}
+
+.addParkolohaz h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.newParkoloForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid var(--border);
+    padding: 20px;
+    background-color: var(--accent);
+    border-radius: var(--radius);
+    gap: 8px;
+    min-width: 280px;
+}
+
+.newParkoloForm input[type="text"],
+.newParkoloForm input[type="number"] {
+    border: 2px solid var(--border);
+    margin: 2px;
+    width: 200px;
+    height: 28px;
+    padding: 4px 8px;
+    background-color: var(--signin-input-bg);
+    color: var(--signin-input-clr);
+    border-radius: 4px;
+}
+
+.szintSor {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.szintBelso {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.szintNevInput {
+    background-color: var(--disabled) !important;
+    cursor: default;
+}
+
+.szintTorolGomb {
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 3px;
+    background: none;
+    border: none;
+}
+
+.szintMeretek {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.szintMeretek input {
+    width: 95px !important;
+}
+
+.szintHozzaadGomb {
+    background-color: var(--bg);
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.szintHozzaadGomb:hover {
+    background-color: var(--accent);
+}
+
+.parkoloElonezet {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.mentesGomb {
+    border: 2px solid var(--border);
+    width: 200px;
+    height: 28px;
+    background-color: var(--primary);
+    color: var(--bg);
+    cursor: pointer;
+    border-radius: var(--radius);
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.mentesGomb:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+.mentesGomb:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.betoltesText {
+    color: var(--text);
+    margin-top: 10px;
+}
+
+
+/* ============================================================
+   LAYOUT — HEADER / SIDEBAR
    ============================================================ */
 
 .MyHeaderCss {
@@ -185,120 +665,149 @@ body.matcha {
     z-index: 1;
 }
 
-.MyHeaderImage {
-    float: right;
-    height: 50px;
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--secondary);
+    color: var(--disabled);
+    transition: left 0.3s ease;
+    padding: 0;
+    padding-right: 5px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
-.MyHeaderCssButton {
-    float: right;
-    height: 50px;
-    color: var(--text);
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 0.2px;
+.sidebar.open {
+    left: 0;
 }
 
-
-/* ============================================================
-   LAYOUT — RECIPES
-   ============================================================ */
-
-.aktivSzintTab {
-    
-}
-
-.garageKözepe{
+.sidebarTop {
     display: flex;
     width: 100%;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: right;
     align-items: center;
-    
+    min-height: 50px;
+    gap: 10px;
 }
 
-.recipesTitle {
-    font-size: 30px;
-    margin-top: 10px;
+.sidebarAuth {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    gap: 8px;
 }
 
-.recipesBase button {
-    background-color: var(--primary);
+.sidebarBtn {
+    width: 65%;
+    padding: 7px 10px;
+    font-size: 0.875rem;
+    font-weight: bold;
     color: var(--signin-btn-clr);
-    padding: 5px;
+    background-color: var(--signin-btn-bg);
+    border: 1.5px solid var(--accent);
     border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.addnewRecipes {
-    background-color: var(--background);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.newrecipeForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: var(--border) solid 4px;
-    justify-self: center;
-    max-width: 20%;
-    padding: 20px;
+.sidebarBtn:hover {
     background-color: var(--accent);
-    border-radius: var(--radius);
+    color: var(--primary);
 }
 
-.Gonb {
-    display: flex;
-    justify-content: center;
-    justify-self: center;
-    max-width: 500px;
-    font-size: larger;
-    background-color: var(--disabled);
+.sidebarInput {
+    padding: 7px 10px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: var(--signin-input-clr);
+    background-color: var(--signin-input-bg);
+    border: 1.5px solid var(--accent);
+    border-radius: 3px;
+    transition: outline 0.2s ease;
 }
 
-
-/* ============================================================
-   LAYOUT — INGREDIENT CARDS
-   ============================================================ */
-
-.cardok {
-    background-color: var(--surface);
-    border-radius: var(--radius);
-    padding: 20px;
-    max-width: 540px;
+.sidebarInput:focus {
+    outline: 2px solid var(--accent);
+    border-color: transparent;
 }
 
-.hozzavalok {
-    max-width: 500px;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.hozzavalokBase {
+.searchResults {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    justify-self: center;
-    background-color: var(--bg);
-    border-radius: var(--radius);
+    gap: 4px;
+    width: 100%;
+    margin-top: 5px;
+    color: var(--disabled);
+    font-size: 0.875rem;
 }
 
-.hozzavalokList {
-    float: left;
+.sidebarLoginRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: var(--disabled);
+    font-size: 0.78rem;
+    font-weight: bold;
+}
+
+.sidebarLoginRow:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+.sidebarLoginRow:hover .sidebarPersonIcon {
+    filter: brightness(0);
+}
+
+.sidebarPersonIcon {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) invert(1);
+    transition: filter 0.2s ease;
+}
+
+.headerSearch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerSearchField {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.headerSearchField input {
+    flex: 1;
+}
+
+.profilKep {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 
 /* ============================================================
-   LAYOUT — SIGN IN / SIGN UP
+   LAYOUT — SIGN IN / SIGN UP / PWRESET
    ============================================================ */
 
-/* Page wrapper — centers the login box */
 .signinPage {
     display: flex;
     height: 100vh;
@@ -341,7 +850,6 @@ body.matcha {
 
 .signinBase a:hover {
     transform: scale(1.08);
-    letter-spacing: 0.5;
     color: var(--signin-link-hov);
 }
 
@@ -378,21 +886,58 @@ body.matcha {
     border: 1.5px transparent solid;
 }
 
-.signupBase {
+.signinLinks {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-self: center;
     justify-content: center;
-    color: var(--primary);
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--signin-text);
 }
 
-.signupForm {
+.signinLinks a {
+    color: var(--signin-text);
+    cursor: pointer;
+}
+
+.errormsg {
+    color: red;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.pwresetform {
     display: flex;
     flex-direction: column;
-    background-color: var(--accent);
-    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    padding: 30px;
+    background: var(--signin-bg);
     border-radius: var(--radius);
+    border: 2px solid var(--border);
+}
+
+.pwresetform h3 {
+    color: var(--signin-text);
+    text-align: center;
+    max-width: 300px;
+}
+
+.pwresetform input {
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: 1.5px solid var(--signin-input-clr);
+    background: var(--signin-input-bg);
+    color: var(--signin-input-clr);
+    font-weight: bold;
+    width: 250px;
+}
+
+.signinup {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -404,7 +949,16 @@ body.matcha {
     background-color: var(--primary);
     color: var(--bg);
     border-radius: 5px;
-    margin-left: 0.2px;
+    padding: 6px 14px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.MyCssButton:hover {
+    background-color: var(--accent);
+    color: var(--primary);
 }
 
 .logInBtn {
@@ -414,12 +968,13 @@ body.matcha {
     font-weight: bold;
     color: var(--signin-btn-clr);
     border-radius: 5px;
+    border: none;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
 .logInBtn:hover {
     transform: scale(1.08);
-    cursor: pointer;
     color: var(--signin-bg);
 }
 
@@ -428,84 +983,34 @@ body.matcha {
     outline: var(--primary) 1px solid;
 }
 
-.logOutButton {
-    margin-left: 5px;
-}
-
 .deleteAccountButton {
     position: fixed;
     bottom: 5px;
     right: 5px;
     background-color: red;
-}
-
-
-/* ============================================================
-   LISTS
-   ============================================================ */
-
-li::marker {
-    color: var(--text);
-}
-
-li {
-    text-transform: capitalize;
-}
-
-ul {
-    padding-bottom: 10px;
-}
-
-
-/* ============================================================
-   FILE UPLOAD
-   ============================================================ */
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    border: 2px solid var(--border);
-    background-color: var(--bg);
-    width: 200px;
-    display: inline-block;
-    padding: 6px 12px;
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 8px 14px;
     cursor: pointer;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: center;
+    font-weight: bold;
 }
 
-
-/* ============================================================
-   MISC
-   ============================================================ */
-
-.itt {
+.ujParkolohazGomb {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
     cursor: pointer;
-    color: var(--background);
+    font-weight: bold;
+    transition: all 0.2s ease;
 }
 
-.pageNotFound {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    align-items: center;
-    font-size: 100px;
-}
-
-
-/* ============================================================
-   MEDIA QUERIES
-   ============================================================ */
-
-@media only screen and (max-width: 600px) {
-    .cardok {
-        max-width: 100%;
-        font-size: 20px;
-        padding: 10px;
-    }
+.ujParkolohazGomb:hover {
+    background-color: var(--accent);
+    color: var(--primary);
 }
 
 
@@ -562,272 +1067,149 @@ input[type="file"] {
     color: var(--text);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.themeButton.active {
+    font-weight: bold;
+    transform: scale(1.1);
+    font-style: italic;
+    border: 1px black solid;
+    color: #F7E8A4;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
 /* ============================================================
-   CAROUSAL
+   CAROUSEL
    ============================================================ */
 
 .carousel-wrapper {
-  width: 100%;
-  margin: 0 auto;
-  z-index: 0;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 0;
 }
 
 .carousel-image-container {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
 .my-carousel-image {
-  width: 75%;
-  height: 500px; 
-  object-fit: cover;
-  aspect-ratio: 1/1;
-  border-radius: 12px;
+    width: 75%;
+    height: 500px;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
-.carousel-container{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.carousel-text{
-  text-align: center;
-  color: var(--text);
-  font-size: 30px;
+.carousel-text {
+    text-align: center;
+    color: var(--text);
+    font-size: 30px;
 }
 
-.burgerMenu{
+
+/* ============================================================
+   BURGER MENU / HOUSE ICON
+   ============================================================ */
+
+.burgerMenu {
     font-size: 50px;
     cursor: pointer;
     color: rgb(0, 0, 0);
     transition: transform 0.3s ease-in-out, scale 0.3s ease-in-out, color 0.3s ease-in-out;
-    
 }
 
-.burgerMenu:hover{
+.burgerMenu:hover {
     scale: 1.2;
     color: #091e58;
 }
 
-.sidebar{
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background: #222;
-    color: white;
-    transition: 0.3s;
-    padding: 10px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.house {
     z-index: 1;
+    font-size: 30px;
+    padding: 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
-.sidebar.open{
-    left: 0;
-    z-index: 1;
-}
-
-.sidebar button{
-    display: block;
-  
-    margin: 10px 0;
-}
-
-.loginContainer{
-    display: flex;
-    width: 80%;
-    flex-direction: row;
-}
-
-.closeSidebar{
-    font-size: 37.0667px;
-    
-}
-
-.house{
-  z-index: 1;
-  font-size: 30px;
-  padding: 0px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.house:hover{
+.house:hover {
     scale: 1.2;
     color: #4682B4;
 }
 
-.headerSearch{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.closeSidebar {
+    font-size: 37px;
 }
 
-.headerSearchField{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-}
 
 /* ============================================================
-   SIDEBAR (updated)
+   FILE UPLOAD
    ============================================================ */
- 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: var(--secondary);
-    color: var(--disabled);
-    transition: left 0.3s ease;
-    padding: 0;
-    padding-right: 5px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
- 
-.sidebar.open {
-    left: 0;
-}
- 
-.sidebarTop {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: right;
-    align-items: center;
-    min-height: 50px;
-    gap: 10px;
-}
- 
-.sidebarTop .house:first-child {
-    margin: 0;
-}
- 
-.sidebarAuth {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    gap: 8px;
-}
- 
-.sidebarBtn {
-    width: 65%;
-    padding: 7px 10px;
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: var(--signin-btn-clr);
-    background-color: var(--signin-btn-bg);
-    border: 1.5px solid var(--accent);
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
- 
-.sidebarBtn:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-}
- 
-.sidebarBtn:active {
-    outline: 1px solid var(--primary);
-}
- 
-.sidebarInput {
-    padding: 7px 10px;
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: var(--signin-input-clr);
-    background-color: var(--signin-input-bg);
-    border: 1.5px solid var(--accent);
-    border-radius: 3px;
-    transition: outline 0.2s ease;
-}
- 
-.sidebarInput:focus {
-    outline: 2px solid var(--accent);
-    border-color: transparent;
-}
- 
-.searchResults {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 100%;
-    margin-top: 5px;
-    color: var(--disabled);
-    font-size: 0.875rem;
-}
- 
-.sidebarLoginRow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 10px;
-    border-radius: var(--radius);
-    border: 1.5px solid var(--accent);
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    color: var(--disabled);
-    font-size: 0.78rem;
-    font-weight: bold;
-}
- 
-.sidebarLoginRow:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-}
- 
-.sidebarLoginRow:hover .sidebarPersonIcon {
-    filter: brightness(0);
-}
- 
-.sidebarPersonIcon {
-    width: 28px;
-    height: 28px;
-    filter: brightness(0) invert(1);
-    transition: filter 0.2s ease;
-}
- 
-.headerSearchField {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
- 
-.headerSearchField input {
-    flex: 1;
-}
- 
-.headerSearchField .house {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    flex-shrink: 0;
+
+input[type="file"] {
+    display: none;
 }
 
+.custom-file-upload {
+    border: 2px solid var(--border);
+    background-color: var(--bg);
+    width: 200px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    border-radius: var(--radius);
+}
+
+
+/* ============================================================
+   MISC
+   ============================================================ */
+
+.pageNotFound {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    font-size: 100px;
+    color: var(--text);
+}
+
+li::marker { color: var(--text); }
+li { text-transform: capitalize; }
+ul { padding-bottom: 10px; }
+
+
+/* ============================================================
+   MEDIA QUERIES
+   ============================================================ */
+
+@media only screen and (max-width: 600px) {
+    .cardok {
+        max-width: 100%;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .foglalasokTartalom {
+        width: 100%;
+    }
+
+    .adminInput {
+        width: 90%;
+    }
+}

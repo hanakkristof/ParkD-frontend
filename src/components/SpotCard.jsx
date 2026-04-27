@@ -55,11 +55,9 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
     setOrak(null)
   }
 
-
-
   return (
     <>
-      <table>
+      <table className="parkingTable">
         <tbody>
           {Array.from({ length: rows }, (_, rowIndex) => (
             <tr key={rowIndex}>
@@ -69,17 +67,10 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                   <td key={colIndex}>
                     {spot ? (
                       <button
+                        className="spotButton"
                         onClick={() => isAdmin ? handleAdminClick(spot) : handleUserClick(spot)}
-                        style={{ padding: 0, border: "none", background: "none", width: 50, height: 50 }}
                       >
-                        <img
-                        onClick={() => isAdmin ? handleAdminClick(spot) : handleUserClick(spot)}
-                          src={getKep(spot)}
-                          alt={spot.id}
-                          width={50}
-                          height={50}
-                          style={{ display: "block" }}
-                        />
+                        <img src={getKep(spot)} alt={spot.id} />
                       </button>
                     ) : null}
                   </td>
@@ -92,15 +83,11 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
 
       {/* Foglalási modal */}
       {bookingModal && (
-        <div style={{
-          position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-          background: "var(--bg)", color: "var(--text)", display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 1000
-        }}>
-          <div style={{ background: "var(--bg)", color: "var(--text)", padding: 30, borderRadius: "var(--radius)", minWidth: 300, textAlign: "center" }}>
+        <div className="modalOverlay">
+          <div className="modalBox">
             <h3>Parkolóhely foglalás</h3>
             <p>Válaszd ki a foglalás időtartamát:</p>
-            <div style={{ display: "flex", gap: 10, justifyContent: "center", margin: "20px 0" }}>
+            <div className="modalIdopontok">
               {[
                 { label: "30 perc", perc: 30 },
                 { label: "1 óra", perc: 60 },
@@ -109,19 +96,14 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                 <button
                   key={perc}
                   onClick={() => setOrak(perc)}
-                  style={{
-                    padding: "15px 20px",
-                    background: orak === perc ? "var(--accent)" : "var(--disabled)", color: "var(--text)",
-                    border: "none", borderRadius: 8, cursor: "pointer",
-                    fontWeight: "bold"
-                  }}
+                  className={`modalIdopontGomb ${orak === perc ? "aktiv" : ""}`}
                 >
                   {label}
                 </button>
               ))}
             </div>
             {orak && (
-              <p style={{ color: "#666" }}>
+              <p className="modalFoglalasVege">
                 Foglalás vége: {(() => {
                   const d = new Date()
                   d.setMinutes(d.getMinutes() + orak)
@@ -129,20 +111,17 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                 })()}
               </p>
             )}
-            <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 20 }}>
+            <div className="modalGombok">
               <button
                 onClick={handleFoglalas}
                 disabled={!orak}
-                style={{
-                  padding: "10px 25px", background: "var(--primary)", color: "var(--bg)", 
-                  border: "none", borderRadius: 5, cursor: orak ? "pointer" : "default"
-                }}
+                className="modalFoglalasGomb"
               >
                 Foglalás
               </button>
               <button
                 onClick={() => { setBookingModal(null); setOrak(null) }}
-                style={{ padding: "10px 25px", background: "var(--secondary)", color: "var(--bg)", border: "none", borderRadius: 5, cursor: "pointer" }}
+                className="modalMegseGomb"
               >
                 Mégse
               </button>
@@ -153,13 +132,15 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
 
       {/* Info modal - foglalt hely */}
       {infoModal && (
-        <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ background: "white", padding: 30, borderRadius: 10 }}>
+        <div className="modalOverlay">
+          <div className="modalBox">
             <h3>Ez a hely foglalt</h3>
             <p>Lefoglalva eddig: {infoModal.foglalasVege?.toDate().toLocaleString("hu-HU")}</p>
-            <button onClick={() => setInfoModal(null)} style={{ padding: "10px 20px", background: "var(--primary)", color: "var(--bg)", border: "none", borderRadius: 5, cursor: "pointer" }}>
-              Bezárás
-            </button>
+            <div className="modalGombok">
+              <button onClick={() => setInfoModal(null)} className="modalBezarasGomb">
+                Bezárás
+              </button>
+            </div>
           </div>
         </div>
       )}
