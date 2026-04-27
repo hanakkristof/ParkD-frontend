@@ -1,16 +1,16 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router'
-import { FaHouseChimney } from "react-icons/fa6";
-import { useContext } from 'react';
-import { MyUserContext } from '../context/MyUserProvider';
-import { RxAvatar } from "react-icons/rx";
-import { IoIosSearch, IoMdMenu } from 'react-icons/io';
-import { useState } from 'react';
-import { RiCloseLargeFill } from 'react-icons/ri';
-import { searchHely } from '../myBackend';
-import { useEffect } from 'react';
-import { useRef } from 'react';
-import personIcon from '../assets/person_circle_regular_icon.png';
+import { FaHouseChimney } from "react-icons/fa6"
+import { useContext } from 'react'
+import { MyUserContext } from '../context/MyUserProvider'
+import { RxAvatar } from "react-icons/rx"
+import { IoIosSearch, IoMdMenu } from 'react-icons/io'
+import { useState } from 'react'
+import { RiCloseLargeFill } from 'react-icons/ri'
+import { searchHely } from '../myBackend'
+import { useEffect } from 'react'
+import { useRef } from 'react'
+import personIcon from '../assets/person_circle_regular_icon.png'
 
 export const MyHeader = () => {
   const navigate = useNavigate()
@@ -40,61 +40,52 @@ export const MyHeader = () => {
     return () => {
       document.removeEventListener("mousedown", kikattint)
     }
-  }, [openSidebar, setOpenSidebar])
+  }, [openSidebar])
 
   return (
-    <div className='MyHeaderCss'>
-
+    <div className="MyHeaderCss">
       <div ref={sidebarRef} className={`sidebar ${openSidebar ? "open" : ""}`}>
 
-        <div className='sidebarTop'>
-
+        <div className="sidebarTop">
           {user ? (
-
             <span>
-              {user?.photoURL ? (
-                <img style={{ width: "50px", height: "50px", borderRadius: "50%", objectFit: "cover" }} onClick={() => navigate('/profile')} src={user.photoURL} alt="profilkép" />
-              ) : (
-                <RxAvatar size={50} style={{ color: "white" }} onClick={() => navigate('/profile')} title={user?.displayName} />
-              )}
+              {user?.photoURL
+                ? <img className="profilKep" onClick={() => navigate('/profile')} src={user.photoURL} alt="profilkép" />
+                : <RxAvatar size={50} onClick={() => navigate('/profile')} title={user?.displayName} />
+              }
             </span>
           ) : (
-            <div className='MyHeaderCss'>
-              {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
+            <div className="MyHeaderCss">
+              {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className="burgerMenu" />}
             </div>
           )}
 
           {user ? (
-            <button className='sidebarBtn' onClick={() => logoutUser()}>
+            <button className="sidebarBtn" onClick={() => logoutUser()}>
               Kijelentkezés
             </button>
           ) : (
-            <div
-              className='sidebarLoginRow'
-              onClick={() => { navigate("/signin"); setOpenSidebar(false) }}
-            >
-              <img src={personIcon} alt="account" className='sidebarPersonIcon' />
+            <div className="sidebarLoginRow" onClick={() => { navigate("/signin"); setOpenSidebar(false) }}>
+              <img src={personIcon} alt="account" className="sidebarPersonIcon" />
               <span>Bejelentkezés / Regisztráció</span>
             </div>
           )}
-          <RiCloseLargeFill
-            onClick={() => setOpenSidebar(false)}
-            className='house closeSidebar'
-          />
+
+          <RiCloseLargeFill onClick={() => setOpenSidebar(false)} className="house closeSidebar" />
         </div>
 
-        <div className='headerSearch'>
-          <span className='headerSearchField'>
+        <div className="headerSearch">
+          <span className="headerSearchField">
             <input
               value={searchedText}
               onChange={(e) => setSearchedText(e.target.value)}
               type="text"
-              className='sidebarInput'
-              placeholder='Keresés...'
+              className="sidebarInput"
+              placeholder="Keresés..."
             />
-            <IoIosSearch onClick={handleSearch} className='house' />
+            <IoIosSearch onClick={handleSearch} className="house" />
           </span>
-          <div className='searchResults'>
+          <div className="searchResults">
             {searchedResult.map(item => (
               <div key={item.id}>{item.hely}</div>
             ))}
@@ -103,17 +94,12 @@ export const MyHeader = () => {
 
         <div>
           {!isHome && (
-            <FaHouseChimney
-              onClick={() => { navigate("/"); setOpenSidebar(false) }}
-              className='house'
-            />
+            <FaHouseChimney onClick={() => { navigate("/"); setOpenSidebar(false) }} className="house" />
           )}
         </div>
-
       </div>
 
-      {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className='burgerMenu' />}
-
+      {!openSidebar && <IoMdMenu onClick={() => setOpenSidebar(!openSidebar)} className="burgerMenu" />}
     </div>
   )
 }

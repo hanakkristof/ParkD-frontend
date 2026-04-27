@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router'
 import { MyUserContext } from '../context/MyUserProvider'
 
 export const SignIn = () => {
-
     const navigate = useNavigate()
     const { signInUser, msg } = useContext(MyUserContext)
 
@@ -15,28 +14,24 @@ export const SignIn = () => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
         signInUser(data.get("email"), data.get("password"))
-
     }
 
     return (
-        <div className='signinPage'>
-            <div className='signinBase'>
-                <form className='signinForm' onSubmit={handleSubmit}>
+        <div className="signinPage">
+            <div className="signinBase">
+                <form className="signinForm" onSubmit={handleSubmit}>
                     <h1>Bejelentkezés</h1>
-                    <input name='email' type="email" placeholder='Email' required style={{background: "#f0f0f0", color:"black"}} />
-                    <input name='password' type="password" placeholder='Jelszó' required style={{background: "#f0f0f0", color:"black"}}/>
-
-                    <button className='logInBtn'>Bejelentkezés</button>
+                    <input name="email" type="email" placeholder="Email" required />
+                    <input name="password" type="password" placeholder="Jelszó" required />
+                    <button className="logInBtn">Bejelentkezés</button>
                 </form>
-                <div className='error'>
-                    {msg && msg?.err && <p className='errormsg'>{msg.err}</p>}
-
+                <div className="error">
+                    {msg?.err && <p className="errormsg">{msg.err}</p>}
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", gap: "5px", color:"#f0f0f0" }}>
-                    <a href="#" onClick={() => navigate("/pwreset")} style={{color:"#f0f0f0"}}>Elfelejtett jelszó</a>
-
-                    <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")} style={{ cursor: "pointer", color: "#f0f0f0" }}>itt</a>!</p></div>
-
+                <div className="signinLinks">
+                    <a href="#" onClick={() => navigate("/pwreset")}>Elfelejtett jelszó</a>
+                    <p>Nincs fiókod? Csinálj egyet <a onClick={() => navigate("/signup")}>itt</a>!</p>
+                </div>
             </div>
         </div>
     )

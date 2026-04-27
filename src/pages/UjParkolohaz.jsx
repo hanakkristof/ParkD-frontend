@@ -1,20 +1,15 @@
-
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { addParkoloHaz } from '../myBackend';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { MyUserContext } from '../context/MyUserProvider';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-import { IoMdClose } from 'react-icons/io';
 import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseApp';
 import { uploadImage } from '../cloudinaryUtils';
 
-
 export const ParkolohazForm = () => {
-
     const { user } = useContext(MyUserContext)
 
     const [name, setName] = useState("")
@@ -24,18 +19,11 @@ export const ParkolohazForm = () => {
     const [preview, setPreview] = useState(null)
     const [loading, setLoading] = useState(false)
     const [parkoloHaz, setParkolohaz] = useState(null)
-    const [sor, setSor] = useState("")
-    const [oszlop, setOszlop] = useState("")
     const navigate = useNavigate()
-
-
-    const [parkolohely, setParkolohely] = useState([])
-
     const { id } = useParams()
 
     useEffect(() => {
-        if (id)
-            readParkolohaz(id, setParkolohaz)
+        if (id) readParkolohaz(id, setParkolohaz)
     }, [id])
 
     useEffect(() => {
@@ -47,10 +35,6 @@ export const ParkolohazForm = () => {
         }
     }, [parkoloHaz])
 
-
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -58,11 +42,8 @@ export const ParkolohazForm = () => {
             let imgUrl = "";
             if (file) {
                 const uploadResult = await uploadImage(file)
-                console.log("uploadResult:", uploadResult)
                 imgUrl = uploadResult.url
             }
-
-
 
             const parkolohazRef = await addDoc(collection(db, "parkolohazak"), {
                 name: name,
@@ -75,7 +56,7 @@ export const ParkolohazForm = () => {
                 const szintRef = await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek"), {
                     szint_szama: szint.szint_szama,
                     szint_sor: szint.sor,
-                    szint_oszlop:szint.sor
+                    szint_oszlop: szint.sor
                 })
 
                 for (let i = 0; i < szint.sor * szint.oszlop; i++) {
@@ -86,12 +67,10 @@ export const ParkolohazForm = () => {
                     })
                 }
             }
-
         } catch (error) {
             console.error("Hiba a mentés során: ", error)
         }
         setLoading(false)
-
     }
 
     const updateSzint = (index, mezo, ertek) => {
@@ -103,7 +82,6 @@ export const ParkolohazForm = () => {
     const readParkolohaz = async (id, setCallback) => {
         const docRef = doc(db, "parkolohazak", id);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
             setCallback(docSnap.data());
         } else {
@@ -114,54 +92,56 @@ export const ParkolohazForm = () => {
     const handleFileChange = (e) => {
         const selected = e.target.files[0]
         setFile(selected)
-        if (selected) {
-            setPreview(URL.createObjectURL(selected))
-        }
+        if (selected) setPreview(URL.createObjectURL(selected))
     }
 
     return (
+        <div className="addParkolohaz">
+            <h1>Új parkolóház feltöltése</h1>
+            <form className="newParkoloForm" onSubmit={handleSubmit}>
 
+                <input
+                    type="text"
+                    placeholder="Parkolóház Neve"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
 
-        <div className='addParkolohaz'>
-            <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Új parkolóház feltöltése</h1>
-            <form className='newrecipeForm' onSubmit={handleSubmit}>
-
-                <input type="text" style={{ border: '2px solid black', margin: '5px', width: "240px", height: "25px" }} placeholder='Parkolóház Neve' value={name} onChange={(e) => setName(e.target.value)} required />
-                <div >
-
+                <div>
                     {szintek.map((item, index) => (
-                        <div key={index} style={{ display: "flex", alignItems: "center", position: "relative", marginBottom: "5px" }}>
-                            <div style={{ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center", justifyContent: "center" }}>
+                        <div key={index} className="szintSor">
+                            <div className="szintBelso">
                                 <div>
                                     <input
-                                        style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "#f0f0f0" }}
+                                        className="szintNevInput"
                                         type="text"
                                         value={`${item.szint_szama}. szint`}
                                         readOnly
                                     />
-
                                     {szintek.length > 1 && (
-                                        <span
-                                            style={{ cursor: "pointer", color: "red", fontWeight: "bold", position: "absolute", marginLeft: "10px", marginTop: "3px" }}
+                                        <button
+                                            type="button"
+                                            className="szintTorolGomb"
                                             onClick={() => {
-                                                const newSzintek = szintek.filter((_, i) => i !== index)
-                                                    .map((_, i) => i + 1);
-                                                setSzintek(newSzintek);
+                                                const newSzintek = szintek
+                                                    .filter((_, i) => i !== index)
+                                                    .map((s, i) => ({ ...s, szint_szama: i + 1 }))
+                                                setSzintek(newSzintek)
                                             }}
                                         >
                                             <FaTrash />
-                                        </span>
+                                        </button>
                                     )}
                                 </div>
 
-                                <div style={{ display: "flex", flexDirection: "row" }}>
+                                <div className="szintMeretek">
                                     <input
                                         required
                                         value={item.sor}
                                         onChange={(e) => updateSzint(index, "sor", e.target.value)}
                                         type="number"
                                         placeholder="sor"
-                                        style={{ border: '2px solid black' }}
                                     />
                                     <input
                                         required
@@ -169,33 +149,37 @@ export const ParkolohazForm = () => {
                                         onChange={(e) => updateSzint(index, "oszlop", e.target.value)}
                                         type="number"
                                         placeholder="oszlop"
-                                        style={{ border: '2px solid black' }}
                                     />
                                 </div>
 
-                                <div style={{ marginTop: "4.5px", margin: "0.5px", width: "200px", height: "25px", display: "flex", justifyContent: "center", fontSize: "25px" }}>
-                                    <FaPlus
-                                        style={{ backgroundColor: "white", borderRadius: "50%", border: "2px solid black", cursor: "pointer" }}
-                                        onClick={() => setSzintek([...szintek, { szint_szama: szintek.length + 1, sor: "", oszlop: "" }])}
-                                    />
-                                </div>
+                                <button
+                                    type="button"
+                                    className="szintHozzaadGomb"
+                                    onClick={() => setSzintek([...szintek, { szint_szama: szintek.length + 1, sor: "", oszlop: "" }])}
+                                >
+                                    <FaPlus />
+                                </button>
                             </div>
                         </div>
                     ))}
-
                 </div>
-                <input style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px" }} type="text" value={hely} onChange={(e) => setHely(e.target.value)} placeholder='Helyszín: ' required />
 
-                <label htmlFor="file-upload" className='custom-file-upload'>Kép feltöltése</label>
-                <input id="file-upload" style={{ marginTop: "6px", marginBottom: "5px", width: "250px", height: "25px" }} type="file" accept='image/*' onChange={handleFileChange} />
+                <input
+                    type="text"
+                    value={hely}
+                    onChange={(e) => setHely(e.target.value)}
+                    placeholder="Helyszín:"
+                    required
+                />
 
-                {preview && <img src={preview} alt='előnézet' style={{ maxWidth: "200px", maxHeight: "200", objectFit: "cover", marginBottom: "5PX", border: "2px solid black" }} />}
+                <label htmlFor="file-upload" className="custom-file-upload">Kép feltöltése</label>
+                <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
 
+                {preview && <img src={preview} alt="előnézet" className="parkoloElonezet" />}
 
-                <button style={{ border: '2px solid black', margin: "0.5px", width: "200px", height: "25px", backgroundColor: "white", cursor: "pointer" }} type='submit' disabled={loading}>Mentés</button>
+                <button className="mentesGomb" type="submit" disabled={loading}>Mentés</button>
             </form>
-            {loading && <div>Loading...</div>}
+            {loading && <p className="betoltesText">Feltöltés folyamatban...</p>}
         </div>
-
     )
 }
