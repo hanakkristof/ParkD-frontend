@@ -71,7 +71,6 @@ export const Garage = () => {
           {aktivSzint ? (
             <>
               <h3>{aktivSzint.szint_szama}. szint</h3>
-              <p>Szint ID: {aktivSzint.id}</p>
               <ParkingFloor
                 rows={aktivSzint?.szint_sor}
                 columns={aktivSzint?.szint_oszlop}

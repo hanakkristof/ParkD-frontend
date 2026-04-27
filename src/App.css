@@ -4,739 +4,431 @@
 }
 
 /* ============================================================
-   CSS VÁLTOZÓK / THEME
+   CSS VÁLTOZÓK / THEME — DEFAULT (sötét, elegáns)
    ============================================================ */
 
 :root {
-    --primary:    #443742ff;
-    --secondary:  #846c5bff;
-    --accent:     #cea07eff;
-    --background: #edd9a3ff;
-    --disabled:   #e2e8c0ff;
+    --primary:        #443742;
+    --secondary:      #846c5b;
+    --accent:         #cea07e;
+    --bg:             #2e2b2e;
+    --surface:        #3d3740;
+    --text:           #edd9a3;
+    --text-muted:     #a89880;
+    --border:         #5a4f57;
+    --disabled:       #4a4348;
+    --shadow:         0 4px 16px rgba(0, 0, 0, 0.5);
+    --radius:         10px;
 
-    --bg:         #808080;
-    --text:       #1a1a1a;
-    --surface:    #cea07eff;
-    --border:     #000000f1;
-    --shadow:     0 4px 12px rgba(0, 0, 0, 0.33);
-    --radius:     10px;
-
-    --signin-bg:        #95a3b3;
-    --signin-text:      #DCDFE5;
-    --signin-input-bg:  #DCDFE5;
-    --signin-input-clr: #1e3a8a;
-    --signin-link:      #1e42a5;
-    --signin-link-hov:  #162d6b;
-    --signin-btn-bg:    #dcdfe5af;
-    --signin-btn-clr:   #091e58;
+    --form-bg:        #3d3740;
+    --form-text:      #edd9a3;
+    --input-bg:       #2e2b2e;
+    --input-text:     #edd9a3;
+    --input-border:   #cea07e;
+    --link:           #cea07e;
+    --link-hover:     #edd9a3;
+    --btn-bg:         #443742;
+    --btn-text:       #edd9a3;
+    --btn-hover-bg:   #cea07e;
+    --btn-hover-text: #2e2b2e;
+    --sidebar-bg:     #2a2628;
+    --sidebar-text:   #edd9a3;
 
     background-color: var(--bg);
+    color: var(--text);
 }
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
 
 body.light {
-    --primary:    #2a2a2a;
-    --secondary:  #555555;
-    --accent:     #0077ff;
-    --background: #f9f9f9;
-    --disabled:   #e0e0e0;
+    --primary:        #2a2a2a;
+    --secondary:      #555555;
+    --accent:         #0077ff;
+    --bg:             #ffffff;
+    --surface:        #f2f2f2;
+    --text:           #1a1a1a;
+    --text-muted:     #666666;
+    --border:         #cccccc;
+    --disabled:       #e0e0e0;
+    --shadow:         0 4px 12px rgba(0, 0, 0, 0.1);
+    --radius:         12px;
 
-    --bg:         #ffffff;
-    --text:       #000000;
-    --surface:    #f9f9f9;
-    --border:     #cccccc;
-    --shadow:     0 4px 12px rgba(0, 0, 0, 0.1);
-    --radius:     12px;
-
-    --signin-bg:        #f9f9f9;
-    --signin-text:      #000000;
-    --signin-input-bg:  #ffffff;
-    --signin-input-clr: #0077ff;
-    --signin-link:      #0077ff;
-    --signin-link-hov:  #005fcc;
-    --signin-btn-bg:    #0077ff;
-    --signin-btn-clr:   #ffffff;
+    --form-bg:        #f2f2f2;
+    --form-text:      #1a1a1a;
+    --input-bg:       #ffffff;
+    --input-text:     #1a1a1a;
+    --input-border:   #0077ff;
+    --link:           #0077ff;
+    --link-hover:     #005fcc;
+    --btn-bg:         #0077ff;
+    --btn-text:       #ffffff;
+    --btn-hover-bg:   #005fcc;
+    --btn-hover-text: #ffffff;
+    --sidebar-bg:     #f2f2f2;
+    --sidebar-text:   #1a1a1a;
 
     background-color: var(--bg);
+    color: var(--text);
 }
+
+/* ============================================================
+   MATCHA THEME
+   ============================================================ */
 
 body.matcha {
-    --primary:    #2f4f2f;
-    --secondary:  #4a7a4a;
-    --accent:     #4caf50;
-    --background: #e6f0d4;
-    --disabled:   #c0d6a5;
+    --primary:        #2f4f2f;
+    --secondary:      #4a7a4a;
+    --accent:         #4caf50;
+    --bg:             #f0f8e2;
+    --surface:        #e2f0cc;
+    --text:           #2f4f2f;
+    --text-muted:     #5a7a5a;
+    --border:         #a0c080;
+    --disabled:       #c8ddb0;
+    --shadow:         0 4px 12px rgba(0, 0, 0, 0.12);
+    --radius:         12px;
 
-    --bg:         #f6fdea;
-    --text:       #2f4f2f;
-    --surface:    #f0f8e0;
-    --border:     #c0d6a5;
-    --shadow:     0 4px 12px rgba(0, 0, 0, 0.15);
-    --radius:     12px;
-
-    --signin-bg:        #f0fadd;
-    --signin-text:      #2f4f2f;
-    --signin-input-bg:  #ffffff;
-    --signin-input-clr: #2f4f2f;
-    --signin-link:      #4caf50;
-    --signin-link-hov:  #2f4f2f;
-    --signin-btn-bg:    #4caf50;
-    --signin-btn-clr:   #ffffff;
+    --form-bg:        #e2f0cc;
+    --form-text:      #2f4f2f;
+    --input-bg:       #f8fff0;
+    --input-text:     #2f4f2f;
+    --input-border:   #4caf50;
+    --link:           #2f7a2f;
+    --link-hover:     #1a4f1a;
+    --btn-bg:         #4caf50;
+    --btn-text:       #ffffff;
+    --btn-hover-bg:   #2f4f2f;
+    --btn-hover-text: #ffffff;
+    --sidebar-bg:     #d8ecc0;
+    --sidebar-text:   #2f4f2f;
 
     background-color: var(--bg);
+    color: var(--text);
+}
+
+/* ============================================================
+   MIDNIGHT THEME (mélysötét lila)
+   ============================================================ */
+
+body.midnight {
+    --primary:        #7c3aed;
+    --secondary:      #5b21b6;
+    --accent:         #a78bfa;
+    --bg:             #0f0a1a;
+    --surface:        #1a1228;
+    --text:           #e2d9f3;
+    --text-muted:     #9d8ec4;
+    --border:         #3b2d6b;
+    --disabled:       #2a1f4a;
+    --shadow:         0 4px 20px rgba(124, 58, 237, 0.3);
+    --radius:         12px;
+
+    --form-bg:        #1a1228;
+    --form-text:      #e2d9f3;
+    --input-bg:       #0f0a1a;
+    --input-text:     #e2d9f3;
+    --input-border:   #7c3aed;
+    --link:           #a78bfa;
+    --link-hover:     #e2d9f3;
+    --btn-bg:         #7c3aed;
+    --btn-text:       #ffffff;
+    --btn-hover-bg:   #a78bfa;
+    --btn-hover-text: #0f0a1a;
+    --sidebar-bg:     #130d22;
+    --sidebar-text:   #e2d9f3;
+
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* ============================================================
+   OCEAN THEME (kék tónus)
+   ============================================================ */
+
+body.ocean {
+    --primary:        #0e4d78;
+    --secondary:      #1a6fa0;
+    --accent:         #38bdf8;
+    --bg:             #0a1929;
+    --surface:        #0d2137;
+    --text:           #bae6fd;
+    --text-muted:     #7ab8d4;
+    --border:         #1e4d70;
+    --disabled:       #152d45;
+    --shadow:         0 4px 20px rgba(14, 77, 120, 0.4);
+    --radius:         12px;
+
+    --form-bg:        #0d2137;
+    --form-text:      #bae6fd;
+    --input-bg:       #0a1929;
+    --input-text:     #bae6fd;
+    --input-border:   #38bdf8;
+    --link:           #38bdf8;
+    --link-hover:     #bae6fd;
+    --btn-bg:         #0e4d78;
+    --btn-text:       #bae6fd;
+    --btn-hover-bg:   #38bdf8;
+    --btn-hover-text: #0a1929;
+    --sidebar-bg:     #071524;
+    --sidebar-text:   #bae6fd;
+
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 
 /* ============================================================
-   LAYOUT — HOME / BANNER
+   ALAP ELEMEK
    ============================================================ */
 
-.homeContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-}
-
-.banner {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100vh;
+body {
     background-color: var(--bg);
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.homeh1 {
     color: var(--text);
-    margin-bottom: 30px;
-    font-size: 100px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-                 Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                 Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.floorPlan {
-    display: flex;
-    align-items: center;
-    justify-content: top;
-    flex-direction: column;
-    min-height: 100vh;
-}
+h1, h2, h3, h4, h5, h6 { color: var(--text); }
+p { color: var(--text); }
+a { color: var(--link); text-decoration: none; cursor: pointer; transition: color 0.2s ease; }
+a:hover { color: var(--link-hover); }
+li::marker { color: var(--text); }
+li { text-transform: capitalize; }
+ul { padding-bottom: 10px; }
+button { font-family: inherit; cursor: pointer; }
 
-.garagePlace {
-    margin-bottom: 20px;
-    font-size: 100px;
-}
-
-.garageName {
-    font-size: 50px;
-}
-
-.garageKözepe {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
+input[type="file"] { display: none; }
 
 
 /* ============================================================
-   LAYOUT — SZINT TABOK (Garage)
+   GOMBOK
    ============================================================ */
 
-.szintTabok {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-right: 20px;
-}
-
-.szintTab {
-    padding: 8px 14px;
-    background-color: var(--disabled);
-    color: var(--text);
+.MyCssButton {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    cursor: pointer;
+    padding: 8px 18px;
     font-weight: bold;
     transition: all 0.2s ease;
 }
+.MyCssButton:hover { background-color: var(--btn-hover-bg); color: var(--btn-hover-text); }
 
-.szintTab:hover {
-    background-color: var(--accent);
+.logInBtn {
+    min-width: 150px;
+    min-height: 35px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
 }
+.logInBtn:hover { background-color: var(--btn-hover-bg); color: var(--btn-hover-text); transform: scale(1.04); }
 
-.szintTab.aktiv {
-    background-color: var(--primary);
-    color: var(--bg);
-    border-color: var(--primary);
-}
-
-.aktivSzintTab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.aktivSzintTab h3 {
-    color: var(--text);
-    margin-bottom: 4px;
-}
-
-.aktivSzintTab p {
-    color: var(--text);
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-    opacity: 0.7;
-}
-
-
-/* ============================================================
-   LAYOUT — PARKOLÓHELY TÁBLÁZAT (SpotCard)
-   ============================================================ */
-
-.parkingTable {
-    border-collapse: collapse;
-}
-
-.parkingTable td {
-    padding: 2px;
-}
-
-.spotButton {
-    padding: 0;
-    border: none;
-    background: none;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    display: block;
-}
-
-.spotButton img {
-    display: block;
-    width: 50px;
-    height: 50px;
-}
-
-
-/* ============================================================
-   LAYOUT — MODÁLOK (SpotCard)
-   ============================================================ */
-
-.modalOverlay {
+.deleteAccountButton {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.modalBox {
-    background: var(--bg);
-    color: var(--text);
-    padding: 30px;
+    bottom: 10px;
+    right: 10px;
+    background-color: #c0392b;
+    color: #ffffff;
+    border: none;
     border-radius: var(--radius);
-    min-width: 300px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    border: 1.5px solid var(--border);
-}
-
-.modalBox h3 {
-    margin-bottom: 10px;
-}
-
-.modalBox p {
-    margin-bottom: 15px;
-    opacity: 0.8;
-}
-
-.modalIdopontok {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.modalIdopontGomb {
-    padding: 15px 20px;
-    background: var(--disabled);
-    color: var(--text);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer;
+    padding: 8px 16px;
     font-weight: bold;
-    transition: all 0.2s ease;
+    z-index: 100;
+    transition: background-color 0.2s ease;
 }
+.deleteAccountButton:hover { background-color: #e74c3c; }
 
-.modalIdopontGomb:hover {
-    background: var(--accent);
-}
-
-.modalIdopontGomb.aktiv {
-    background: var(--accent);
-    color: var(--primary);
-    border-color: var(--primary);
-}
-
-.modalFoglalasVege {
-    color: var(--text);
-    opacity: 0.7;
-    margin-bottom: 15px;
-}
-
-.modalGombok {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+.ujParkolohazGomb {
     margin-top: 20px;
-}
-
-.modalFoglalasGomb {
-    padding: 10px 25px;
-    background: var(--primary);
-    color: var(--bg);
-    border: none;
+    padding: 10px 22px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    cursor: pointer;
     font-weight: bold;
     transition: all 0.2s ease;
 }
-
-.modalFoglalasGomb:disabled {
-    background: var(--disabled);
-    cursor: default;
-    opacity: 0.6;
-}
-
-.modalMegseGomb {
-    padding: 10px 25px;
-    background: var(--secondary);
-    color: var(--bg);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s ease;
-}
-
-.modalBezarasGomb {
-    padding: 10px 20px;
-    background: var(--primary);
-    color: var(--bg);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-weight: bold;
-}
+.ujParkolohazGomb:hover { background-color: var(--btn-hover-bg); color: var(--btn-hover-text); }
 
 
 /* ============================================================
-   LAYOUT — USER PROFILE
+   FORM ELEMEK
    ============================================================ */
 
-.userProfileOldal {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    gap: 20px;
-}
-
-.userProfileNav {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.userProfileNavGomb {
-    padding: 10px 20px;
-    background: var(--disabled);
-    color: var(--text);
-    border: 1.5px solid var(--border);
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1.5px solid var(--input-border);
     border-radius: var(--radius);
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s ease;
-}
-
-.userProfileNavGomb:hover {
-    background: var(--accent);
-}
-
-.userProfileNavGomb.aktiv {
-    background: var(--primary);
-    color: var(--bg);
-    border-color: var(--primary);
-}
-
-/* Profil oldal */
-.userProfilTartalom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.userProfilKep {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--border);
-}
-
-.userProfilElonezet {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--border);
-    display: block;
-    margin: 0 auto;
-}
-
-/* Foglalások oldal */
-.foglalasokTartalom {
-    width: 80%;
-}
-
-.foglalasokTartalom h2 {
-    margin-bottom: 15px;
-    color: var(--text);
-}
-
-.foglalasokTabla {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-}
-
-.foglalasokTabla th {
-    padding: 12px 10px;
-    background: var(--primary);
-    color: var(--bg);
-    text-align: center;
-    font-weight: bold;
-}
-
-.foglalasokTabla td {
-    padding: 10px;
-    text-align: center;
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
-}
-
-.foglalasokTabla tr:last-child td {
-    border-bottom: none;
-}
-
-.foglalasokTabla tr:hover td {
-    background: var(--disabled);
-}
-
-.nincsFoglalas {
-    color: var(--text);
-    opacity: 0.7;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Admin oldal */
-.adminTartalom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-}
-
-.adminTartalom h2 {
-    color: var(--text);
-}
-
-.adminTartalom p {
-    color: var(--text);
-    text-align: center;
-    opacity: 0.8;
-}
-
-.adminInput {
-    padding: 10px;
-    border-radius: var(--radius);
-    border: 1.5px solid var(--border);
-    background: var(--signin-input-bg);
-    color: var(--signin-input-clr);
-    width: 300px;
+    padding: 7px 10px;
     font-size: 0.9rem;
+    font-weight: bold;
+    font-family: inherit;
+    transition: outline 0.2s ease;
 }
-
-.adminInput:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
     outline: 2px solid var(--accent);
     border-color: transparent;
 }
 
-.adminGomb {
-    padding: 10px 25px;
-    background: var(--primary);
-    color: var(--bg);
-    border: none;
-    border-radius: var(--radius);
+.custom-file-upload {
+    border: 2px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text);
+    width: 200px;
+    display: inline-block;
+    padding: 6px 12px;
     cursor: pointer;
-    font-weight: bold;
+    margin: 5px 0;
+    text-align: center;
+    border-radius: var(--radius);
     transition: all 0.2s ease;
 }
+.custom-file-upload:hover { background-color: var(--accent); color: var(--bg); }
 
-.adminGomb:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.adminUzenet {
-    color: var(--text);
-    font-weight: bold;
-}
+.errormsg { color: #e74c3c; font-size: 0.85rem; text-align: center; }
 
 
 /* ============================================================
-   LAYOUT — ÚJ PARKOLÓHÁZ FORM
+   SIGN IN / SIGN UP / PWRESET
    ============================================================ */
 
-.addParkolohaz {
+.signinPage,
+.signinup {
     display: flex;
-    flex-direction: column;
+    height: 100vh;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
     background-color: var(--bg);
 }
 
-.addParkolohaz h1 {
-    text-align: center;
-    margin-bottom: 10px;
-    color: var(--text);
-}
-
-.newParkoloForm {
+.signinBase {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--border);
-    padding: 20px;
-    background-color: var(--accent);
-    border-radius: var(--radius);
-    gap: 8px;
-    min-width: 280px;
-}
-
-.newParkoloForm input[type="text"],
-.newParkoloForm input[type="number"] {
-    border: 2px solid var(--border);
-    margin: 2px;
-    width: 200px;
-    height: 28px;
-    padding: 4px 8px;
-    background-color: var(--signin-input-bg);
-    color: var(--signin-input-clr);
-    border-radius: 4px;
-}
-
-.szintSor {
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin-bottom: 5px;
-}
-
-.szintBelso {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-}
-
-.szintNevInput {
-    background-color: var(--disabled) !important;
-    cursor: default;
-}
-
-.szintTorolGomb {
-    cursor: pointer;
-    color: red;
-    font-weight: bold;
-    position: absolute;
-    margin-left: 10px;
-    margin-top: 3px;
-    background: none;
-    border: none;
-}
-
-.szintMeretek {
-    display: flex;
-    flex-direction: row;
-    gap: 4px;
-}
-
-.szintMeretek input {
-    width: 95px !important;
-}
-
-.szintHozzaadGomb {
-    background-color: var(--bg);
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    cursor: pointer;
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.szintHozzaadGomb:hover {
-    background-color: var(--accent);
-}
-
-.parkoloElonezet {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: cover;
-    margin-bottom: 5px;
+    width: clamp(300px, 35vw, 450px);
+    background-color: var(--form-bg);
     border: 2px solid var(--border);
     border-radius: var(--radius);
+    padding: 25px 15px;
+    gap: 15px;
+    box-shadow: var(--shadow);
 }
 
-.mentesGomb {
-    border: 2px solid var(--border);
-    width: 200px;
-    height: 28px;
-    background-color: var(--primary);
-    color: var(--bg);
-    cursor: pointer;
-    border-radius: var(--radius);
-    font-weight: bold;
-    transition: all 0.2s ease;
-}
+.signinBase h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); color: var(--form-text); }
 
-.mentesGomb:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-}
-
-.mentesGomb:disabled {
-    opacity: 0.6;
-    cursor: default;
-}
-
-.betoltesText {
-    color: var(--text);
-    margin-top: 10px;
-}
-
-
-/* ============================================================
-   LAYOUT — HEADER / SIDEBAR
-   ============================================================ */
-
-.MyHeaderCss {
-    position: fixed;
-    top: 0;
+.signinForm {
+    display: flex;
     width: 100%;
-    background: transparent;
-    z-index: 1;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
+.signinForm input { width: 100%; max-width: 320px; }
+.signinForm input:focus { transform: scale(1.03); }
+
+.signinLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.signinLinks a { color: var(--link); font-weight: bold; }
+.signinLinks a:hover { color: var(--link-hover); }
+
+.pwresetform {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding: 30px;
+    background: var(--form-bg);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow);
+    max-width: 400px;
+    width: 90%;
+}
+.pwresetform h3 { color: var(--form-text); text-align: center; max-width: 300px; line-height: 1.4; }
+.pwresetform input { width: 100%; max-width: 280px; }
+
+
+/* ============================================================
+   HEADER / SIDEBAR
+   ============================================================ */
+
+.MyHeaderCss { position: fixed; top: 0; width: 100%; background: transparent; z-index: 10; }
 
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 250px;
+    left: -260px;
+    width: 260px;
     height: 100%;
-    background-color: var(--secondary);
-    color: var(--disabled);
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    border-right: 1.5px solid var(--border);
     transition: left 0.3s ease;
-    padding: 0;
-    padding-right: 5px;
+    padding: 0 8px 15px 8px;
     z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    box-shadow: var(--shadow);
 }
-
-.sidebar.open {
-    left: 0;
-}
+.sidebar.open { left: 0; }
 
 .sidebarTop {
     display: flex;
     width: 100%;
     flex-direction: row;
-    justify-content: right;
+    justify-content: flex-end;
     align-items: center;
-    min-height: 50px;
+    min-height: 55px;
     gap: 10px;
-}
-
-.sidebarAuth {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
 }
 
 .sidebarBtn {
-    width: 65%;
-    padding: 7px 10px;
+    padding: 7px 14px;
     font-size: 0.875rem;
     font-weight: bold;
-    color: var(--signin-btn-clr);
-    background-color: var(--signin-btn-bg);
-    border: 1.5px solid var(--accent);
+    color: var(--btn-text);
+    background-color: var(--btn-bg);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
 }
-
-.sidebarBtn:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-}
+.sidebarBtn:hover { background-color: var(--btn-hover-bg); color: var(--btn-hover-text); }
 
 .sidebarInput {
     padding: 7px 10px;
     font-size: 0.875rem;
     font-weight: bold;
-    color: var(--signin-input-clr);
-    background-color: var(--signin-input-bg);
-    border: 1.5px solid var(--accent);
-    border-radius: 3px;
-    transition: outline 0.2s ease;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--radius);
+    font-family: inherit;
 }
-
-.sidebarInput:focus {
-    outline: 2px solid var(--accent);
-    border-color: transparent;
-}
+.sidebarInput:focus { outline: 2px solid var(--accent); border-color: transparent; }
 
 .searchResults {
     display: flex;
@@ -744,7 +436,7 @@ body.matcha {
     gap: 4px;
     width: 100%;
     margin-top: 5px;
-    color: var(--disabled);
+    color: var(--sidebar-text);
     font-size: 0.875rem;
 }
 
@@ -754,264 +446,343 @@ body.matcha {
     gap: 10px;
     padding: 6px 10px;
     border-radius: var(--radius);
-    border: 1.5px solid var(--accent);
+    border: 1.5px solid var(--border);
     cursor: pointer;
-    transition: background-color 0.2s ease;
-    color: var(--disabled);
+    color: var(--sidebar-text);
     font-size: 0.78rem;
     font-weight: bold;
+    transition: all 0.2s ease;
 }
+.sidebarLoginRow:hover { background-color: var(--accent); color: var(--bg); }
+.sidebarLoginRow:hover .sidebarPersonIcon { filter: brightness(0); }
 
-.sidebarLoginRow:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-}
+.sidebarPersonIcon { width: 28px; height: 28px; filter: brightness(0) invert(1); transition: filter 0.2s ease; }
 
-.sidebarLoginRow:hover .sidebarPersonIcon {
-    filter: brightness(0);
-}
-
-.sidebarPersonIcon {
-    width: 28px;
-    height: 28px;
-    filter: brightness(0) invert(1);
-    transition: filter 0.2s ease;
-}
-
-.headerSearch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.headerSearchField {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.headerSearchField input {
-    flex: 1;
-}
+.headerSearch { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.headerSearchField { display: flex; align-items: center; gap: 6px; width: 100%; }
+.headerSearchField input { flex: 1; }
 
 .profilKep {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+    width: 45px; height: 45px;
+    border-radius: 50%; object-fit: cover; cursor: pointer;
+    border: 2px solid var(--border); transition: border-color 0.2s ease;
 }
+.profilKep:hover { border-color: var(--accent); }
+
+.burgerMenu { font-size: 45px; cursor: pointer; color: var(--text); transition: transform 0.3s ease, color 0.3s ease; }
+.burgerMenu:hover { transform: scale(1.15); color: var(--accent); }
+
+.house { font-size: 28px; cursor: pointer; color: var(--sidebar-text); transition: all 0.25s ease; }
+.house:hover { color: var(--accent); transform: scale(1.15); }
+
+.closeSidebar { font-size: 32px; }
 
 
 /* ============================================================
-   LAYOUT — SIGN IN / SIGN UP / PWRESET
+   HOME / BANNER
    ============================================================ */
 
-.signinPage {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
+.homeContainer { display: flex; align-items: center; justify-content: center; background-color: var(--bg); }
 
-.signinBase {
+.banner {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: clamp(300px, 35vw, 450px);
-    margin: 0;
-    background-color: var(--signin-bg);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 5px;
     gap: 15px;
-    height: auto;
-    box-shadow: 5px 5px 5px 5px rgb(0 0 0 / 50%);
-}
-
-.signinBase h1 {
-    font-size: clamp(2rem, 3vw, 3rem);
-    align-self: center;
-    color: var(--signin-text);
-}
-
-.signinBase a {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--signin-link);
-    font-weight: bold;
-    transition: transform 0.2s ease-in-out, color 0.2s ease;
-    transform-origin: center;
-    vertical-align: middle;
-    will-change: transform;
-}
-
-.signinBase a:hover {
-    transform: scale(1.08);
-    color: var(--signin-link-hov);
-}
-
-.signinForm {
-    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg);
     width: 100%;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: var(--radius);
-    background-color: var(--signin-bg);
-    gap: 5px;
     align-items: center;
     justify-content: center;
+    padding: 15px;
 }
 
-.signinForm input {
-    width: 100%;
-    max-width: 350px;
-    padding: 7px 10px;
-    font-size: 0.875rem;
-    color: var(--signin-input-clr);
-    border-radius: 3px;
-    border: 1.5px var(--signin-input-clr) solid;
-    background-color: var(--signin-input-bg);
-    font-weight: bold;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    display: block;
-}
-
-.signinForm input:focus {
-    transform: scale(1.2);
-    color: var(--text);
-    outline: 2px solid var(--accent);
-    border: 1.5px transparent solid;
-}
-
-.signinLinks {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    color: var(--signin-text);
-}
-
-.signinLinks a {
-    color: var(--signin-text);
-    cursor: pointer;
-}
-
-.errormsg {
-    color: red;
-    font-size: 0.85rem;
-    text-align: center;
-}
-
-.pwresetform {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    padding: 30px;
-    background: var(--signin-bg);
-    border-radius: var(--radius);
-    border: 2px solid var(--border);
-}
-
-.pwresetform h3 {
-    color: var(--signin-text);
-    text-align: center;
-    max-width: 300px;
-}
-
-.pwresetform input {
-    padding: 7px 10px;
-    border-radius: 3px;
-    border: 1.5px solid var(--signin-input-clr);
-    background: var(--signin-input-bg);
-    color: var(--signin-input-clr);
-    font-weight: bold;
-    width: 250px;
-}
-
-.signinup {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
+.homeh1 { color: var(--text); margin-bottom: 30px; font-size: clamp(50px, 10vw, 100px); }
 
 
 /* ============================================================
-   BUTTONS
+   GARAGE / FLOOR PLAN
    ============================================================ */
 
-.MyCssButton {
-    background-color: var(--primary);
-    color: var(--bg);
-    border-radius: 5px;
-    padding: 6px 14px;
-    cursor: pointer;
-    border: none;
+.floorPlan {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg);
+    padding: 20px;
+    gap: 10px;
+}
+
+.garagePlace { font-size: clamp(40px, 8vw, 100px); color: var(--text); text-align: center; }
+.garageName { font-size: clamp(24px, 4vw, 50px); color: var(--text-muted); text-align: center; }
+
+.garageKözepe { display: flex; width: 100%; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+
+.szintTabok { display: flex; flex-direction: column; gap: 8px; }
+
+.szintTab {
+    padding: 10px 16px;
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
     font-weight: bold;
+    font-family: inherit;
     transition: all 0.2s ease;
 }
+.szintTab:hover { background-color: var(--accent); color: var(--bg); border-color: var(--accent); }
+.szintTab.aktiv { background-color: var(--primary); color: var(--btn-text); border-color: var(--primary); }
 
-.MyCssButton:hover {
-    background-color: var(--accent);
-    color: var(--primary);
+.aktivSzintTab { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.aktivSzintTab h3 { color: var(--text); }
+.aktivSzintTab > p { color: var(--text-muted); font-size: 0.8rem; }
+
+
+/* ============================================================
+   PARKOLÓHELY TÁBLÁZAT
+   ============================================================ */
+
+.parkingTable { border-collapse: collapse; }
+.parkingTable td { padding: 2px; }
+
+.spotButton {
+    padding: 0; border: none; background: none;
+    width: 50px; height: 50px; cursor: pointer; display: block;
+    border-radius: 4px; transition: transform 0.15s ease;
+}
+.spotButton:hover { transform: scale(1.08); }
+.spotButton img { display: block; width: 50px; height: 50px; }
+
+
+/* ============================================================
+   MODÁLOK
+   ============================================================ */
+
+.modalOverlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
 }
 
-.logInBtn {
-    max-width: 200px;
-    min-height: 30px;
-    background-color: var(--signin-btn-bg);
-    font-weight: bold;
-    color: var(--signin-btn-clr);
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.logInBtn:hover {
-    transform: scale(1.08);
-    color: var(--signin-bg);
-}
-
-.logInBtn:active {
-    color: var(--primary);
-    outline: var(--primary) 1px solid;
-}
-
-.deleteAccountButton {
-    position: fixed;
-    bottom: 5px;
-    right: 5px;
-    background-color: red;
-    color: white;
-    border: none;
+.modalBox {
+    background: var(--form-bg);
+    color: var(--form-text);
+    padding: 35px 30px;
     border-radius: var(--radius);
-    padding: 8px 14px;
-    cursor: pointer;
-    font-weight: bold;
+    min-width: 300px;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
 }
+.modalBox h3 { margin-bottom: 8px; color: var(--form-text); font-size: 1.3rem; }
+.modalBox > p { margin-bottom: 15px; color: var(--text-muted); }
 
-.ujParkolohazGomb {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: var(--primary);
-    color: var(--bg);
-    border: none;
+.modalIdopontok { display: flex; gap: 10px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+
+.modalIdopontGomb {
+    padding: 12px 18px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    cursor: pointer;
     font-weight: bold;
+    font-family: inherit;
     transition: all 0.2s ease;
 }
+.modalIdopontGomb:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.modalIdopontGomb.aktiv { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 
-.ujParkolohazGomb:hover {
-    background-color: var(--accent);
-    color: var(--primary);
+.modalFoglalasVege { color: var(--text-muted); margin-bottom: 10px; font-size: 0.9rem; }
+
+.modalGombok { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+.modalFoglalasGomb {
+    padding: 10px 25px;
+    background: var(--btn-bg); color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
 }
+.modalFoglalasGomb:hover { background: var(--btn-hover-bg); color: var(--btn-hover-text); }
+.modalFoglalasGomb:disabled { background: var(--disabled); color: var(--text-muted); cursor: default; }
+
+.modalMegseGomb {
+    padding: 10px 25px;
+    background: var(--surface); color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
+}
+.modalMegseGomb:hover { background: #c0392b; color: #fff; border-color: #c0392b; }
+
+.modalBezarasGomb {
+    padding: 10px 22px;
+    background: var(--btn-bg); color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
+}
+.modalBezarasGomb:hover { background: var(--btn-hover-bg); color: var(--btn-hover-text); }
+
+
+/* ============================================================
+   USER PROFILE
+   ============================================================ */
+
+.userProfileOldal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg);
+    padding: 30px 20px;
+    gap: 20px;
+}
+
+.userProfileNav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+.userProfileNavGomb {
+    padding: 10px 22px;
+    background: var(--surface); color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
+}
+.userProfileNavGomb:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.userProfileNavGomb.aktiv { background: var(--primary); color: var(--btn-text); border-color: var(--primary); }
+
+.userProfilTartalom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: var(--surface);
+    padding: 30px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow);
+    min-width: 300px;
+}
+.userProfilTartalom h2 { color: var(--text); }
+.userProfilTartalom h4, .userProfilTartalom p { color: var(--text-muted); }
+
+.userProfilKep { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+.userProfilElonezet { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); display: block; margin: 8px auto; }
+
+.foglalasokTartalom { width: min(80%, 800px); }
+.foglalasokTartalom h2 { margin-bottom: 15px; color: var(--text); }
+
+.foglalasokTabla {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1.5px solid var(--border);
+}
+.foglalasokTabla th { padding: 12px 10px; background: var(--primary); color: var(--btn-text); text-align: center; font-weight: bold; }
+.foglalasokTabla td { padding: 10px; text-align: center; color: var(--text); border-bottom: 1px solid var(--border); }
+.foglalasokTabla tr:last-child td { border-bottom: none; }
+.foglalasokTabla tr:hover td { background: var(--disabled); }
+
+.nincsFoglalas { color: var(--text-muted); text-align: center; margin-top: 20px; }
+
+.adminTartalom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: var(--surface);
+    padding: 30px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow);
+    width: min(400px, 90vw);
+}
+.adminTartalom h2 { color: var(--text); }
+.adminTartalom p { color: var(--text-muted); text-align: center; }
+
+.adminInput { width: 100%; }
+
+.adminGomb {
+    padding: 10px 25px;
+    background: var(--btn-bg); color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
+}
+.adminGomb:hover { background: var(--btn-hover-bg); color: var(--btn-hover-text); }
+.adminUzenet { color: var(--accent); font-weight: bold; }
+
+
+/* ============================================================
+   ÚJ PARKOLÓHÁZ FORM
+   ============================================================ */
+
+.addParkolohaz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--bg);
+    padding: 30px 20px;
+    gap: 15px;
+}
+.addParkolohaz h1 { color: var(--text); text-align: center; }
+
+.newParkoloForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1.5px solid var(--border);
+    padding: 25px;
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    gap: 10px;
+    min-width: 280px;
+    box-shadow: var(--shadow);
+}
+.newParkoloForm input[type="text"],
+.newParkoloForm input[type="number"] { width: 220px; height: 32px; }
+
+.szintSor { display: flex; align-items: center; position: relative; margin-bottom: 5px; }
+.szintBelso { display: flex; flex-direction: column; text-align: center; align-items: center; gap: 6px; }
+.szintNevInput { background-color: var(--disabled) !important; color: var(--text-muted) !important; cursor: default; }
+
+.szintTorolGomb { cursor: pointer; color: #e74c3c; position: absolute; right: -25px; top: 6px; background: none; border: none; font-size: 14px; }
+
+.szintMeretek { display: flex; flex-direction: row; gap: 6px; }
+.szintMeretek input { width: 100px !important; }
+
+.szintHozzaadGomb {
+    background-color: var(--surface); color: var(--text);
+    border-radius: 50%; border: 1.5px solid var(--border);
+    font-size: 18px; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+}
+.szintHozzaadGomb:hover { background-color: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+.parkoloElonezet { max-width: 200px; max-height: 200px; object-fit: cover; border: 2px solid var(--border); border-radius: var(--radius); }
+
+.mentesGomb {
+    width: 220px; height: 35px;
+    background-color: var(--btn-bg); color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold; font-family: inherit;
+    transition: all 0.2s ease;
+}
+.mentesGomb:hover { background-color: var(--btn-hover-bg); color: var(--btn-hover-text); }
+.mentesGomb:disabled { opacity: 0.5; cursor: default; }
+.betoltesText { color: var(--text-muted); }
 
 
 /* ============================================================
@@ -1019,61 +790,29 @@ body.matcha {
    ============================================================ */
 
 .themeWheelContainer {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    z-index: 999;
+    position: fixed; bottom: 25px; right: 25px;
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 10px; z-index: 999;
 }
 
 .themeMainButton {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: 1px solid var(--text);
-    background: var(--bg);
-    color: var(--text);
-    cursor: pointer;
-    font-size: 20px;
-    transition: all 0.3s ease;
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--surface); color: var(--text);
+    font-size: 22px; transition: all 0.3s ease;
 }
+.themeMainButton:hover { transform: rotate(20deg) scale(1.1); border-color: var(--accent); }
 
-.themeMainButton:hover {
-    transform: rotate(20deg) scale(1.1);
-}
-
-.themeOptions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    animation: fadeIn 0.2s ease;
-}
-
+.themeOptions { display: flex; flex-direction: column; gap: 8px; animation: fadeIn 0.2s ease; }
 .themeOptions button {
-    background: var(--text);
-    color: var(--bg);
-    border: 1px solid var(--text);
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background: var(--surface); color: var(--text);
+    border: 1.5px solid var(--border);
+    padding: 8px 16px; border-radius: var(--radius);
+    font-family: inherit; font-weight: bold;
+    transition: all 0.2s ease;
 }
-
-.themeOptions button:hover {
-    background: var(--bg);
-    color: var(--text);
-}
-
-.themeButton.active {
-    font-weight: bold;
-    transform: scale(1.1);
-    font-style: italic;
-    border: 1px black solid;
-    color: #F7E8A4;
-}
+.themeOptions button:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.themeButton.active { font-weight: bold; font-style: italic; background: var(--primary) !important; color: var(--btn-text) !important; border-color: var(--primary) !important; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -1085,113 +824,18 @@ body.matcha {
    CAROUSEL
    ============================================================ */
 
-.carousel-wrapper {
-    width: 100%;
-    margin: 0 auto;
-    z-index: 0;
-}
-
-.carousel-image-container {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-.my-carousel-image {
-    width: 75%;
-    height: 500px;
-    object-fit: cover;
-    aspect-ratio: 1/1;
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-.carousel-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-.carousel-text {
-    text-align: center;
-    color: var(--text);
-    font-size: 30px;
-}
-
-
-/* ============================================================
-   BURGER MENU / HOUSE ICON
-   ============================================================ */
-
-.burgerMenu {
-    font-size: 50px;
-    cursor: pointer;
-    color: rgb(0, 0, 0);
-    transition: transform 0.3s ease-in-out, scale 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.burgerMenu:hover {
-    scale: 1.2;
-    color: #091e58;
-}
-
-.house {
-    z-index: 1;
-    font-size: 30px;
-    padding: 0px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.house:hover {
-    scale: 1.2;
-    color: #4682B4;
-}
-
-.closeSidebar {
-    font-size: 37px;
-}
-
-
-/* ============================================================
-   FILE UPLOAD
-   ============================================================ */
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    border: 2px solid var(--border);
-    background-color: var(--bg);
-    width: 200px;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-    border-radius: var(--radius);
-}
+.carousel-wrapper { width: 100%; margin: 0 auto; }
+.my-carousel-image { width: 75%; height: 500px; object-fit: cover; border-radius: var(--radius); cursor: pointer; transition: transform 0.2s ease; }
+.my-carousel-image:hover { transform: scale(1.01); }
+.carousel-container { display: flex; justify-content: center; flex-direction: column; align-items: center; }
+.carousel-text { text-align: center; color: var(--text); font-size: 1.5rem; margin-top: 10px; }
 
 
 /* ============================================================
    MISC
    ============================================================ */
 
-.pageNotFound {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    align-items: center;
-    font-size: 100px;
-    color: var(--text);
-}
-
-li::marker { color: var(--text); }
-li { text-transform: capitalize; }
-ul { padding-bottom: 10px; }
+.pageNotFound { display: flex; justify-content: center; height: 100vh; align-items: center; font-size: clamp(40px, 10vw, 100px); color: var(--text); background-color: var(--bg); }
 
 
 /* ============================================================
@@ -1199,17 +843,9 @@ ul { padding-bottom: 10px; }
    ============================================================ */
 
 @media only screen and (max-width: 600px) {
-    .cardok {
-        max-width: 100%;
-        font-size: 20px;
-        padding: 10px;
-    }
-
-    .foglalasokTartalom {
-        width: 100%;
-    }
-
-    .adminInput {
-        width: 90%;
-    }
+    .foglalasokTartalom { width: 100%; }
+    .adminInput { width: 90%; }
+    .modalIdopontok { flex-direction: column; align-items: center; }
+    .garageKözepe { flex-direction: column; align-items: center; }
+    .szintTabok { flex-direction: row; flex-wrap: wrap; justify-content: center; }
 }
