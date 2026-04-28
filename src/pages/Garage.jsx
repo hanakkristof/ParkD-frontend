@@ -16,6 +16,10 @@ export const Garage = () => {
   const navigate = useNavigate()
   const [parkingSpots, setParkingSpots] = useState(null)
 
+  const szabadHelyek = parkingSpots?.filter(s => s.foglalt === false && s.parkolohelyTipus !== "ut").length ?? 0
+  const foglaltHelyek = parkingSpots?.filter(s => s.foglalt === true).length ?? 0
+  const osszes = parkingSpots?.filter(s => s.parkolohelyTipus !== "ut").length ?? 0
+
   useEffect(() => {
     if (id) {
       setLoading(true)
@@ -71,6 +75,11 @@ export const Garage = () => {
           {aktivSzint ? (
             <>
               <h3>{aktivSzint.szint_szama}. szint</h3>
+              <div className="szintStatisztika">
+                <span className="szintStat szabad">🟢 {szabadHelyek} szabad</span>
+                <span className="szintStat foglalt">🔴 {foglaltHelyek} foglalt</span>
+                <span className="szintStat osszes">összesen {osszes}</span>
+              </div>
               <ParkingFloor
                 rows={aktivSzint?.szint_sor}
                 columns={aktivSzint?.szint_oszlop}
