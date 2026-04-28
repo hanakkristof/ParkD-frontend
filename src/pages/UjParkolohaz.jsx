@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { MyUserContext } from '../context/MyUserProvider';
@@ -8,6 +8,25 @@ import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseApp';
 import { uploadImage } from '../cloudinaryUtils';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+})
+
+const LocationPicker = ({ onSelect }) => {
+    useMapEvents({
+        click(e) {
+            onSelect(e.latlng.lat, e.latlng.lng)
+        }
+    })
+    return null
+}
 
 export const ParkolohazForm = () => {
     const { user } = useContext(MyUserContext)
@@ -19,6 +38,8 @@ export const ParkolohazForm = () => {
     const [preview, setPreview] = useState(null)
     const [loading, setLoading] = useState(false)
     const [parkoloHaz, setParkolohaz] = useState(null)
+    const [lat, setLat] = useState(null)
+    const [lng, setLng] = useState(null)
     const navigate = useNavigate()
     const { id } = useParams()
 
@@ -49,7 +70,9 @@ export const ParkolohazForm = () => {
                 name: name,
                 hely: hely,
                 imgUrl: imgUrl,
-                createdAt: new Date()
+                lat: lat,
+                lng: lng,
+                createdAt: new Date(),
             })
 
             for (const szint of szintek) {
@@ -143,6 +166,7 @@ export const ParkolohazForm = () => {
                                         type="number"
                                         placeholder="sor"
                                     />
+
                                     <input
                                         required
                                         value={item.oszlop}
@@ -171,6 +195,21 @@ export const ParkolohazForm = () => {
                     placeholder="Helyszín:"
                     required
                 />
+
+                <p className="mapLabel">Kattints a térképen a helyszín megjelöléséhez:</p>
+                <MapContainer
+                    center={[47.4979, 19.0402]}
+                    zoom={7}
+                    style={{ height: "300px", width: "100%", borderRadius: "8px", marginBottom: "12px" }}
+                >
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution='© OpenStreetMap contributors'
+                    />
+                    <LocationPicker onSelect={(la, ln) => { setLat(la); setLng(ln) }} />
+                    {lat && lng && <Marker position={[lat, lng]} />}
+                </MapContainer>
+                {lat && <p className="koordinataText">📍 {lat.toFixed(5)}, {lng.toFixed(5)}</p>}
 
                 <label htmlFor="file-upload" className="custom-file-upload">Kép feltöltése</label>
                 <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />

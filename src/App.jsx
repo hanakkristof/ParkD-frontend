@@ -2,7 +2,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { HomePage } from './pages/HomePage'
-import { Route, Routes, useLocation } from 'react-router'
 import { Garage } from './pages/Garage'
 import { MyHeader } from './components/Header'
 import { SignIn } from './components/SignIn'
@@ -18,41 +17,44 @@ import { ToastContainer } from 'react-toastify'
 import { MyToastify } from './components/MyToastify'
 import { useContext } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 
 
 function AppContent() {
   const location = useLocation()
-  const {user} = useContext(MyUserContext)
+  const { user } = useContext(MyUserContext)
 
   return (
     <>
       <MyHeader />
-      <MyToastify/>
-    <ToastContainer/>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/garage/:id" element={<Garage />} />
+      <MyToastify />
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/garage/:id" element={<Garage />} />
 
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
 
-          <Route path='/pwreset' element={<PwReset />} />
-          <Route path='/profile' element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
-          <Route path='/*' element={<PageNotFound />} />
-          <Route path='/addnew' element={<ProtectedRoute><ParkolohazForm/></ProtectedRoute>} />
-        </Routes>
-      
+        <Route path='/pwreset' element={<PwReset />} />
+        <Route path='/profile' element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+        <Route path='/*' element={<PageNotFound />} />
+        <Route path='/addnew' element={<ProtectedRoute><ParkolohazForm /></ProtectedRoute>} />
+      </Routes>
+
     </>
   )
 }
 
 function App() {
   return (
-    <MyUserProvider>
-      <AppContent />
-    </MyUserProvider>
+    <BrowserRouter>
+      <MyUserProvider>
+        <AppContent />
+      </MyUserProvider>
+    </BrowserRouter>
+
   )
 }
 
 export default App
-                 

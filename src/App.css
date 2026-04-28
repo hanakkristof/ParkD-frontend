@@ -385,7 +385,7 @@ input[type="number"]:focus {
     border-right: 1.5px solid var(--border);
     transition: left 0.3s ease;
     padding: 0 8px 15px 8px;
-    z-index: 100;
+    z-index: 1001;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -478,6 +478,7 @@ input[type="number"]:focus {
 .closeSidebar { font-size: 32px; }
 
 
+
 /* ============================================================
    HOME / BANNER
    ============================================================ */
@@ -533,7 +534,7 @@ input[type="number"]:focus {
 .szintTab:hover { background-color: var(--accent); color: var(--bg); border-color: var(--accent); }
 .szintTab.aktiv { background-color: var(--primary); color: var(--btn-text); border-color: var(--primary); }
 
-.aktivSzintTab { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.aktivSzintTab { display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 400px; overflow: auto;  min-width: 600px;}
 .aktivSzintTab h3 { color: var(--text); }
 .aktivSzintTab > p { color: var(--text-muted); font-size: 0.8rem; }
 
@@ -824,7 +825,7 @@ input[type="number"]:focus {
    CAROUSEL
    ============================================================ */
 
-.carousel-wrapper { width: 100%; margin: 0 auto; }
+.carousel-wrapper { width: 100%; margin: 0 auto; position: relative; z-index: 0; }
 .my-carousel-image { width: 75%; height: 500px; object-fit: cover; border-radius: var(--radius); cursor: pointer; transition: transform 0.2s ease; }
 .my-carousel-image:hover { transform: scale(1.01); }
 .carousel-container { display: flex; justify-content: center; flex-direction: column; align-items: center; }
@@ -846,6 +847,96 @@ input[type="number"]:focus {
     .foglalasokTartalom { width: 100%; }
     .adminInput { width: 90%; }
     .modalIdopontok { flex-direction: column; align-items: center; }
-    .garageKözepe { flex-direction: column; align-items: center; }
+    .garageKözepe { flex-direction: column; align-items: flex-start; }
     .szintTabok { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+}
+
+/* ============================================================
+   MAP MODAL
+   ============================================================ */
+
+.mapModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.mapModalBox {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+}
+
+.mapModalClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mapModalButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.mapModalViewBtn {
+  background: var(--btn-bg);
+  color: var(--text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mapModalViewBtn:hover {
+  background: var(--btn-hover-bg);
+}
+
+.mapModalCancelBtn {
+  background: var(--btn-bg);
+  color:    var(--text);
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mapModalCancelBtn:hover {
+  background: red;
+}
+
+.mapLabel {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.koordinataText {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.leaflet-container {
+  height: 300px !important;
+  width: 100% !important;
+  z-index: 1 !important;
 }

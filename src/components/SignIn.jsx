@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { MyUserContext } from '../context/MyUserProvider'
 
 export const SignIn = () => {
@@ -7,8 +7,10 @@ export const SignIn = () => {
     const { signInUser, msg } = useContext(MyUserContext)
 
     useEffect(() => {
-        if (msg?.signIn === true) navigate("/")
-    }, [msg])
+  if (msg?.signIn === true) {
+    navigate("/")
+  }
+}, [msg?.signIn])
 
     const handleSubmit = (event) => {
         event.preventDefault()

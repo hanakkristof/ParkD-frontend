@@ -2,16 +2,38 @@ import { createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, onAuthSt
 import React, { useEffect, useState } from 'react'
 import { createContext } from 'react'
 import { auth } from '../firebaseApp'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseApp";
 
 export const MyUserContext = createContext(null)
 export const MyUserProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [authLoading, setAuthLoading] = useState(true)
     const [msg, setMsg] = useState({})
     const [userData, setUserData] = useState(null);
     const navigate = useNavigate()
+
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser)
+
+            if (currentUser) {
+                const docSnap = await getDoc(doc(db, "felhasznalok", currentUser.uid))
+                if (docSnap.exists()) {
+                    setUserData(docSnap.data())
+                } else {
+                    setUserData(null)
+                }
+            } else {
+                setUserData(null)
+            }
+
+            setAuthLoading(false)
+        })
+        return () => unsubscribe()
+    }, [])
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -56,7 +78,7 @@ export const MyUserProvider = ({ children }) => {
 
     const logoutUser = async () => {
         await signOut(auth)
-        setMsg({ signIn: false })
+        setMsg({})
     }
 
     const signInUser = async (email, password) => {
@@ -121,10 +143,10 @@ export const MyUserProvider = ({ children }) => {
 
     return (
         <div>
-            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword }}>
+            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword, authLoading }}>
                 {children}
             </MyUserContext.Provider>
         </div>
     )
-    
+
 }
