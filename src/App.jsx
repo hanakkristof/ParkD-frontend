@@ -18,11 +18,20 @@ import { MyToastify } from './components/MyToastify'
 import { useContext } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 
 function AppContent() {
   const location = useLocation()
   const { user } = useContext(MyUserContext)
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") || "dark"
+    document.body.classList.remove("light", "matcha", "midnight", "ocean")
+    if (saved !== "dark") {
+        document.body.classList.add(saved)
+    }
+}, [])
 
   return (
     <>

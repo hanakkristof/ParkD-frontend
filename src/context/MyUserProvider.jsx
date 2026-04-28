@@ -12,6 +12,7 @@ export const MyUserProvider = ({ children }) => {
     const [authLoading, setAuthLoading] = useState(true)
     const [msg, setMsg] = useState({})
     const [userData, setUserData] = useState(null);
+    const [selectedHaz, setSelectedHaz] = useState(null)
     const navigate = useNavigate()
 
 
@@ -143,7 +144,7 @@ export const MyUserProvider = ({ children }) => {
 
     return (
         <div>
-            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword, authLoading }}>
+            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword, authLoading, selectedHaz, setSelectedHaz }}>
                 {children}
             </MyUserContext.Provider>
         </div>

@@ -440,6 +440,21 @@ input[type="number"]:focus {
     font-size: 0.875rem;
 }
 
+.searchResultItem {
+    margin-top: 10px;
+    padding: 6px 8px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--sidebar-text);
+    transition: background 0.2s ease;
+    font-weight: bold;
+    border: 2px solid var(--border);
+}
+.searchResultItem:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
 .sidebarLoginRow {
     display: flex;
     align-items: center;
@@ -458,7 +473,7 @@ input[type="number"]:focus {
 
 .sidebarPersonIcon { width: 28px; height: 28px; filter: brightness(0) invert(1); transition: filter 0.2s ease; }
 
-.headerSearch { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.headerSearch { display: flex; flex-direction: column; align-items: baseline; width: 100%; }
 .headerSearchField { display: flex; align-items: center; gap: 6px; width: 100%; }
 .headerSearchField input { flex: 1; }
 
@@ -791,9 +806,10 @@ input[type="number"]:focus {
    ============================================================ */
 
 .themeWheelContainer {
-    position: fixed; bottom: 25px; right: 25px;
+    position: fixed; bottom: 70px; right: 35px;
     display: flex; flex-direction: column; align-items: flex-end;
     gap: 10px; z-index: 999;
+
 }
 
 .themeMainButton {

@@ -79,13 +79,13 @@ export const ParkolohazForm = () => {
                 const szintRef = await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek"), {
                     szint_szama: szint.szint_szama,
                     szint_sor: szint.sor,
-                    szint_oszlop: szint.sor
+                    szint_oszlop: szint.oszlop
                 })
 
                 for (let i = 0; i < szint.sor * szint.oszlop; i++) {
                     await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
                         foglalt: false,
-                        parkolohelyTipus: "ut",
+                        parkolohelyTipus: "normal",
                         hely_szam: i + 1
                     })
                 }
