@@ -92,10 +92,9 @@ export const readParkolohaz = async (id, setCallback) => {
     }
 };
 
-//recept törlése id alapján:
+//parkolóház törlése id alapján:
 export const deleteParkolohaz = async (id, deleteUrl) => {
-    //await axios.get(deleteUrl)
-    if (window.confirm("Biztosan szeretnéd törölni a receptet?")) {
+    if (window.confirm("Biztosan szeretnéd törölni a parkolóházat?")) {
         const docRef = doc(db, "parkolohazak", id)
         await deleteDoc(docRef)
     }
@@ -172,7 +171,7 @@ export const deleteAvatar = async (uid) => {
         else {
             publicId = docSnap.data().public_id
             await deleteImage(publicId)
-            await deleteDoc(docRef)//firestore:avatarsból töröl
+            await deleteDoc(docRef)
         }
     } catch (error) {
         console.log("törlési hiba", error)
@@ -181,15 +180,14 @@ export const deleteAvatar = async (uid) => {
 }   
 
 
-export const searchHely = async(text) =>{
-    if (!text) return []
 
-    const q = query(collection(db, "parkolohazak"), where("hely", ">=", text), where("hely", "<=", text + "\uf8ff"))
-
-    const snapshot = await getDocs(q)
-
-    return snapshot.docs.map(obj =>({id: obj.id, ...obj.data() }))
-}
+export const searchHely = async (text) => {
+  if (!text) return [];
+  const snapshot = await getDocs(collection(db, "parkolohazak"));
+  return snapshot.docs
+    .map(obj => ({ id: obj.id, ...obj.data() }))
+    .filter(obj => obj.hely?.toLowerCase().includes(text.toLowerCase()));
+};
 
 export const getParkingSpots = async (targetSzintId) => {
   const snapshot = await getDocs(collectionGroup(db, "parkoloHelyek"));
@@ -238,7 +236,7 @@ export const getParkingSpotsRealtime = (szintId, callback) => {
             callback(spots)
         }
     )
-    return snapshot // unsubscribe függvény
+    return snapshot 
 }
 
 export const lejartFoglalasokFelszabaditasa = async (spots, parkoloHazId, szintId) => {

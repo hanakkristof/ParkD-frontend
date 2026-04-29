@@ -58,11 +58,11 @@ export const Garage = () => {
 
       <div className="garageKözepe">
 
-        {/* Kiválasztott szint tartalma */}
+        
         <div className="aktivSzintTab">
           {aktivSzint ? (
             <>
-            {/* Szint fülek */}
+            
               <div className="szintTabok2">
                 {szintek.map((szint) => (
                   <button
