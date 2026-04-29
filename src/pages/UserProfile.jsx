@@ -67,7 +67,7 @@ export const UserProfile = () => {
     return (
         <div className="userProfileOldal">
 
-            {/* Navigációs gombok */}
+           
             <div className="userProfileNav">
                 <button
                     onClick={() => setOldal(1)}
@@ -91,7 +91,7 @@ export const UserProfile = () => {
                 )}
             </div>
 
-            {/* 1. oldal - Profil */}
+         
             {oldal === 1 && (
                 <div className="userProfilTartalom">
                     <h2>Felhasználói Profil</h2>
@@ -105,7 +105,7 @@ export const UserProfile = () => {
                 </div>
             )}
 
-            {/* 2. oldal - Foglalások */}
+           
             {oldal === 2 && (
                 <div className="foglalasokTartalom">
                     <h2 className='foglalash2'>Foglalásaim</h2>
@@ -136,7 +136,7 @@ export const UserProfile = () => {
                 </div>
             )}
 
-            {/* 3. oldal - Admin */}
+          
             {oldal === 3 && userData?.isAdmin && (
                 <div className="adminTartalom">
                     <h2>Admin panel</h2>

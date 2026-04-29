@@ -5,12 +5,10 @@ import { MyUserContext } from '../context/MyUserProvider'
 
 const TIPUSOK = ["normal", "ut", "kerekesszékes"]
 
-// ── Car SVG icon ─────────────────────────────────────────────────────────────
-// Colour shifts based on spot type and occupancy.
+
 const CarIcon = ({ spot }) => {
   const taken = spot?.foglalt
 
-  // colour palette per type
   const palettes = {
     normal: {
       free: { body: '#2d6b30', roof: '#389440', window: '#1a3d1c', wheel: '#0d1a0e', light: '#44cc44' },
@@ -31,24 +29,24 @@ const CarIcon = ({ spot }) => {
 
   return (
     <svg width="34" height="22" viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg">
-      {/* body */}
+      
       <rect x="1" y="9" width="26" height="8" rx="2" fill={c.body} />
-      {/* cabin */}
+      
       <rect x="5" y="4" width="18" height="7" rx="2" fill={c.body} />
-      {/* windows */}
+     
       <rect x="7" y="5" width="6" height="5" rx="1" fill={c.window} />
       <rect x="15" y="5" width="6" height="5" rx="1" fill={c.window} />
-      {/* roof */}
+      
       <rect x="6" y="3" width="16" height="4" rx="1.5" fill={c.roof} />
-      {/* wheels */}
+     
       <circle cx="7" cy="17" r="2.5" fill={c.wheel} />
       <circle cx="7" cy="17" r="1" fill="#222" />
       <circle cx="21" cy="17" r="2.5" fill={c.wheel} />
       <circle cx="21" cy="17" r="1" fill="#222" />
-      {/* lights */}
+      
       <rect x="1" y="10" width="3" height="2" rx="0.5" fill={c.light} opacity="0.9" />
       <rect x="24" y="10" width="3" height="2" rx="0.5" fill={c.light} opacity="0.6" />
-      {/* wheelchair symbol for kerekesszékes spots */}
+      
       {type === 'kerekesszékes' && (
         <text x="14" y="9" textAnchor="middle" fontSize="5" fill="#aad4ff" fontWeight="bold">♿</text>
       )}
@@ -56,7 +54,7 @@ const CarIcon = ({ spot }) => {
   )
 }
 
-// ── ParkingFloor ─────────────────────────────────────────────────────────────
+
 export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szintId }) => {
   const { user, userData } = useContext(MyUserContext)
   const [bookingModal, setBookingModal] = useState(null)

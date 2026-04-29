@@ -38,17 +38,17 @@ export const HomePage = () => {
 		readParkolohazak(setHazak)
 	}, [])
 
-	// Carousel képre kattintáskor: modal nyílik, NEM navigál
+	
 	const handleImageClick = (realId) => {
 		const haz = hazak.find(h => h.id === realId)
 		if (haz) setSelectedHaz(haz)
 	}
 
-	// Modal "Megtekintés" gomb
+	
 	const handleNavigate = () => {
 		const target = !user ? "/signin" : "/garage/" + selectedHaz.id
 		setPendingNavigate(target)
-		setSelectedHaz(null)  // modal bezár, Leaflet unmountolódik
+		setSelectedHaz(null)  
 	}
 
 	useEffect(() => {
@@ -65,7 +65,7 @@ export const HomePage = () => {
 				<MyCarousel hazak={hazak} onImageClick={handleImageClick} />
 			</div>
 
-			{/* MAP MODAL */}
+			
 			{selectedHaz && (
 				<div className="mapModalOverlay" onClick={() => setSelectedHaz(null)}>
 					<div className="mapModalBox" onClick={e => e.stopPropagation()}>

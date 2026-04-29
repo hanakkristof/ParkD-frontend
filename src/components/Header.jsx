@@ -27,6 +27,7 @@ export const MyHeader = () => {
     setSearchedResult(data)
   }
 
+
   const sidebarRef = useRef(null)
   useEffect(() => {
     function kikattint(event) {
@@ -83,8 +84,15 @@ export const MyHeader = () => {
               type="text"
               className="sidebarInput"
               placeholder="Keresés..."
+              id='keresoMezo'
+              onKeyDown={(e)=>{
+                if(e.key ===  "Enter"){
+                  e.preventDefault()
+                  handleSearch(searchedText)
+                }
+              }}
             />
-            <IoIosSearch onClick={handleSearch} className="house" />
+            <IoIosSearch onClick={handleSearch} id='kereses' className="house" />
           </span>
           {searchedResult.map(item => (
             <div
@@ -93,6 +101,7 @@ export const MyHeader = () => {
               onClick={() => {
                 setSelectedHaz(item)
                 setOpenSidebar(false)
+                navigate("/")
               }}
             >
               {item.hely}
