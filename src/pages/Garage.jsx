@@ -57,24 +57,23 @@ export const Garage = () => {
       <h2 className="garageName">{parkoloHaz.name}</h2>
 
       <div className="garageKözepe">
-        {/* Szint fülek */}
-        <div className="szintTabok">
-          {szintek.map((szint) => (
-            <button
-              key={szint.id}
-              className={`szintTab ${aktivSzint?.id === szint.id ? "aktiv" : ""}`}
-              onClick={() => setAktivSzint(szint)}
-            >
-              🅿️ {szint.szint_szama}. szint
-            </button>
-          ))}
-        </div>
 
         {/* Kiválasztott szint tartalma */}
         <div className="aktivSzintTab">
           {aktivSzint ? (
             <>
-              <h3>{aktivSzint.szint_szama}. szint</h3>
+            {/* Szint fülek */}
+              <div className="szintTabok2">
+                {szintek.map((szint) => (
+                  <button
+                    key={szint.id}
+                    className={`szintTab ${aktivSzint?.id === szint.id ? "aktiv" : ""}`}
+                    onClick={() => setAktivSzint(szint)}
+                  >
+                    🅿️ {szint.szint_szama}. szint
+                  </button>
+                ))}
+              </div>
               <div className="szintStatisztika">
                 <span className="szintStat szabad">🟢 {szabadHelyek} szabad</span>
                 <span className="szintStat foglalt">🔴 {foglaltHelyek} foglalt</span>

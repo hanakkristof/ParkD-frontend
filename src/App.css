@@ -274,9 +274,6 @@ input[type="file"] {
 }
 
 .deleteAccountButton {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
     background-color: #c0392b;
     color: #ffffff;
     border: none;
@@ -553,6 +550,7 @@ input[type="number"]:focus {
     font-weight: bold;
     border: 2px solid var(--border);
 }
+
 .searchResultItem:hover {
     background: var(--accent);
     color: var(--bg);
@@ -602,9 +600,24 @@ input[type="number"]:focus {
     width: 100%;
 }
 
-.headerSearch { display: flex; flex-direction: column; align-items: baseline; width: 100%; }
-.headerSearchField { display: flex; align-items: center; gap: 6px; width: 100%; }
-.headerSearchField input { flex: 1; }
+.headerSearch {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    width: 100%;
+}
+
+.headerSearchField {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.headerSearchField input {
+    flex: 1;
+}
+
 .headerSearchField input {
     flex: 1;
 }
@@ -714,48 +727,47 @@ input[type="number"]:focus {
 }
 
 .garageKözepe {
-    display: grid;
-    grid-template-columns: 180px 1fr 180px;
-    width: 100%;
-    max-width: 1100px;
-    gap: 24px;
-    align-items: flex-start;
-}
-
-.szintTabok {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    position: sticky;
-    top: 20px;
-    align-self: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    gap: 16px;
+}
+
+
+.szintTabok2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
 }
 
 .szintTab {
-    padding: 12px 18px;
+    padding: 10px 16px;
     background-color: var(--surface);
     color: var(--text);
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
     font-weight: bold;
     font-family: inherit;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
-    text-align: left;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .szintTab:hover {
     background-color: var(--accent);
     color: var(--bg);
     border-color: var(--accent);
-    transform: translateX(3px);
 }
 
 .szintTab.aktiv {
     background-color: var(--primary);
     color: var(--btn-text);
     border-color: var(--primary);
-    transform: translateX(3px);
     box-shadow: var(--shadow);
 }
 
@@ -769,10 +781,11 @@ input[type="number"]:focus {
     border-radius: var(--radius);
     padding: 20px;
     box-shadow: var(--shadow);
+    width: 100%;
     min-height: 400px;
-    justify-content: center;
-    grid-column: 2; 
+    justify-content: flex-start;
 }
+
 .aktivSzintTab h3 {
     color: var(--text);
     font-size: 1.3rem;
@@ -820,7 +833,15 @@ input[type="number"]:focus {
 .parkingTable {
     border-collapse: separate;
     border-spacing: 3px;
-    margin: auto;  /* táblázat középre */
+    margin: auto;
+}
+
+.parkingTableWrapper {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
 }
 
 .parkingTable td {
@@ -1102,6 +1123,18 @@ input[type="number"]:focus {
     min-width: 300px;
 }
 
+.userProfileBelsoDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileForm {
+    display: flex;
+    flex-direction: column;
+}
+
 .userProfilTartalom h2 {
     color: var(--text);
 }
@@ -1127,6 +1160,11 @@ input[type="number"]:focus {
     border: 2px solid var(--accent);
     display: block;
     margin: 8px auto;
+}
+
+.foglalash2 {
+    display: flex;
+    justify-content: center;
 }
 
 .foglalasokTartalom {
@@ -1366,13 +1404,18 @@ input[type="number"]:focus {
    ============================================================ */
 
 .themeWheelContainer {
-    position: fixed; bottom: 70px; right: 35px;
-    display: flex; flex-direction: column; align-items: flex-end;
-    gap: 10px; z-index: 999;
+    position: fixed;
+    bottom: 70px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 999;
 
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    bottom: 50px;
+    right: 35px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -1522,6 +1565,116 @@ input[type="number"]:focus {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+     body {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #root {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .floorPlan {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .garageKözepe {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .aktivSzintTab {
+        overflow: visible;
+        padding: 12px 8px;
+        width: 100%;
+        align-items: flex-start;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .garagePlace {
+        font-size: clamp(28px, 8vw, 50px);
+    }
+
+    .garageName {
+        font-size: clamp(16px, 5vw, 28px);
+    }
+
+    .szintTabok2 {
+        gap: 4px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+
+    .szintTabok2::-webkit-scrollbar {
+        display: none;
+    }
+
+    .szintTab {
+        padding: 8px 10px;
+        font-size: 0.78rem;
+    }
+
+    .szintStatisztika {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .szintStat {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+
+    .parkingTable {
+        border-spacing: 1px;
+        margin: 0 auto;
+    }
+
+    .spotButton {
+        width: 38px;
+        height: 38px;
+    }
+
+    .spotButton img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .modalBox {
+        padding: 20px 15px;
+        min-width: unset;
+        width: 90vw;
+    }
+
+    .modalIdopontok {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ujParkolohazGomb {
+        width: 90%;
     }
 }
 

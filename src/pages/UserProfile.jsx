@@ -94,23 +94,13 @@ export const UserProfile = () => {
             {/* 1. oldal - Profil */}
             {oldal === 1 && (
                 <div className="userProfilTartalom">
-                    <h2>Profil módosítása</h2>
-                    <div>
+                    <h2>Felhasználói Profil</h2>
+                    <div className='userProfileBelsoDiv'>
                         <h4>Felhasználónév: {user?.displayName}</h4>
-                        <p>Email cím: {user?.email}</p>
-                        {user?.photoURL
-                            ? <img className="userProfilKep" src={user.photoURL} alt="profilkép" />
-                            : <RxAvatar size={80} />
-                        }
+                        <h4>Email cím: {user?.email}</h4>
+                        <h4>Mozgássérült: {user?.wheelchair}</h4>
                     </div>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="file-upload" className="custom-file-upload">Új profilkép:</label>
-                        <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
-                        {preview && <img src={preview} alt="előnézet" className="userProfilElonezet" />}
-                        <button className="MyCssButton" type="submit" disabled={loading}>
-                            {loading ? "...Mentés" : "Profil frissítése"}
-                        </button>
-                    </form>
+                    
                     <button onClick={handleDelete} className="deleteAccountButton">Fiók törlése</button>
                 </div>
             )}
@@ -118,7 +108,7 @@ export const UserProfile = () => {
             {/* 2. oldal - Foglalások */}
             {oldal === 2 && (
                 <div className="foglalasokTartalom">
-                    <h2>Foglalásaim</h2>
+                    <h2 className='foglalash2'>Foglalásaim</h2>
                     {foglalasok.length === 0 ? (
                         <p className="nincsFoglalas">Nincs aktív foglalásod.</p>
                     ) : (
