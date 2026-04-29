@@ -53,7 +53,6 @@ export const MyUserProvider = ({ children }) => {
     }, [])
 
     const signUpUser = async (email, password, displayName) => {
-        console.log(email, password, displayName)
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(auth.currentUser, { displayName })
