@@ -15,7 +15,7 @@ import personIcon from '../assets/person_circle_regular_icon.png'
 export const MyHeader = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, logoutUser, userData } = useContext(MyUserContext)
+  const { user, logoutUser, userData, setSelectedHaz } = useContext(MyUserContext)
   const [openSidebar, setOpenSidebar] = useState(false)
   const [searchedText, setSearchedText] = useState("")
   const [searchedResult, setSearchedResult] = useState([])
@@ -86,11 +86,18 @@ export const MyHeader = () => {
             />
             <IoIosSearch onClick={handleSearch} className="house" />
           </span>
-          <div className="searchResults">
-            {searchedResult.map(item => (
-              <div key={item.id}>{item.hely}</div>
-            ))}
-          </div>
+          {searchedResult.map(item => (
+            <div
+              key={item.id}
+              className="searchResultItem"
+              onClick={() => {
+                setSelectedHaz(item)
+                setOpenSidebar(false)
+              }}
+            >
+              {item.hely}
+            </div>
+          ))}
         </div>
 
         <div>

@@ -29,13 +29,10 @@ const MapInvalidator = () => {
 export const HomePage = () => {
 	const [hazak, setHazak] = useState([])
 	const [loading, setLoading] = useState(false)
-	const { user, authLoading } = useContext(MyUserContext)
+	const { user, authLoading, selectedHaz, setSelectedHaz } = useContext(MyUserContext)
 	const navigate = useNavigate()
 	const [value, setValue] = useState(0)
 	const [pendingNavigate, setPendingNavigate] = useState(null)
-
-	// Modal state
-	const [selectedHaz, setSelectedHaz] = useState(null)
 
 	useEffect(() => {
 		readParkolohazak(setHazak)
@@ -76,7 +73,7 @@ export const HomePage = () => {
 						<h3>{selectedHaz.name}</h3>
 						<p>{selectedHaz.hely}</p>
 
-						{/* Google Maps iframe – lat/lng alapján */}
+
 						{selectedHaz.lat && selectedHaz.lng && (
 							<MapContainer
 								key={selectedHaz.id}
@@ -88,7 +85,7 @@ export const HomePage = () => {
 									url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 									attribution='© OpenStreetMap contributors'
 								/>
-								<MapInvalidator />   {/* ← ezt add hozzá */}
+								<MapInvalidator />   
 								<Marker position={[selectedHaz.lat, selectedHaz.lng]}>
 									<Popup>{selectedHaz.name}</Popup>
 								</Marker>
