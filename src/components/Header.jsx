@@ -110,14 +110,7 @@ export const MyHeader = () => {
         </div>
 
         <div>
-          {userData?.isAdmin && (
-            <button
-              className="sidebarBtn adminBtn"
-              onClick={() => { navigate("/addnew"); setOpenSidebar(false) }}
-            >
-              Új parkolóház
-            </button>
-          )}
+          
         </div>
 
         <div>

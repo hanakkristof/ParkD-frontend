@@ -1,8 +1,6 @@
 import imageCompression from "browser-image-compression";
-
 import axios from "axios";
 
-//const API_URL="http://localhost:5000/api/"
 const API_URL="https://recipesbackend67.vercel.app/api/"
 
 const convertToBase64=(file)=>{

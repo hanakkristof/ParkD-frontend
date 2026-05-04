@@ -20,7 +20,7 @@ const CarIcon = ({ spot }) => {
     },
     kerekesszékes: {
       free: { body: '#1a3a6b', roof: '#234d8a', window: '#0d1f3a', wheel: '#0a1020', light: '#4499ff' },
-      taken: { body: '#5a2e6b', roof: '#703a8a', window: '#2a1038', wheel: '#180a20', light: '#aa44ff' },
+      taken: { body: '#6b2e28', roof: '#8a3a32', window: '#3a1a18', wheel: '#1a0e0d', light: '#cc4444' },
     },
   }
 
@@ -28,27 +28,32 @@ const CarIcon = ({ spot }) => {
   const c = palettes[type]?.[taken ? 'taken' : 'free'] ?? palettes.normal.free
 
   return (
-    <svg width="34" height="22" viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg">
-      
+    <svg width="34" height="22" viewBox="0 0 28 18" xmlns="http://www.w3.org/2000/svg" style={{ opacity: type === 'ut' ? 0 : 1 }}>
+
       <rect x="1" y="9" width="26" height="8" rx="2" fill={c.body} />
-      
       <rect x="5" y="4" width="18" height="7" rx="2" fill={c.body} />
-     
       <rect x="7" y="5" width="6" height="5" rx="1" fill={c.window} />
       <rect x="15" y="5" width="6" height="5" rx="1" fill={c.window} />
-      
       <rect x="6" y="3" width="16" height="4" rx="1.5" fill={c.roof} />
-     
+
       <circle cx="7" cy="17" r="2.5" fill={c.wheel} />
-      <circle cx="7" cy="17" r="1" fill="#222" />
       <circle cx="21" cy="17" r="2.5" fill={c.wheel} />
-      <circle cx="21" cy="17" r="1" fill="#222" />
-      
+
       <rect x="1" y="10" width="3" height="2" rx="0.5" fill={c.light} opacity="0.9" />
       <rect x="24" y="10" width="3" height="2" rx="0.5" fill={c.light} opacity="0.6" />
-      
+
       {type === 'kerekesszékes' && (
-        <text x="14" y="9" textAnchor="middle" fontSize="5" fill="#aad4ff" fontWeight="bold">♿</text>
+        <text
+          x="14"
+          y="11"
+          textAnchor="middle"
+          fontSize="10"
+          fill={spot.foglalt ? "white" : "#aad4ff"}
+          fontWeight="bold"
+          style={{ pointerEvents: 'none' }}
+        >
+          ♿
+        </text>
       )}
     </svg>
   )
@@ -60,6 +65,7 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
   const [bookingModal, setBookingModal] = useState(null)
   const [infoModal, setInfoModal] = useState(null)
   const [orak, setOrak] = useState(null)
+  const sortedSpots = [...spots].sort((a, b) => a.hely_szam - b.hely_szam)
 
   if (!spots) return null
 
@@ -98,7 +104,7 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
             {Array.from({ length: rows }, (_, rowIndex) => (
               <tr key={rowIndex}>
                 {Array.from({ length: columns }, (_, colIndex) => {
-                  const spot = spots[rowIndex * columns + colIndex]
+                  const spot = sortedSpots[rowIndex * columns + colIndex]
                   return (
                     <td key={colIndex}>
                       {spot ? (
@@ -107,7 +113,9 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
                           onClick={() => isAdmin ? handleAdminClick(spot) : handleUserClick(spot)}
                         >
                           <CarIcon spot={spot} />
-                          <span className="spotLabel">{spot.id?.slice(-3)}</span>
+                          {spot.parkolohelyTipus !== 'ut' && (
+                            <span className="spotLabel">{spot.hely_szam}</span>
+                          )}
                         </button>
                       ) : null}
                     </td>

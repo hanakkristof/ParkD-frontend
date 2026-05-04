@@ -4,14 +4,16 @@ import { MyUserContext } from '../context/MyUserProvider'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { deleteAvatar } from '../myBackend'
 import { ThemeWheel } from '../components/themeWheel'
 import { getSajatFoglalasok } from '../myBackend'
 import { setAdminByEmail } from '../myBackend'
 import { RxAvatar } from "react-icons/rx"
 
 export const UserProfile = () => {
-    const { user, userData, avatarUpdate, deleteAccount } = useContext(MyUserContext)
+    const { user, userData, updateProfileData, deleteAccount } = useContext(MyUserContext)
+    const [editMode, setEditMode] = useState(false);
+    const [newName, setNewName] = useState(userData?.nev || "");
+    const [newWheelchair, setNewWheelchair] = useState(userData?.wheelchair || false);
     const [oldal, setOldal] = useState(1)
     const [adminEmail, setAdminEmail] = useState("")
     const [adminMsg, setAdminMsg] = useState("")
@@ -25,11 +27,10 @@ export const UserProfile = () => {
         if (!user) navigate("/")
     }, [user, navigate])
 
-    const handleFileChange = (e) => {
-        const selected = e.target.files[0]
-        setFile(selected)
-        if (selected) setPreview(URL.createObjectURL(selected))
-    }
+    const handleSave = async () => {
+        await updateProfileData(newName, newWheelchair);
+        setEditMode(false);
+    };
 
     useEffect(() => {
         if (!user) return
@@ -60,14 +61,13 @@ export const UserProfile = () => {
         if (window.confirm("Biztos ki szeretnéd törölni a fiókodat?")) {
             const pw = prompt("Add meg a jelszavad a fiók törléséhez")
             await deleteAccount(pw)
-            await deleteAvatar(user.uid)
         }
     }
 
     return (
         <div className="userProfileOldal">
 
-           
+
             <div className="userProfileNav">
                 <button
                     onClick={() => setOldal(1)}
@@ -91,21 +91,47 @@ export const UserProfile = () => {
                 )}
             </div>
 
-         
-            {oldal === 1 && (
-                <div className="userProfilTartalom">
-                    <h2>Felhasználói Profil</h2>
-                    <div className='userProfileBelsoDiv'>
-                        <h4>Felhasználónév: {user?.displayName}</h4>
-                        <h4>Email cím: {user?.email}</h4>
-                        <h4>Mozgássérült: {user?.wheelchair}</h4>
-                    </div>
-                    
-                    <button onClick={handleDelete} className="deleteAccountButton">Fiók törlése</button>
-                </div>
-            )}
 
-           
+            {oldal === 1 && (
+    <div className="userProfilTartalom">
+        <h2>Felhasználói Profil</h2>
+        <div className='userProfileBelsoDiv'>
+            {editMode ? (
+                <>
+                    <div >
+                        <h2>Felhasználónév:</h2>
+                        <input 
+                            className='adminInput'
+                            value={newName} 
+                            onChange={(e) => setNewName(e.target.value)} 
+                        />
+                    </div>
+                        <h2>Mozgássérült:</h2>
+                        <input className='adminInput'
+                            type="checkbox" 
+                            checked={newWheelchair} 
+                            onChange={(e) => setNewWheelchair(e.target.checked)} 
+                        />
+                    <div className="buttonGroup">
+                        <button onClick={handleSave} className="userProfileNavGomb">Mentés</button>
+                        <button onClick={() => setEditMode(false)} className="deleteAccountButton">Mégse</button>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <h4>Felhasználónév: {userData?.nev}</h4>
+                    <h4>Email cím: {userData?.email}</h4>
+                    <h4>Mozgássérült: {userData?.wheelchair === true ? "Igen" : "Nem"}</h4>
+                    <button onClick={() => setEditMode(true)} className="userProfileNavGomb">Adatok módosítása</button>
+                </>
+            )}
+        </div>
+
+        <button onClick={handleDelete} className="deleteAccountButton">Fiók törlése</button>
+    </div>
+)}
+
+
             {oldal === 2 && (
                 <div className="foglalasokTartalom">
                     <h2 className='foglalash2'>Foglalásaim</h2>
@@ -136,7 +162,7 @@ export const UserProfile = () => {
                 </div>
             )}
 
-          
+
             {oldal === 3 && userData?.isAdmin && (
                 <div className="adminTartalom">
                     <h2>Admin panel</h2>
@@ -150,6 +176,11 @@ export const UserProfile = () => {
                     />
                     <button onClick={handleAdminKijeloles} className="adminGomb">
                         Adminná tétel
+                    </button>
+                    <button className="adminGomb"
+                        onClick={() => { navigate("/addnew"); setOpenSidebar(false) }}
+                    >
+                        Új parkolóház
                     </button>
                     {adminMsg && <p className="adminUzenet">{adminMsg}</p>}
                 </div>

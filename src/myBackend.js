@@ -8,6 +8,7 @@ import { deleteImage } from "./cloudinaryUtils";
 const apiKey = import.meta.env.VITE_IMGBB_API_KEY
 const imgbburl = "https://api.imgbb.com/1/upload?key=" + apiKey
 
+
 const uploadToIMGBB = async (file) => {
     const myFormData = new FormData()
     myFormData.append("image", file)
@@ -21,6 +22,7 @@ const uploadToIMGBB = async (file) => {
 
     }
 }
+
 
 export const addParkoloHaz = async (parkoloHaz) => {
     try {
@@ -40,6 +42,7 @@ export const addParkoloHaz = async (parkoloHaz) => {
         console.log("Nem sikerült hozzáadni!" + error)
     }
 }
+
 
 export const getSzintek = (parkoloHazId, callback) => {
   const szintekRef = collection(db, "parkolohazak", parkoloHazId, "szintek");
@@ -78,9 +81,6 @@ export const readParkolohazak = (setCallback) => {
 }
 
 
-
-
-
 export const readParkolohaz = async (id, setCallback) => {
     const docRef = doc(db, "parkolohazak", id);
     const docSnap = await getDoc(docRef);
@@ -92,7 +92,7 @@ export const readParkolohaz = async (id, setCallback) => {
     }
 };
 
-//parkolóház törlése id alapján:
+
 export const deleteParkolohaz = async (id, deleteUrl) => {
     if (window.confirm("Biztosan szeretnéd törölni a parkolóházat?")) {
         const docRef = doc(db, "parkolohazak", id)
@@ -100,7 +100,7 @@ export const deleteParkolohaz = async (id, deleteUrl) => {
     }
 }
 
-//szintek lekérése az adott garázsban
+
 export const getSzintekSzama = async (parkoloId, setCallback) => {
     if (!parkoloId === undefined || parkoloId === null) {
         console.error("Hiba: Nincs parkoloId!")
@@ -116,8 +116,6 @@ export const getSzintekSzama = async (parkoloId, setCallback) => {
 }
 
 
-
-//update
 export const updateParkolohaz = async (id, updatedData, file) => {
     let imgUrl = updatedData.imgUrl || ''
     let deleteUrl = updatedData.deleteUrl || ''
@@ -140,46 +138,6 @@ export const updateParkolohaz = async (id, updatedData, file) => {
     }
 }
 
-//új gyűjtemény kell az avatar public_id tárolására:
-
-export const updateAvatar = async (uid, public_id) => {
-    let oldPublicId = null
-    try {
-        const docRef = doc(db, "avatars", uid)//egy dokumentum referencia
-        const docSnap = await getDoc(docRef)
-        if (!docSnap.exists()) {
-            await setDoc(docRef, { uid, public_id })
-        } else {
-            oldPublicId = docSnap.data().public_id
-            await updateDoc(docRef, { public_id })
-        } if (oldPublicId) await deleteImage(oldPublicId)
-
-
-    } catch (error) {
-        console.log("Avatar módosítás/törlés hiba!", error);
-
-    }
-}
-
-export const deleteAvatar = async (uid) => {
-    console.log(uid);
-    let publicId = null
-    try {
-        const docRef = doc(db, "avatars", uid)
-        const docSnap = await getDoc(docRef)
-        if (!docSnap.exists()) return
-        else {
-            publicId = docSnap.data().public_id
-            await deleteImage(publicId)
-            await deleteDoc(docRef)
-        }
-    } catch (error) {
-        console.log("törlési hiba", error)
-    }
-
-}   
-
-
 
 export const searchHely = async (text) => {
   if (!text) return [];
@@ -188,6 +146,7 @@ export const searchHely = async (text) => {
     .map(obj => ({ id: obj.id, ...obj.data() }))
     .filter(obj => obj.hely?.toLowerCase().includes(text.toLowerCase()));
 };
+
 
 export const getParkingSpots = async (targetSzintId) => {
   const snapshot = await getDocs(collectionGroup(db, "parkoloHelyek"));
@@ -198,10 +157,12 @@ export const getParkingSpots = async (targetSzintId) => {
     }).filter(spot => spot.szintId === targetSzintId);
 };
 
+
 export const updateSpotTipus = async (parkoloHazId, szintId, spotId, ujTipus) => {
     const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
     await updateDoc(spotRef, { parkolohelyTipus: ujTipus })
 }
+
 
 export const updateSpotFoglalas = async (parkoloHazId, szintId, spotId, foglaló, foglalasVege) => {
     const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
@@ -213,6 +174,7 @@ export const updateSpotFoglalas = async (parkoloHazId, szintId, spotId, foglaló
     })
 }
 
+
 export const felszabaditSpot = async (parkoloHazId, szintId, spotId) => {
     const spotRef = doc(db, "parkolohazak", parkoloHazId, "szintek", szintId, "parkoloHelyek", spotId)
     await updateDoc(spotRef, {
@@ -222,6 +184,7 @@ export const felszabaditSpot = async (parkoloHazId, szintId, spotId) => {
         foglalasVege: null
     })
 }
+
 
 export const getParkingSpotsRealtime = (szintId, callback) => {
     const snapshot = onSnapshot(
@@ -238,6 +201,7 @@ export const getParkingSpotsRealtime = (szintId, callback) => {
     )
     return snapshot 
 }
+
 
 export const lejartFoglalasokFelszabaditasa = async (spots, parkoloHazId, szintId) => {
     const most = new Date()
