@@ -22,7 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-firebaseConfig.js
 .env
 .env.local
 .env.*.local
