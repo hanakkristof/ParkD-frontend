@@ -38,17 +38,17 @@ export const HomePage = () => {
 		readParkolohazak(setHazak)
 	}, [])
 
-	
+
 	const handleImageClick = (realId) => {
 		const haz = hazak.find(h => h.id === realId)
 		if (haz) setSelectedHaz(haz)
 	}
 
-	
+
 	const handleNavigate = () => {
 		const target = !user ? "/signin" : "/garage/" + selectedHaz.id
 		setPendingNavigate(target)
-		setSelectedHaz(null)  
+		setSelectedHaz(null)
 	}
 
 	useEffect(() => {
@@ -65,7 +65,7 @@ export const HomePage = () => {
 				<MyCarousel hazak={hazak} onImageClick={handleImageClick} />
 			</div>
 
-			
+
 			{selectedHaz && (
 				<div className="mapModalOverlay" onClick={() => setSelectedHaz(null)}>
 					<div className="mapModalBox" onClick={e => e.stopPropagation()}>
@@ -75,24 +75,47 @@ export const HomePage = () => {
 
 
 						{selectedHaz.lat && selectedHaz.lng && (
-							<MapContainer
-								key={selectedHaz.id}
-								center={[selectedHaz.lat, selectedHaz.lng]}
-								zoom={15}
-								style={{ height: "300px", width: "100%", borderRadius: "8px" }}
-							>
-								<TileLayer
-									url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-									attribution='© OpenStreetMap contributors'
-								/>
-								<MapInvalidator />   
-								<Marker position={[selectedHaz.lat, selectedHaz.lng]}>
-									<Popup>{selectedHaz.name}</Popup>
-								</Marker>
-							</MapContainer>
+							<div style={{
+								width: '100%',
+								height: '300px',
+								borderRadius: '12px',
+								overflow: 'hidden',
+								marginTop: '15px',
+								boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+							}}>
+								<iframe
+									title="google-map"
+									width="100%"
+									height="100%"
+									style={{ border: 0 }}
+									loading="lazy"
+									allowFullScreen
+									referrerPolicy="no-referrer-when-downgrade"
+									src={`https://maps.google.com/maps?q=${selectedHaz.lat},${selectedHaz.lng}&z=16&output=embed`}
+								></iframe>
+							</div>
 						)}
 
 						<div className="mapModalButtons">
+							<button
+								className="utvonalGomb"
+								onClick={() => {
+									const url = `https://www.google.com/maps/dir/?api=1&destination=${selectedHaz.lat},${selectedHaz.lng}`;
+									window.open(url, '_blank');
+								}}
+								style={{
+									width: '100%',
+									padding: '12px',
+									backgroundColor: '#4285F4',
+									color: 'white',
+									border: 'none',
+									borderRadius: '8px',
+									fontWeight: 'bold',
+									cursor: 'pointer'
+								}}
+							>
+								📍 Útvonaltervezés
+							</button>
 							<button className="mapModalViewBtn" onClick={handleNavigate}>
 								Megtekintés
 							</button>

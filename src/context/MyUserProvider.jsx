@@ -59,7 +59,6 @@ export const MyUserProvider = ({ children }) => {
             await setDoc(doc(db, "felhasznalok", userCredential.user.uid), {
                 email: email,
                 nev: displayName,
-                penztarca: 0,
                 rendszam: "",
                 isAdmin: false,
                 wheelchair: false
@@ -141,9 +140,32 @@ export const MyUserProvider = ({ children }) => {
         }
     }
 
+const updateProfileData = async (newDisplayName, isWheelchair) => {
+    if (!user) return;
+
+    try {
+        const userDocRef = doc(db, "felhasznalok", user.uid);
+        const updatedFields = {
+            nev: newDisplayName,
+            wheelchair: isWheelchair
+        };
+
+        await setDoc(userDocRef, updatedFields, { merge: true });
+        
+        setUserData(prev => ({
+            ...prev,
+            ...updatedFields
+        }));
+
+        console.log("Profil és helyi adatok frissítve!");
+    } catch (error) {
+        console.error("Hiba a frissítés során:", error);
+    }
+};
+
     return (
         <div>
-            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword, authLoading, selectedHaz, setSelectedHaz }}>
+            <MyUserContext.Provider value={{ user, userData, signUpUser, logoutUser, signInUser, msg, setMsg, deleteAccount, resetPassword, authLoading, selectedHaz, setSelectedHaz, updateProfileData }}>
                 {children}
             </MyUserContext.Provider>
         </div>
