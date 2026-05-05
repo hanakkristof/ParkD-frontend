@@ -1,16 +1,24 @@
-# React + Vite
+# ParkD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A ParkD egy olyan alkalmazás, amely segít számunkra szabad parkolóhelyet találni egy parkolóházban, illetve lehetővé teszi annak lefoglalását is, így biztosítva azt, hogy mindig legyen parkolóhelyünk, és hogy azt hatékonyan, időpazarlás nélkül meg tudjuk találni.
 
-Currently, two official plugins are available:
+A publikált oldal linkje: [ParkD](https://getparkedd.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##Funkciók:
 
-## React Compiler
+### 1. Főoldal
+-Carousel, ami végigmegy a parkolóházakon. A képükre kattintva megnyílik egy Modal egy térképpel, ami segíségével láthatjuk, hogy hol található a ház, és akár útvonalat is tervezhetünk hozzá.
+-Sidebar, amely minden oldalon jelen van. Segítségével könnyen navigálhatjuk az oldalt. A Sidebar ad otthont a keresőmezőnek, aminek hála könnyen megtalálhatjuk a keresett parkolóházunkat annak helye alapján.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Sidebar
+-A fent említetten túl a Sidebar-ban található a Be- és Kijelentkezés, illetve -ha még nincs fiókunk- a regisztráció. A regisztrálás egyik lépése az email cím megerősítése visszaigazolólevél segítségével.
+-Ha már be vagyunk jelentkezve, a Sidebar-ból tudunk a saját profilunkra navigálni.
 
-## Expanding the ESLint configuration
+### 3. Saját Profil
+-Itt találhatjuk az információkat saját magunkról
+-Tudjuk módosítani adatainkat, mint például felhasználónevünk és azt, hogy mozgáskorlátozottak vagyunk-e.
+-Ezen a felületen át tudjuk fiókunkat törölni, amely több megerősítő lépésből áll.
+-A "Foglalásaim" fül alatt találhatjuk a jelenleg aktív foglalásainkat: Hol foglaltunk, az mely szinten van, és milyen sorszámmal rendelkezik a parkolóhely, illetve meddig foglaltuk.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 4. Parkolóházak
+-A parkolóházak szintekre vannak bontva. Minden szint
