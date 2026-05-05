@@ -4,7 +4,7 @@ A ParkD egy olyan alkalmazás, amely segít számunkra szabad parkolóhelyet tal
 
 A publikált oldal linkje: [ParkD](https://getparkedd.netlify.app)
 
-##Funkciók:
+## Funkciók:
 
 ### 1. Főoldal
 -Carousel, ami végigmegy a parkolóházakon. A képükre kattintva megnyílik egy Modal egy térképpel, ami segíségével láthatjuk, hogy hol található a ház, és akár útvonalat is tervezhetünk hozzá.
