@@ -16,7 +16,7 @@ A publikált oldal linkje: [ParkD](https://getparkedd.netlify.app)
 
 ### 3. Saját Profil
 - Itt találhatjuk az információkat saját magunkról
-- Tudjuk módosítani adatainkat, mint például felhasználónevünk és azt, hogy mozgáskorlátozottak vagyunk-e.
+- Tudjuk módosítani adatainkat, mint például felhasználónevünket és beállíthatjuk, hogy van-e lehetőségünk mozgáskorlátozott parkolóhely foglalására
 - Ezen a felületen át tudjuk fiókunkat törölni, amely több megerősítő lépésből áll.
 - A "Foglalásaim" fül alatt találhatjuk a jelenleg aktív foglalásainkat: Hol foglaltunk, az mely szinten van, és milyen sorszámmal rendelkezik a parkolóhely, illetve meddig foglaltuk.
 
