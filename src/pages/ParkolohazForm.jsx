@@ -5,12 +5,13 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import { MyUserContext } from '../context/MyUserProvider';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
+import { addDoc, collection, getDoc, doc, setDoc, getDocs, updateDoc, query, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebaseApp';
 import { uploadImage } from '../cloudinaryUtils';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { deleteParkolohaz } from '../myBackend';
 
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -44,57 +45,86 @@ export const ParkolohazForm = () => {
     const { id } = useParams()
 
     useEffect(() => {
-        if (id) readParkolohaz(id, setParkolohaz)
-    }, [id])
+        if (id) {
+            readParkolohaz(id, setParkolohaz, setSzintek);
+        }
+    }, [id]);
 
     useEffect(() => {
         if (parkoloHaz) {
-            setName(parkoloHaz.name)
-            setHely(parkoloHaz.hely)
-            setSzintek(parkoloHaz.szintek)
-            setPreview(parkoloHaz.imgUrl)
+            setName(parkoloHaz.name);
+            setHely(parkoloHaz.hely);
+            setSzintek(parkoloHaz.szintek || []);
+            setPreview(parkoloHaz.imgUrl);
+            setLat(parkoloHaz.lat);
+            setLng(parkoloHaz.lng);
         }
-    }, [parkoloHaz])
+    }, [parkoloHaz]);
+
+    const handleDelete = async () => {
+        const success = await deleteParkolohaz(id, preview); 
+        if (success) {
+            navigate("/");
+        }
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        setLoading(true)
-        try {
-            let imgUrl = "";
-            if (file) {
-                const uploadResult = await uploadImage(file)
-                imgUrl = uploadResult.url
-            }
+    e.preventDefault();
+    setLoading(true);
+    try {
+        
+        let finalImgUrl = preview; 
+        if (file) {
+            const uploadResult = await uploadImage(file);
+            finalImgUrl = uploadResult.url;
+        }
 
+        
+        const data = {
+            name: name,
+            hely: hely,
+            imgUrl: finalImgUrl,
+            lat: lat,
+            lng: lng,
+            updatedAt: new Date(),
+        };
+
+        if (id) {
+
+        } else {
+            console.log("Új parkolóház mentése folyamatban...");
+            
             const parkolohazRef = await addDoc(collection(db, "parkolohazak"), {
-                name: name,
-                hely: hely,
-                imgUrl: imgUrl,
-                lat: lat,
-                lng: lng,
-                createdAt: new Date(),
-            })
+                ...data,
+                createdAt: new Date()
+            });
+
+            console.log("Fő dokumentum létrehozva, ID:", parkolohazRef.id);
 
             for (const szint of szintek) {
                 const szintRef = await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek"), {
                     szint_szama: szint.szint_szama,
                     szint_sor: szint.sor,
                     szint_oszlop: szint.oszlop
-                })
+                });
 
                 for (let i = 0; i < szint.sor * szint.oszlop; i++) {
                     await addDoc(collection(db, "parkolohazak", parkolohazRef.id, "szintek", szintRef.id, "parkoloHelyek"), {
                         foglalt: false,
                         parkolohelyTipus: "normal",
                         hely_szam: i + 1
-                    })
+                    });
                 }
             }
-        } catch (error) {
-            console.error("Hiba a mentés során: ", error)
         }
-        setLoading(false)
+        
+        navigate("/");
+    } catch (error) {
+        console.error("Hiba a mentés során:", error);
+        alert("Hiba történt a mentéskor: " + error.message);
     }
+    setLoading(false);
+};
 
     const updateSzint = (index, mezo, ertek) => {
         const ujSzintek = [...szintek]
@@ -102,11 +132,27 @@ export const ParkolohazForm = () => {
         setSzintek(ujSzintek)
     }
 
-    const readParkolohaz = async (id, setCallback) => {
+    const readParkolohaz = async (id, setCallback, setSzintekCallback) => {
         const docRef = doc(db, "parkolohazak", id);
         const docSnap = await getDoc(docRef);
+
         if (docSnap.exists()) {
-            setCallback(docSnap.data());
+            const hazAdat = docSnap.data();
+            setCallback(hazAdat);
+
+            const szintekRef = collection(db, "parkolohazak", id, "szintek");
+            const szintekSnap = await getDocs(szintekRef);
+
+            const betoltottSzintek = szintekSnap.docs.map(doc => ({
+                id: doc.id,
+                szint_szama: doc.data().szint_szama,
+                sor: doc.data().szint_sor,
+                oszlop: doc.data().szint_oszlop
+            })).sort((a, b) => a.szint_szama - b.szint_szama);
+
+            if (betoltottSzintek.length > 0) {
+                setSzintekCallback(betoltottSzintek);
+            }
         } else {
             console.log("Nincs ilyen parkolóház!");
         }
@@ -120,7 +166,7 @@ export const ParkolohazForm = () => {
 
     return (
         <div className="addParkolohaz">
-            <h1>Új parkolóház feltöltése</h1>
+            <h1>{id ? "Parkolóház módosítása" : "Új parkolóház feltöltése"}</h1>
             <form className="newParkoloForm" onSubmit={handleSubmit}>
 
                 <input
@@ -211,12 +257,24 @@ export const ParkolohazForm = () => {
                 </MapContainer>
                 {lat && <p className="koordinataText">📍 {lat.toFixed(5)}, {lng.toFixed(5)}</p>}
 
-                <label htmlFor="file-upload" className="custom-file-upload">Kép feltöltése</label>
+                <label htmlFor="file-upload" className="custom-file-upload">{id?"Kép változtatása":"Kép feltöltése"}</label>
                 <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
 
                 {preview && <img src={preview} alt="előnézet" className="parkoloElonezet" />}
 
-                <button className="mentesGomb" type="submit" disabled={loading}>Mentés</button>
+                <button className="mentesGomb" type="submit" disabled={loading}>
+                    {id ? "Módosítás mentése" : "Feltöltés"}
+                </button>
+
+                {id && (
+                        <button 
+                            type="button" 
+                            className="mapModalCancelBtn" 
+                            onClick={handleDelete}
+                        >
+                            Parkolóház végleges törlése
+                        </button>
+                    )}
             </form>
             {loading && <p className="betoltesText">Feltöltés folyamatban...</p>}
         </div>

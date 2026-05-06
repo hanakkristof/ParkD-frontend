@@ -356,6 +356,20 @@ input[type="number"]:focus {
     background-color: var(--bg);
 }
 
+.newPassword{
+    padding: 10px 22px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+.newPassword:hover{
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+}
+
 .signinBase {
     display: flex;
     flex-direction: column;
@@ -490,6 +504,10 @@ input[type="number"]:focus {
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
     transition: all 0.2s ease;
+}
+
+.profilKép{
+    cursor: pointer;
 }
 
 .sidebarBtn:hover {
@@ -851,6 +869,7 @@ input[type="number"]:focus {
     display: block;     
     line-height: 1;
     margin-top: 2px;
+    color: var(--text);
 }
 
 .spotButton:hover {
@@ -1279,7 +1298,7 @@ input[type="number"]:focus {
     align-items: center;
     border: 1.5px solid var(--border);
     padding: 25px;
-    background-color: var(--surface);
+    background-color: var(--bg);
     border-radius: var(--radius);
     gap: 10px;
     min-width: 280px;
@@ -1528,6 +1547,16 @@ input[type="number"]:focus {
 @media only screen and (max-width: 600px) {
     .foglalasokTartalom {
         width: 100%;
+        justify-content: start;
+    }
+
+    .userProfileOldal{
+        margin: 0;
+        padding: 0;
+    }
+    
+    .foglalasokTabla td{
+        padding: 0;
     }
 
     .adminInput {
@@ -1544,7 +1573,7 @@ input[type="number"]:focus {
         align-items: flex-start;
     }
 
-    .szintTabok {
+    .szintTabok2 {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
@@ -1598,7 +1627,6 @@ input[type="number"]:focus {
         overflow: visible;
         padding: 12px 8px;
         width: 100%;
-        align-items: flex-start;
         flex: 1;
         min-height: 0;
     }
@@ -1612,14 +1640,6 @@ input[type="number"]:focus {
         font-size: clamp(16px, 5vw, 28px);
     }
 
-    .szintTabok2 {
-        gap: 4px;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding-bottom: 4px;
-        scrollbar-width: none;
-    }
-
     .szintTabok2::-webkit-scrollbar {
         display: none;
     }
@@ -1629,16 +1649,7 @@ input[type="number"]:focus {
         font-size: 0.78rem;
     }
 
-    .szintStatisztika {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 6px;
-    }
-
-    .szintStat {
-        font-size: 0.75rem;
-        padding: 4px 10px;
-    }
+  
 
     .parkingTable {
         border-spacing: 1px;
@@ -1732,7 +1743,8 @@ input[type="number"]:focus {
     background: var(--btn-bg);
     color: var(--text);
     font-weight: bold;
-    border: none;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;

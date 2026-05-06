@@ -1,7 +1,6 @@
 import axios from "axios";
 import { db } from "./firebaseApp"
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, deleteDoc, doc, getDoc, updateDoc, setDoc, getDocs, where, collectionGroup } from "firebase/firestore";
-
 import imageCompression from "browser-image-compression";
 import { deleteImage } from "./cloudinaryUtils";
 
@@ -74,7 +73,6 @@ export const readParkolohazak = (setCallback) => {
                 lng: doc.data().lng,
             });
         });
-        console.log("result:", result);
         setCallback(result);
     });
     return unsubscribe
@@ -93,12 +91,33 @@ export const readParkolohaz = async (id, setCallback) => {
 };
 
 
-export const deleteParkolohaz = async (id, deleteUrl) => {
+export const deleteParkolohaz = async (id, imgUrl) => {
     if (window.confirm("Biztosan szeretnéd törölni a parkolóházat?")) {
-        const docRef = doc(db, "parkolohazak", id)
-        await deleteDoc(docRef)
+        try {
+            // 1. Kép törlése Cloudinary-ról, ha van URL
+            if (imgUrl) {
+                // Kinyerjük a public_id-t (pl: "mappa/kepnev")
+                const parts = imgUrl.split('/');
+                const fileNameWithExtension = parts.pop(); // kepnev.jpg
+                const folder = parts.pop(); // mappa
+                const public_id = `${folder}/${fileNameWithExtension.split('.')[0]}`;
+
+                // Meghívjuk a cloudinaryUtils-ban lévő függvényedet
+                await deleteImage(public_id);
+            }
+
+            // 2. Firestore dokumentum törlése
+            const docRef = doc(db, "parkolohazak", id);
+            await deleteDoc(docRef);
+            
+            return true;
+        } catch (error) {
+            console.error("Hiba a törlés során:", error);
+            return false;
+        }
     }
-}
+    return false;
+};
 
 
 export const getSzintekSzama = async (parkoloId, setCallback) => {

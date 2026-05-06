@@ -50,10 +50,7 @@ export const MyHeader = () => {
         <div className="sidebarTop">
           {user ? (
             <span>
-              {user?.photoURL
-                ? <img className="profilKep" onClick={() => navigate('/profile')} src={user.photoURL} alt="profilkép" />
-                : <RxAvatar size={50} onClick={() => navigate('/profile')} title={user?.displayName} />
-              }
+               <RxAvatar size={50} onClick={() => navigate('/profile')} title={"Felhasználói profil"} className='profilKép' />
             </span>
           ) : (
             <div className="MyHeaderCss">

@@ -10,7 +10,7 @@ import { MyUserContext, MyUserProvider } from './context/MyUserProvider'
 import { UserProfile } from './pages/UserProfile'
 import { PageNotFound } from './pages/PageNotFound'
 import { PwReset } from './components/PwReset'
-import { ParkolohazForm } from './pages/ujParkolohaz'
+import { ParkolohazForm } from './pages/ParkolohazForm'
 import { ThemeWheel } from './components/themeWheel'
 import { ProtectedRoute } from './pages/ProtectedRoute'
 import { ToastContainer } from 'react-toastify'
@@ -49,6 +49,7 @@ function AppContent() {
         <Route path='/profile' element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
         <Route path='/*' element={<PageNotFound />} />
         <Route path='/addnew' element={<ProtectedRoute><ParkolohazForm /></ProtectedRoute>} />
+        <Route path='/addnew/:id' element={<ProtectedRoute><ParkolohazForm /></ProtectedRoute>} />
       </Routes>
 
     </>

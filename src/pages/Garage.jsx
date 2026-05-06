@@ -104,8 +104,11 @@ export const Garage = () => {
       </div>
 
       {userData?.isAdmin && (
-        <button className="ujParkolohazGomb" onClick={() => navigate("/addnew")}>
-          Új parkolóház feltöltése
+        <button
+          className="ujParkolohazGomb"
+          onClick={() => navigate(`/addnew/${id}`)}
+        >
+          Parkolóház Módosítása
         </button>
       )}
     </div>
