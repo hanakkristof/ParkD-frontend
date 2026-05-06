@@ -103,3 +103,9 @@ A publikált oldal linkje: [ParkD](https://getparkedd.netlify.app)
 ### [Backend teszt](https://github.com/hanakkristof/ParkD-backend/blob/master/index.test.js)
 <img width="417" height="295" alt="kép" src="https://github.com/user-attachments/assets/74e404fa-a75d-44ff-91f9-f62d6c00e10c" />
 
+### [Frontend teszt](https://github.com/hanakkristof/ParkD-frontend/blob/master/components.test.tsx)
+<img width="406" height="347" alt="kép" src="https://github.com/user-attachments/assets/4af6289e-4970-4ea6-8f33-17e11db6297e" />
+
+### [Frontend myBackend.js test](https://github.com/hanakkristof/ParkD-frontend/blob/master/src/myBackend.test.js)
+<img width="538" height="260" alt="kép" src="https://github.com/user-attachments/assets/fe641ac7-df36-48b3-963a-124fd9d5814e" />
+
