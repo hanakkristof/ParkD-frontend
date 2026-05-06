@@ -18,7 +18,7 @@ export const PwReset = () => {
                 
                 <input type="email" placeholder='email' name='email'/>
             </div>
-            <button>Új jelszó igénylése</button>
+            <button className='newPassword'>Új jelszó igénylése</button>
         </form>
       </div>
       

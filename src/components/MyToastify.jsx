@@ -11,7 +11,6 @@ import { SignUp } from './SignUp'
 export const MyToastify = () => {
     const {setMsg,msg} = useContext(MyUserContext)
     const navigate = useNavigate()
-    console.log(msg);
     
     useEffect(()=>{
         if(msg?.err){
