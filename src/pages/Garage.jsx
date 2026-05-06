@@ -45,7 +45,16 @@ export const Garage = () => {
       setParkingSpots(spots)
     })
 
-    return () => unsubscribe()
+    const interval = setInterval(async () => {
+      if (parkingSpots) {
+        await lejartFoglalasokFelszabaditasa(parkingSpots, id, aktivSzint.id)
+      }
+    }, 60000)
+
+    return () => {
+      unsubscribe()
+      clearInterval(interval)
+    }
   }, [aktivSzint])
 
   if (loading) return <div className="floorPlan"><p>Betöltés...</p></div>
@@ -58,11 +67,11 @@ export const Garage = () => {
 
       <div className="garageKözepe">
 
-        
+
         <div className="aktivSzintTab">
           {aktivSzint ? (
             <>
-            
+
               <div className="szintTabok2">
                 {szintek.map((szint) => (
                   <button
