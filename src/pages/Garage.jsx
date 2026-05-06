@@ -57,7 +57,7 @@ export const Garage = () => {
     }
   }, [aktivSzint])
 
-  if (loading) return <div className="floorPlan"><p>Betöltés...</p></div>
+  if (loading) return <div className="floorPlan"><p title='Töltés'>Betöltés...</p></div>
   if (!parkoloHaz) return <div className="floorPlan"><p>Nincs ilyen parkolóház!</p></div>
 
   return (
