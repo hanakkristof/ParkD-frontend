@@ -46,7 +46,8 @@ export const HomePage = () => {
 
 
 	const handleNavigate = () => {
-		const target = !user ? "/signin" : "/garage/" + selectedHaz.id
+		const target = "/garage/" + selectedHaz.id
+		//const target = !user ? "/signin" : "/garage/" + selectedHaz.id
 		setPendingNavigate(target)
 		setSelectedHaz(null)
 	}
@@ -102,16 +103,6 @@ export const HomePage = () => {
 								onClick={() => {
 									const url = `https://www.google.com/maps/dir/?api=1&destination=${selectedHaz.lat},${selectedHaz.lng}`;
 									window.open(url, '_blank');
-								}}
-								style={{
-									width: '100%',
-									padding: '12px',
-									backgroundColor: '#4285F4',
-									color: 'white',
-									border: 'none',
-									borderRadius: '8px',
-									fontWeight: 'bold',
-									cursor: 'pointer'
 								}}
 							>
 								📍 Útvonaltervezés

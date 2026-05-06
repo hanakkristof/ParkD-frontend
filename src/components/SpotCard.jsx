@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { updateSpotTipus, updateSpotFoglalas } from '../myBackend'
 import { useContext } from 'react'
 import { MyUserContext } from '../context/MyUserProvider'
+import { useNavigate } from 'react-router-dom'
 
 const TIPUSOK = ["normal", "ut", "kerekesszékes"]
 
@@ -65,6 +66,7 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
   const [bookingModal, setBookingModal] = useState(null)
   const [infoModal, setInfoModal] = useState(null)
   const [orak, setOrak] = useState(null)
+  const navigate = useNavigate()
   const sortedSpots = [...spots].sort((a, b) => a.hely_szam - b.hely_szam)
 
   if (!spots) return null
@@ -90,10 +92,12 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
 
   const handleFoglalas = async () => {
     const vege = new Date()
+    {!user? navigate("/signin") : 
     vege.setMinutes(vege.getMinutes() + orak)
     await updateSpotFoglalas(parkoloHazId, szintId, bookingModal.id, user.email, vege)
     setBookingModal(null)
-    setOrak(null)
+    setOrak(null)}
+    
   }
 
   return (
@@ -159,7 +163,6 @@ export const ParkingFloor = ({ rows, columns, spots, isAdmin, parkoloHazId, szin
             <div className="modalGombok">
               <button
                 onClick={handleFoglalas}
-                disabled={!orak}
                 className="modalFoglalasGomb"
               >
                 Foglalás
